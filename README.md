@@ -20,6 +20,7 @@ Made freely available as an open initiative under **Utpatti - The Creative Colle
 - Category buttons are generated automatically from product data
 - Includes an **All Products** view
 - Categories disappear automatically when no products use them
+- Categories can be reordered in the Customize page
 
 ### Product Management
 Products can be added, edited, or removed from the **Customize** section.
