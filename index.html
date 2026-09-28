@@ -267,7 +267,7 @@ Coffee,700,Drinks</div>
 <script>
 const STORAGE_KEY="simple_pos";
 const CURRENCIES={LKR:{symbol:"Rs"},USD:{symbol:"$"},EUR:{symbol:"€"},GBP:{symbol:"£"},AUD:{symbol:"A$"},CAD:{symbol:"C$"},INR:{symbol:"₹"},SGD:{symbol:"S$"},AED:{symbol:"AED"},JPY:{symbol:"¥"}};
-function defaultState(){return{version:5,businessName:"Simple POS",currencyCode:"LKR",customCurrency:"",products:[],categoryOrder:[],cart:{},sales:[],payment:{qrDataUrl:"",bankName:"",accountName:"",accountNumber:"",branch:"",notes:""}}}
+function defaultState(){return{version:1,businessName:"Simple POS",currencyCode:"LKR",customCurrency:"",products:[],categoryOrder:[],cart:{},sales:[],payment:{qrDataUrl:"",bankName:"",accountName:"",accountNumber:"",branch:"",notes:""}}}
 function loadState(){try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return defaultState();const parsed=JSON.parse(raw);return{...defaultState(),...parsed,products:Array.isArray(parsed.products)?parsed.products:[],categoryOrder:Array.isArray(parsed.categoryOrder)?parsed.categoryOrder:[],cart:parsed.cart||{},sales:Array.isArray(parsed.sales)?parsed.sales:[],payment:{...defaultState().payment,...(parsed.payment||{})}}}catch(e){return defaultState()}}
 let state=loadState(),activeCategory="ALL";
 function rawCategories(){return[...new Set(state.products.map(p=>String(p.category||"").trim()).filter(Boolean))]}
