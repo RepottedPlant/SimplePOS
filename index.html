@@ -124,7 +124,7 @@
           <div class="section-label">Start Here</div>
           <h3>First-time setup</h3>
 
-          <div class="help-step"><div class="help-step-number">1</div><div><div class="help-step-title">Open Customize</div><div class="help-step-copy">This is where you configure the POS. Use the customization menu to move between branding, products, payment information and destructive/reset options.</div></div></div>
+          <div class="help-step"><div class="help-step-number">1</div><div><div class="help-step-title">Open Customize</div><div class="help-step-copy">This is where you configure the POS. If someone has already prepared a Simple POS config for you, import the <code>.json</code> file under <strong>General & Branding → Configuration Backup & Transfer</strong> to skip most manual setup.</div></div></div>
           <div class="help-step"><div class="help-step-number">2</div><div><div class="help-step-title">Set your business name and currency</div><div class="help-step-copy">Under <strong>General & Branding</strong>, choose your business name and one of the built-in currencies or enter a custom currency label.</div></div></div>
           <div class="help-step"><div class="help-step-number">3</div><div><div class="help-step-title">Add your branding</div><div class="help-step-copy">Optionally upload a logo and set your primary and secondary brand colors. The default background, card and text colors are suitable for most users.</div></div></div>
           <div class="help-step"><div class="help-step-number">4</div><div><div class="help-step-title">Add your products</div><div class="help-step-copy">Under <strong>Products & Categories</strong>, add products individually or import them from a CSV file.</div></div></div>
@@ -146,9 +146,8 @@
           <div class="help-callout" style="margin-top:14px;"><strong>Recommended:</strong> for most brands, only change <strong>Primary</strong> and <strong>Secondary / CTA</strong>. Leaving the background, card and text colors at their defaults helps preserve readability and contrast.</div>
           <p style="margin-top:13px;"><strong>Logo recommendation:</strong> horizontal or wordmark logos work best. Aim for roughly a <strong>4:1 aspect ratio</strong>, such as <strong>800 × 200 px</strong>. Transparent PNGs are recommended.</p>
           <p style="margin-top:13px;">The Customize menu is split into <strong>General & Branding</strong>, <strong>Products & Categories</strong>, <strong>Payment Information</strong>, and the red <strong>Danger Zone</strong>. The Danger Zone is only for destructive/reset actions and is not needed for normal setup or daily use.</p>
-          <p style="margin-top:13px;"><strong>Moving your setup:</strong> use <strong>Configuration Backup & Transfer</strong> to export a <code>.json</code> config file. Importing that file on another device restores products, category order, currency, brand colors and payment information without moving sales history. You can optionally include the brand logo and payment QR in the same file.</p>
         </section>
-
+       
 
         <section class="panel help-card">
           <div class="section-label">Daily Use</div>
@@ -245,7 +244,22 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
           <div class="help-callout">
             Refreshing or closing the page normally does <strong>not</strong> remove your data. However, different devices, browser profiles and website domains have separate local storage. Clearing browser or site data can remove your POS data.
           </div>
-          <p style="margin-top:13px;">For important events or sales periods, export the daily sales CSV regularly. Simple POS is intended for lightweight use and is not a replacement for a full accounting system or cloud-backed commercial POS.</p>
+          <p style="margin-top:13px;">For important events or sales periods, export the daily sales CSV regularly. Use the separate <strong>JSON configuration export</strong> when you want to back up or transfer the POS setup itself. Simple POS is intended for lightweight use and is not a replacement for a full accounting system or cloud-backed commercial POS.</p>
+        </section>
+
+         <section class="panel help-card wide">
+          <div class="section-label">Backup & Transfer</div>
+          <h3>Configuration backup & transfer</h3>
+          <p>Use <strong>Customize → General & Branding → Configuration Backup & Transfer</strong> when you want to move a POS setup to another device, browser or installation.</p>
+          <ul>
+            <li><strong>Export Config</strong> creates a single <code>.json</code> file containing your POS setup.</li>
+            <li>The config includes your business name, currency, brand palette, products, product accent colors, menu notes, category order and payment information.</li>
+            <li>Sales history and the current cart are <strong>not</strong> included.</li>
+            <li>You can optionally include the <strong>brand logo</strong> and <strong>payment QR</strong> in the same file.</li>
+          </ul>
+          <div class="help-callout" style="margin-top:14px;"><strong>Importing a config:</strong> the imported setup replaces the current products and configuration, keeps existing sales history, and clears the current cart so products from two different setups are not mixed.</div>
+          <p style="margin-top:13px;">If the imported config does not contain a logo or QR code, the logo and QR already stored on that device are left unchanged.</p>
+          <p style="margin-top:13px;"><strong>JSON vs CSV:</strong> use CSV when you only need to edit or import products. Use JSON when you want to move the complete POS setup, including branding and category order.</p>
         </section>
 
         <section class="panel help-card wide">
@@ -269,6 +283,7 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
           </div>
         </section>
       </div>
+
       <section class="panel help-card wide">
           <div class="section-label">Contact Info</div>
           <h3>How to get in touch</h3>
