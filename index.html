@@ -48,6 +48,59 @@
     @media(max-width:820px){.app{padding:10px}.topbar{align-items:flex-start;flex-direction:column}.nav{width:100%}.nav-btn{flex:1 0 auto}.pos-layout{grid-template-columns:1fr}.cart-panel{position:static}.catalog-layout{grid-template-columns:1fr}.category-nav{flex-direction:row;overflow-x:auto;padding-bottom:2px}.category-btn{width:auto;min-width:max-content;text-align:center}.payment-page,.settings-grid,.settings-shell{grid-template-columns:1fr}.payment-hero,.bank-card{min-height:auto}.settings-side-nav{position:static;flex-direction:row;overflow-x:auto}.settings-side-title{display:none}.settings-nav-btn{white-space:nowrap;text-align:center;flex:0 0 auto}.appearance-grid{grid-template-columns:1fr}.help-grid{grid-template-columns:1fr}.help-card.wide{grid-column:auto}}
     @media(max-width:600px){.product-grid{grid-template-columns:1fr 1fr;gap:9px}.product-card{min-height:122px;padding:13px}.product-name{font-size:19px}.product-price{font-size:16px}.metrics{grid-template-columns:1fr 1fr}.breakdown{grid-template-columns:1fr}.field-row{grid-template-columns:1fr}.product-manage-row{grid-template-columns:minmax(0,1fr) auto auto}.product-manage-row .category-col{grid-column:1/-1;grid-row:2}.history-row{grid-template-columns:68px 62px minmax(0,1fr)}.history-total{grid-column:2/3}.fulfillment-btn{grid-column:3;justify-self:end}}
     @media(display-mode:standalone){body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}}
+
+    /* Semantic appearance tokens. Accent colors come from the selected theme;
+       neutral surfaces come from Light/Dark mode so arbitrary brand colors
+       cannot make core UI surfaces unreadable. */
+    :root{--surface-2:#fafbfc;--input-bg:#fff;--input-border:#cfd4dc;--nav-bg:#e9ecf1;--accent-text:#1f4b99;--accent-2-text:#2f6bd2;--focus-ring:rgba(31,75,153,.16);--success-bg:#e7f6ee;--success-text:#18794e;--danger-bg:#fff0ef;--danger-soft:#fee4e2;--danger-line:#f0c4c0;--danger-ink:#7a271a}
+    input,select,textarea{border-color:var(--input-border);background:var(--input-bg);color:var(--ink)}
+    input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--focus-ring)}
+    .nav{background:var(--nav-bg)}.nav-btn{color:var(--muted)}.nav-btn.active{background:var(--card);color:var(--accent-text)}
+    .btn.outline{background:var(--card);color:var(--accent-text);border-color:var(--line)}
+    .btn.danger{background:var(--danger-bg);color:var(--danger-ink)}
+    .category-btn{background:var(--card);color:var(--ink);border-color:var(--line)}
+    .order-number-pill{background:var(--accent-soft);color:var(--accent-text)}
+    .cart-row,.break-row,.product-manage-row,.category-order-row{background:var(--surface-2);border-color:var(--line)}
+    .total,.metric,.break-count,.history-order-number,.category-order-index{color:var(--accent-text)}
+    .fulfillment-btn.completed{background:var(--success-bg);color:var(--success-text)}
+    .qr-wrap,.qr-preview,.logo-preview,.drop-zone,.help-code{background:var(--surface-2);border-color:var(--line)}
+    .drop-zone input{background:var(--input-bg)}
+    .help-hero{background:linear-gradient(135deg,var(--card) 0%,var(--surface-2) 100%)}
+    .help-callout,.notice{background:var(--accent-soft);color:var(--ink)}
+    .help-badge{background:var(--accent-soft);color:var(--accent-text)}
+    .field label{color:var(--muted)}
+    .mini-btn{background:var(--accent-soft);color:var(--accent-text)}
+    .mini-btn.delete{background:var(--danger-bg);color:var(--danger-ink)}
+    .category-order-index{background:var(--accent-soft)}
+    .branding-recommendation{background:var(--accent-soft);color:var(--ink)}
+    .product-price,.product-note{color:var(--product-accent-readable,var(--product-accent))}
+    .product-color-swatch{border-color:var(--line)}
+    .settings-nav-btn.active{color:var(--accent-text)}
+    a{color:var(--accent-text)} input[type="checkbox"]{accent-color:var(--accent)}
+    .settings-nav-btn[data-settings-section="danger"]{color:var(--danger)}
+    .settings-nav-btn[data-settings-section="danger"]:hover{background:var(--danger-bg);color:var(--danger-ink)}
+    .settings-nav-btn[data-settings-section="danger"].active{background:var(--danger-soft);color:var(--danger-ink);box-shadow:inset 0 0 0 1px var(--danger-line)}
+    #settings-danger .settings-section-heading{background:var(--danger-bg);border-color:var(--danger-line)}
+    #settings-danger .settings-section-heading h2,#settings-danger .settings-section-heading p,#settings-danger .danger-zone h2,#settings-danger .danger-zone .helper{color:var(--danger-ink)}
+    #settings-danger .danger-zone{border-color:var(--danger-line);background:var(--danger-bg);box-shadow:0 0 0 3px rgba(217,45,32,.08)}
+    #settings-danger .danger-zone .notice{background:var(--danger-soft);color:var(--danger-ink);border-color:var(--danger-line)}
+    #settings-danger .danger-zone .btn.danger{background:var(--danger);color:#fff}
+
+    .theme-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:10px 0 16px}
+    .theme-option{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:12px;text-align:left;cursor:pointer;min-height:88px;transition:border-color .12s ease,transform .06s ease,box-shadow .12s ease}
+    .theme-option:active{transform:scale(.985)}.theme-option.selected{border:2px solid var(--accent);box-shadow:0 0 0 3px var(--focus-ring)}
+    .theme-option-name{font-weight:900;font-size:14px}.theme-option-sub{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.3}
+    .theme-swatches{display:flex;gap:6px;margin-top:10px}.theme-swatch{width:28px;height:12px;border-radius:999px;border:1px solid var(--line)}
+    .theme-swatch.custom{background:linear-gradient(90deg,#ef4444,#f59e0b,#22c55e,#3b82f6,#8b5cf6)}
+    .appearance-mode{display:flex;gap:7px;padding:5px;background:var(--soft);border-radius:13px;width:max-content;max-width:100%;margin-top:8px}
+    .mode-btn{border:0;background:transparent;color:var(--muted);border-radius:9px;min-height:40px;padding:8px 13px;font-weight:850;cursor:pointer;white-space:nowrap}
+    .mode-btn.selected{background:var(--card);color:var(--accent-text);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+    .custom-palette-fields{display:none;margin-top:14px}.custom-palette-fields.visible{display:block}
+    .contrast-status{margin-top:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);padding:11px 12px;color:var(--muted);font-size:12px;line-height:1.45}
+    .contrast-status strong{color:var(--ink)}
+    @media(max-width:820px){.theme-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:520px){.theme-grid{grid-template-columns:1fr}.appearance-mode{width:100%}.mode-btn{flex:1}}
+
   </style>
 </head>
 <body>
@@ -126,7 +179,7 @@
 
           <div class="help-step"><div class="help-step-number">1</div><div><div class="help-step-title">Open Customize</div><div class="help-step-copy">This is where you configure the POS. If someone has already prepared a Simple POS config for you, import the <code>.json</code> file under <strong>General & Branding → Configuration Backup & Transfer</strong> to skip most manual setup.</div></div></div>
           <div class="help-step"><div class="help-step-number">2</div><div><div class="help-step-title">Set your business name and currency</div><div class="help-step-copy">Under <strong>General & Branding</strong>, choose your business name and one of the built-in currencies or enter a custom currency label.</div></div></div>
-          <div class="help-step"><div class="help-step-number">3</div><div><div class="help-step-title">Add your branding</div><div class="help-step-copy">Optionally upload a logo and set your primary and secondary brand colors. The default background, card and text colors are suitable for most users.</div></div></div>
+          <div class="help-step"><div class="help-step-number">3</div><div><div class="help-step-title">Add your branding</div><div class="help-step-copy">Optionally upload a logo, choose a ready-made theme or set your own primary and secondary brand colors. You can also choose Light, Dark mode.</div></div></div>
           <div class="help-step"><div class="help-step-number">4</div><div><div class="help-step-title">Add your products</div><div class="help-step-copy">Under <strong>Products & Categories</strong>, add products individually or import them from a CSV file.</div></div></div>
           <div class="help-step"><div class="help-step-number">5</div><div><div class="help-step-title">Arrange categories and product highlights</div><div class="help-step-copy">Set the category order and optionally give individual products their own accent color or short menu note.</div></div></div>
           <div class="help-step"><div class="help-step-number">6</div><div><div class="help-step-title">Add payment details</div><div class="help-step-copy">Under <strong>Payment Information</strong>, upload a payment QR code and add bank transfer details if you need them.</div></div></div>
@@ -139,11 +192,13 @@
           <ul>
             <li><strong>Business / POS name</strong> controls the name used by the app.</li>
             <li><strong>Brand logo</strong> replaces the text identity in the header when uploaded.</li>
+            <li>Choose from ready-made <strong>themes</strong> or select <strong>Custom Palette</strong>.</li>
             <li><strong>Primary</strong> is the main brand color used across navigation, categories and most controls.</li>
             <li><strong>Secondary / CTA</strong> is used for prominent actions such as <strong>Place Order</strong>.</li>
-            <li>Page background, card and text colors are available as advanced controls.</li>
+            <li>Choose <strong>Light</strong>, <strong>Dark</strong> or <strong>System</strong> appearance. System follows the device setting.</li>
+            <li>Core surfaces and text colors are controlled automatically to keep the interface readable.</li>
           </ul>
-          <div class="help-callout" style="margin-top:14px;"><strong>Recommended:</strong> for most brands, only change <strong>Primary</strong> and <strong>Secondary / CTA</strong>. Leaving the background, card and text colors at their defaults helps preserve readability and contrast.</div>
+          <div class="help-callout" style="margin-top:14px;"><strong>Contrast protection:</strong> custom palettes only control Primary and Secondary / CTA. Simple POS automatically chooses readable supporting colors and neutral surfaces, including a separate dark-mode palette.</div>
           <p style="margin-top:13px;"><strong>Logo recommendation:</strong> horizontal or wordmark logos work best. Aim for roughly a <strong>4:1 aspect ratio</strong>, such as <strong>800 × 200 px</strong>. Transparent PNGs are recommended.</p>
           <p style="margin-top:13px;">The Customize menu is split into <strong>General & Branding</strong>, <strong>Products & Categories</strong>, <strong>Payment Information</strong>, and the red <strong>Danger Zone</strong>. The Danger Zone is only for destructive/reset actions and is not needed for normal setup or daily use.</p>
         </section>
@@ -253,7 +308,7 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
           <p>Use <strong>Customize → General & Branding → Configuration Backup & Transfer</strong> when you want to move a POS setup to another device, browser or installation.</p>
           <ul>
             <li><strong>Export Config</strong> creates a single <code>.json</code> file containing your POS setup.</li>
-            <li>The config includes your business name, currency, brand palette, products, product accent colors, menu notes, category order and payment information.</li>
+            <li>The config includes your business name, currency, selected theme, light/dark preference, brand palette, products, product accent colors, menu notes, category order and payment information.</li>
             <li>Sales history and the current cart are <strong>not</strong> included.</li>
             <li>You can optionally include the <strong>brand logo</strong> and <strong>payment QR</strong> in the same file.</li>
           </ul>
@@ -282,13 +337,14 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
             </ul>
           </div>
         </section>
-      </div>
 
-      <section class="panel help-card wide">
+         <section class="panel help-card wide">
           <div class="section-label">Contact Info</div>
           <h3>How to get in touch</h3>
           <p>If you have any questions or need assistance, please fill out this <a href="https://forms.gle/SgRjAVxy77unUVJP8">Google Form</a> and I will get back to you as soon as possible.</p>
         </section>
+      </div>
+
 
       <div class="help-footer">
         Simple POS is licensed under the <strong>GNU General Public License v3.0 (GPL-3.0)</strong> and made freely available as an open initiative under <strong>Utpatti - The Creative Collective</strong>.
@@ -332,43 +388,59 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
               <div class="inline-actions" id="logoActions"></div>
             </div>
           </section>
-
           <section class="panel settings-card">
-            <h2>Brand Colors</h2>
-            <p class="helper">These colors are used throughout the POS. Product-specific accent colors can override the primary color on individual product cards.</p><div class="branding-recommendation"><strong>Recommended:</strong> for most brands, only change <strong>Primary</strong> and <strong>Secondary / CTA</strong>. The background, card and text controls are advanced options and are best left at their defaults unless you are confident the new combination keeps the interface readable and high-contrast.</div>
+            <h2>Theme & Appearance</h2>
+            <p class="helper">Start with a ready-made theme or choose <strong>Custom</strong> to use your own primary and secondary brand colors. Core backgrounds, cards, text and form controls use a protected light/dark neutral system so the interface stays readable.</p>
 
-            <div class="appearance-grid">
-              <div class="color-control">
-                <input class="color-input" id="primaryColorInput" type="color" value="#1f4b99">
-                <div><div class="color-control-label">Primary</div><div class="color-control-value" id="primaryColorValue">#1F4B99</div></div>
+            <div class="field">
+              <label>Theme</label>
+              <div class="theme-grid" id="themeGrid">
+                <button type="button" class="theme-option" data-theme="classic"><div class="theme-option-name">Classic Blue</div><div class="theme-option-sub">Clean and familiar</div><div class="theme-swatches"><span class="theme-swatch" style="background:#1F4B99"></span><span class="theme-swatch" style="background:#2F6BD2"></span></div></button>
+                <button type="button" class="theme-option" data-theme="espresso"><div class="theme-option-name">Espresso</div><div class="theme-option-sub">Warm coffee tones</div><div class="theme-swatches"><span class="theme-swatch" style="background:#6B4226"></span><span class="theme-swatch" style="background:#D9772A"></span></div></button>
+                <button type="button" class="theme-option" data-theme="forest"><div class="theme-option-name">Forest</div><div class="theme-option-sub">Natural green & amber</div><div class="theme-swatches"><span class="theme-swatch" style="background:#176B55"></span><span class="theme-swatch" style="background:#D08A2E"></span></div></button>
+                <button type="button" class="theme-option" data-theme="berry"><div class="theme-option-name">Berry</div><div class="theme-option-sub">Rich purple & rose</div><div class="theme-swatches"><span class="theme-swatch" style="background:#743168"></span><span class="theme-swatch" style="background:#C84A78"></span></div></button>
+                <button type="button" class="theme-option" data-theme="ocean"><div class="theme-option-name">Ocean</div><div class="theme-option-sub">Teal & coral</div><div class="theme-swatches"><span class="theme-swatch" style="background:#006B75"></span><span class="theme-swatch" style="background:#D96345"></span></div></button>
+                <button type="button" class="theme-option" data-theme="custom"><div class="theme-option-name">Custom Palette</div><div class="theme-option-sub">Choose your own brand colors</div><div class="theme-swatches"><span class="theme-swatch custom" style="width:62px"></span></div></button>
               </div>
-              <div class="color-control">
-                <input class="color-input" id="secondaryColorInput" type="color" value="#2f6bd2">
-                <div><div class="color-control-label">Secondary / CTA</div><div class="color-control-value" id="secondaryColorValue">#2F6BD2</div></div>
+              <input type="hidden" id="themePresetInput" value="classic">
+            </div>
+
+            <div class="field">
+              <label>Appearance mode</label>
+              <div class="appearance-mode" id="appearanceModeControl">
+                <button type="button" class="mode-btn" data-mode="light">Light</button>
+                <button type="button" class="mode-btn" data-mode="dark">Dark</button>
+                <button type="button" class="mode-btn" data-mode="system">System</button>
               </div>
-              <div class="color-control">
-                <input class="color-input" id="backgroundColorInput" type="color" value="#f6f7f9">
-                <div><div class="color-control-label">Page background</div><div class="color-control-value" id="backgroundColorValue">#F6F7F9</div></div>
-              </div>
-              <div class="color-control">
-                <input class="color-input" id="surfaceColorInput" type="color" value="#ffffff">
-                <div><div class="color-control-label">Cards / surfaces</div><div class="color-control-value" id="surfaceColorValue">#FFFFFF</div></div>
-              </div>
-              <div class="color-control">
-                <input class="color-input" id="textColorInput" type="color" value="#17191d">
-                <div><div class="color-control-label">Main text</div><div class="color-control-value" id="textColorValue">#17191D</div></div>
+              <input type="hidden" id="appearanceModeInput" value="light">
+              <div class="helper" style="margin:7px 0 0;">System follows the device's light or dark appearance.</div>
+            </div>
+
+            <div class="custom-palette-fields" id="customPaletteFields">
+              <div class="branding-recommendation"><strong>Custom palette:</strong> choose only your brand's <strong>Primary</strong> and <strong>Secondary / CTA</strong> colors. Simple POS automatically derives readable text, borders and surfaces around them.</div>
+              <div class="appearance-grid">
+                <div class="color-control">
+                  <input class="color-input" id="primaryColorInput" type="color" value="#1f4b99">
+                  <div><div class="color-control-label">Primary</div><div class="color-control-value" id="primaryColorValue">#1F4B99</div></div>
+                </div>
+                <div class="color-control">
+                  <input class="color-input" id="secondaryColorInput" type="color" value="#2f6bd2">
+                  <div><div class="color-control-label">Secondary / CTA</div><div class="color-control-value" id="secondaryColorValue">#2F6BD2</div></div>
+                </div>
               </div>
             </div>
 
+            <div class="contrast-status" id="contrastStatus"><strong>Contrast protection is on.</strong> Text and supporting UI colors are adjusted automatically when a brand color would be difficult to read.</div>
+
             <div class="inline-actions">
-              <button class="btn primary" id="saveBrandingBtn">Save Brand Colors</button>
-              <button class="btn secondary" id="resetBrandingBtn">Reset Colors</button>
+              <button class="btn primary" id="saveBrandingBtn">Save Appearance</button>
+              <button class="btn secondary" id="resetBrandingBtn">Reset to Classic</button>
             </div>
           </section>
 
           <section class="panel settings-card">
             <h2>Configuration Backup & Transfer</h2>
-            <p class="helper">Export the POS setup as a single JSON configuration file and import it on another device or browser. The configuration includes your business settings, brand palette, products, product accents and notes, category order, currency, and payment information. Sales history and the current cart are never included.</p>
+            <p class="helper">Export the POS setup as a single JSON configuration file and import it on another device or browser. The configuration includes your business settings, selected theme, light/dark preference, brand palette, products, product accents and notes, category order, currency, and payment information. Sales history and the current cart are never included.</p>
 
             <div class="field">
               <label style="display:flex;gap:8px;align-items:center;font-weight:750;">
@@ -492,8 +564,8 @@ const STORAGE_KEY="simple_pos_v1";
 const CONFIG_FORMAT="simple-pos-config";
 const CONFIG_VERSION=1;
 const CURRENCIES={LKR:{symbol:"Rs"},USD:{symbol:"$"},EUR:{symbol:"€"},GBP:{symbol:"£"},AUD:{symbol:"A$"},CAD:{symbol:"C$"},INR:{symbol:"₹"},SGD:{symbol:"S$"},AED:{symbol:"AED"},JPY:{symbol:"¥"}};
-function defaultState(){return{version:6,businessName:"Simple POS",currencyCode:"LKR",customCurrency:"",branding:{logoDataUrl:"",primary:"#1f4b99",secondary:"#2f6bd2",background:"#f6f7f9",surface:"#ffffff",text:"#17191d"},products:[],categoryOrder:[],cart:{},sales:[],payment:{qrDataUrl:"",bankName:"",accountName:"",accountNumber:"",branch:"",notes:""}}}
-function loadState(){try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return defaultState();const parsed=JSON.parse(raw);return{...defaultState(),...parsed,branding:{...defaultState().branding,...(parsed.branding||{})},products:Array.isArray(parsed.products)?parsed.products:[],categoryOrder:Array.isArray(parsed.categoryOrder)?parsed.categoryOrder:[],cart:parsed.cart||{},sales:Array.isArray(parsed.sales)?parsed.sales:[],payment:{...defaultState().payment,...(parsed.payment||{})}}}catch(e){return defaultState()}}
+function defaultState(){return{version:7,businessName:"Simple POS",currencyCode:"LKR",customCurrency:"",branding:{logoDataUrl:"",theme:"classic",mode:"light",primary:"#1f4b99",secondary:"#2f6bd2"},products:[],categoryOrder:[],cart:{},sales:[],payment:{qrDataUrl:"",bankName:"",accountName:"",accountNumber:"",branch:"",notes:""}}}
+function loadState(){try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return defaultState();const parsed=JSON.parse(raw),incomingBrand=parsed.branding||{},branding={...defaultState().branding,...incomingBrand};if(incomingBrand&&Object.keys(incomingBrand).length&&!incomingBrand.theme)branding.theme="custom";if(!["light","dark","system"].includes(branding.mode))branding.mode="light";return{...defaultState(),...parsed,branding,products:Array.isArray(parsed.products)?parsed.products:[],categoryOrder:Array.isArray(parsed.categoryOrder)?parsed.categoryOrder:[],cart:parsed.cart||{},sales:Array.isArray(parsed.sales)?parsed.sales:[],payment:{...defaultState().payment,...(parsed.payment||{})}}}catch(e){return defaultState()}}
 let state=loadState(),activeCategory="ALL",activeSettingsSection="branding";
 function rawCategories(){return[...new Set(state.products.map(p=>String(p.category||"").trim()).filter(Boolean))]}
 function normalizeCategoryOrder(){const actual=rawCategories(),existing=Array.isArray(state.categoryOrder)?state.categoryOrder:[];const kept=existing.filter((c,i)=>actual.includes(c)&&existing.indexOf(c)===i);const missing=actual.filter(c=>!kept.includes(c)).sort((a,b)=>a.localeCompare(b));state.categoryOrder=[...kept,...missing];return state.categoryOrder}
@@ -504,25 +576,42 @@ function normalizeHex(v,fallback="#000000"){const s=String(v||"").trim();return 
 function hexRgb(hex){const h=normalizeHex(hex).slice(1);return{r:parseInt(h.slice(0,2),16),g:parseInt(h.slice(2,4),16),b:parseInt(h.slice(4,6),16)}}
 function rgbHex(r,g,b){return"#"+[r,g,b].map(x=>Math.max(0,Math.min(255,Math.round(x))).toString(16).padStart(2,"0")).join("").toUpperCase()}
 function mixHex(a,b,bRatio=.5){const x=hexRgb(a),y=hexRgb(b),r=Math.max(0,Math.min(1,Number(bRatio)));return rgbHex(x.r*(1-r)+y.r*r,x.g*(1-r)+y.g*r,x.b*(1-r)+y.b*r)}
-function contrastText(hex){const{r,g,b}=hexRgb(hex),brightness=(r*299+g*587+b*114)/1000;return brightness>160?"#111111":"#FFFFFF"}
+function srgbChannel(v){v/=255;return v<=.04045?v/12.92:Math.pow((v+.055)/1.055,2.4)}
+function luminance(hex){const{r,g,b}=hexRgb(hex);return .2126*srgbChannel(r)+.7152*srgbChannel(g)+.0722*srgbChannel(b)}
+function contrastRatio(a,b){const l1=luminance(a),l2=luminance(b),hi=Math.max(l1,l2),lo=Math.min(l1,l2);return(hi+.05)/(lo+.05)}
+function contrastText(bg){const black="#111111",white="#FFFFFF";return contrastRatio(black,bg)>=contrastRatio(white,bg)?black:white}
+function ensureTextContrast(fg,bg,min=4.5){fg=normalizeHex(fg);bg=normalizeHex(bg);if(contrastRatio(fg,bg)>=min)return fg;const target=contrastRatio("#111111",bg)>=contrastRatio("#FFFFFF",bg)?"#111111":"#FFFFFF";for(let i=.05;i<=1;i+=.05){const candidate=mixHex(fg,target,i);if(contrastRatio(candidate,bg)>=min)return candidate}return target}
+function rgbaFromHex(hex,alpha=.16){const{r,g,b}=hexRgb(hex);return`rgba(${r},${g},${b},${alpha})`}
+const THEMES={
+  classic:{name:"Classic Blue",primary:"#1F4B99",secondary:"#2F6BD2"},
+  espresso:{name:"Espresso",primary:"#6B4226",secondary:"#D9772A"},
+  forest:{name:"Forest",primary:"#176B55",secondary:"#D08A2E"},
+  berry:{name:"Berry",primary:"#743168",secondary:"#C84A78"},
+  ocean:{name:"Ocean",primary:"#006B75",secondary:"#D96345"}
+};
+const APPEARANCE={
+  light:{paper:"#F6F7F9",card:"#FFFFFF",ink:"#17191D",muted:"#6D727B",surface2:"#FAFBFC",soft:"#F0F2F5",line:"#E2E5EA",input:"#FFFFFF",inputBorder:"#CFD4DC",nav:"#E9ECF1",successBg:"#E7F6EE",successText:"#18794E",dangerBg:"#FFF0EF",dangerSoft:"#FEE4E2",dangerLine:"#F0C4C0",dangerInk:"#7A271A",shadow:"0 10px 28px rgba(18,27,44,.07)"},
+  dark:{paper:"#0F1115",card:"#181B21",ink:"#F4F5F7",muted:"#A9B0BA",surface2:"#20242C",soft:"#252A33",line:"#343A46",input:"#12151A",inputBorder:"#3A414D",nav:"#20242C",successBg:"#153D2B",successText:"#83E2AA",dangerBg:"#351B1A",dangerSoft:"#49211F",dangerLine:"#783A35",dangerInk:"#FFB4AB",shadow:"0 10px 30px rgba(0,0,0,.28)"}
+};
+function resolvedAppearanceMode(mode){if(mode==="system")return window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";return mode==="dark"?"dark":"light"}
+function effectiveBranding(branding=state.branding){const b={...defaultState().branding,...branding},theme=THEMES[b.theme];if(theme)return{...b,primary:theme.primary,secondary:theme.secondary};return{...b,theme:"custom",primary:normalizeHex(b.primary,"#1F4B99"),secondary:normalizeHex(b.secondary,"#2F6BD2")}}
+function currentSurfacePalette(branding=state.branding){return APPEARANCE[resolvedAppearanceMode(branding.mode)]||APPEARANCE.light}
 function applyBranding(branding=state.branding){
-  const root=document.documentElement,b={...defaultState().branding,...branding};
-  root.style.setProperty("--accent",normalizeHex(b.primary,"#1F4B99"));
-  root.style.setProperty("--accent-2",normalizeHex(b.secondary,"#2F6BD2"));
-  root.style.setProperty("--paper",normalizeHex(b.background,"#F6F7F9"));
-  root.style.setProperty("--card",normalizeHex(b.surface,"#FFFFFF"));
-  root.style.setProperty("--ink",normalizeHex(b.text,"#17191D"));
-  root.style.setProperty("--accent-contrast",contrastText(b.primary));
-  root.style.setProperty("--accent-2-contrast",contrastText(b.secondary));
-  root.style.setProperty("--accent-soft",mixHex(b.primary,b.surface,.88));
-  root.style.setProperty("--soft",mixHex(b.text,b.surface,.94));
-  root.style.setProperty("--line",mixHex(b.text,b.surface,.86));
-  root.style.setProperty("--muted",mixHex(b.text,b.surface,.38));
-  const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.setAttribute("content",normalizeHex(b.primary,"#1F4B99"));
+  const root=document.documentElement,b=effectiveBranding(branding),mode=resolvedAppearanceMode(b.mode),n=APPEARANCE[mode];
+  const primary=normalizeHex(b.primary,"#1F4B99"),secondary=normalizeHex(b.secondary,"#2F6BD2");
+  root.dataset.appearance=mode;root.style.colorScheme=mode;
+  root.style.setProperty("--accent",primary);root.style.setProperty("--accent-2",secondary);
+  root.style.setProperty("--paper",n.paper);root.style.setProperty("--card",n.card);root.style.setProperty("--ink",n.ink);root.style.setProperty("--muted",n.muted);
+  root.style.setProperty("--surface-2",n.surface2);root.style.setProperty("--soft",n.soft);root.style.setProperty("--line",n.line);root.style.setProperty("--input-bg",n.input);root.style.setProperty("--input-border",n.inputBorder);root.style.setProperty("--nav-bg",n.nav);root.style.setProperty("--shadow",n.shadow);
+  root.style.setProperty("--accent-contrast",contrastText(primary));root.style.setProperty("--accent-2-contrast",contrastText(secondary));
+  root.style.setProperty("--accent-text",ensureTextContrast(primary,n.card));root.style.setProperty("--accent-2-text",ensureTextContrast(secondary,n.card));
+  root.style.setProperty("--accent-soft",mixHex(primary,n.card,.88));root.style.setProperty("--focus-ring",rgbaFromHex(primary,.18));
+  root.style.setProperty("--success-bg",n.successBg);root.style.setProperty("--success-text",n.successText);root.style.setProperty("--danger-bg",n.dangerBg);root.style.setProperty("--danger-soft",n.dangerSoft);root.style.setProperty("--danger-line",n.dangerLine);root.style.setProperty("--danger-ink",n.dangerInk);
+  const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.setAttribute("content",mode==="dark"?n.paper:primary);
 }
 function productVisuals(product){
-  const accent=isHexColor(product.color)?normalizeHex(product.color):normalizeHex(state.branding.primary,"#1F4B99");
-  return{accent,text:contrastText(accent),tint:isHexColor(product.color)?mixHex(accent,state.branding.surface,.94):normalizeHex(state.branding.surface,"#FFFFFF")}
+  const styles=getComputedStyle(document.documentElement),surface=normalizeHex(styles.getPropertyValue("--card").trim(),"#FFFFFF"),brandAccent=normalizeHex(styles.getPropertyValue("--accent").trim(),"#1F4B99"),accent=isHexColor(product.color)?normalizeHex(product.color):brandAccent;
+  return{accent,readable:ensureTextContrast(accent,surface),text:contrastText(accent),tint:isHexColor(product.color)?mixHex(accent,surface,.94):surface}
 }
 
 function currencySymbol(){return state.currencyCode==="CUSTOM"?(state.customCurrency.trim()||""):(CURRENCIES[state.currencyCode]?.symbol||state.currencyCode||"")}
@@ -536,7 +625,7 @@ function showToast(m){const t=document.getElementById("toast");t.textContent=m;t
 function showScreen(name){if(name!=="settings")applyBranding();document.querySelectorAll(".screen").forEach(e=>e.classList.remove("active"));document.getElementById(`screen-${name}`).classList.add("active");document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.screen===name));if(name==="sales")renderSales();if(name==="payment")renderPaymentDisplay();if(name==="settings"){renderSettings();showSettingsSection(activeSettingsSection)}window.scrollTo({top:0,behavior:"smooth"})}
 function showSettingsSection(name){activeSettingsSection=name;document.querySelectorAll(".settings-subscreen").forEach(e=>e.classList.toggle("active",e.id===`settings-${name}`));document.querySelectorAll(".settings-nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.settingsSection===name));}
 function renderCategories(){const nav=document.getElementById("categoryNav"),cats=categories();if(activeCategory!=="ALL"&&!cats.includes(activeCategory))activeCategory="ALL";nav.innerHTML=[`<button class="category-btn ${activeCategory==="ALL"?"active":""}" data-cat="ALL">All Products</button>`,...cats.map(c=>`<button class="category-btn ${activeCategory===c?"active":""}" data-cat="${encodeURIComponent(c)}">${esc(c)}</button>`)].join("");nav.querySelectorAll("[data-cat]").forEach(b=>b.addEventListener("click",()=>{activeCategory=b.dataset.cat==="ALL"?"ALL":decodeURIComponent(b.dataset.cat);renderPos()}))}
-function renderProducts(){const g=document.getElementById("productGrid");document.getElementById("productSectionLabel").textContent=activeCategory==="ALL"?"All Products":activeCategory;const visible=activeCategory==="ALL"?state.products:state.products.filter(p=>p.category===activeCategory);if(!state.products.length){g.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div><strong>No products yet</strong>Add products in Customize or import them from a CSV.<br><button class="btn primary" id="emptyCustomizeBtn">Open Customize</button></div></div>`;document.getElementById("emptyCustomizeBtn").addEventListener("click",()=>showScreen("settings"));return}if(!visible.length){g.innerHTML=`<div class="empty-state compact" style="grid-column:1/-1">No products in this category.</div>`;return}g.innerHTML=visible.map(p=>{const q=state.cart[p.id]||0,v=productVisuals(p);return`<button class="product-card" data-add="${p.id}" style="--product-accent:${v.accent};--product-accent-text:${v.text};--product-tint:${v.tint}"><span class="qty-badge ${q?"visible":""}">${q}</span><div><div class="product-name">${esc(p.name)}</div><div class="product-category">${esc(p.category)}</div></div><div class="product-price">${money(p.price)}</div>${p.note?`<div class="product-note">${esc(p.note)}</div>`:""}</button>`}).join("");g.querySelectorAll("[data-add]").forEach(b=>b.addEventListener("click",()=>addItem(b.dataset.add)))}
+function renderProducts(){const g=document.getElementById("productGrid");document.getElementById("productSectionLabel").textContent=activeCategory==="ALL"?"All Products":activeCategory;const visible=activeCategory==="ALL"?state.products:state.products.filter(p=>p.category===activeCategory);if(!state.products.length){g.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div><strong>No products yet</strong>Add products in Customize or import them from a CSV.<br><button class="btn primary" id="emptyCustomizeBtn">Open Customize</button></div></div>`;document.getElementById("emptyCustomizeBtn").addEventListener("click",()=>showScreen("settings"));return}if(!visible.length){g.innerHTML=`<div class="empty-state compact" style="grid-column:1/-1">No products in this category.</div>`;return}g.innerHTML=visible.map(p=>{const q=state.cart[p.id]||0,v=productVisuals(p);return`<button class="product-card" data-add="${p.id}" style="--product-accent:${v.accent};--product-accent-readable:${v.readable};--product-accent-text:${v.text};--product-tint:${v.tint}"><span class="qty-badge ${q?"visible":""}">${q}</span><div><div class="product-name">${esc(p.name)}</div><div class="product-category">${esc(p.category)}</div></div><div class="product-price">${money(p.price)}</div>${p.note?`<div class="product-note">${esc(p.note)}</div>`:""}</button>`}).join("");g.querySelectorAll("[data-add]").forEach(b=>b.addEventListener("click",()=>addItem(b.dataset.add)))}
 function renderCart(){document.getElementById("currentOrderNumber").textContent=`Order #${formatOrderNumber(nextOrderNumber())}`;const m=document.getElementById("cartContent"),e=cartEntries();if(!e.length){m.innerHTML=`<div class="cart-empty"><div><strong>No items yet</strong>Tap a product to start the order.</div></div><div class="cart-footer"><div class="total-line"><div><div class="total-label">Total</div></div><div class="total">${money(0)}</div></div><div class="cart-actions"><button class="btn secondary" disabled>Clear</button><button class="btn complete-btn" disabled>Place Order</button></div></div>`;return}m.innerHTML=`<div class="cart-list">${e.map(i=>`<div class="cart-row"><button class="minus" data-remove="${i.id}">−</button><div><div class="cart-name">${esc(i.name)}</div><div class="cart-meta">${i.qty} × ${money(i.price)}</div></div><div class="line-total">${money(i.qty*i.price)}</div></div>`).join("")}</div><div class="cart-footer"><div class="total-line"><div><div class="total-label">${cartItemCount()} item${cartItemCount()===1?"":"s"}</div></div><div class="total">${money(cartTotal())}</div></div><div class="cart-actions"><button class="btn secondary" id="clearOrderBtn">Clear</button><button class="btn complete-btn" id="completeSaleBtn">Place Order</button></div></div>`;m.querySelectorAll("[data-remove]").forEach(b=>b.addEventListener("click",()=>removeItem(b.dataset.remove)));document.getElementById("clearOrderBtn").addEventListener("click",clearOrder);document.getElementById("completeSaleBtn").addEventListener("click",completeSale)}
 function renderPos(){renderCategories();renderProducts();renderCart()} function addItem(id){if(!productById(id))return;state.cart[id]=(state.cart[id]||0)+1;saveState();renderPos()} function removeItem(id){const q=state.cart[id]||0;if(q<=1)delete state.cart[id];else state.cart[id]=q-1;saveState();renderPos()} function clearOrder(){if(!Object.keys(state.cart).length||!confirm("Clear this order?"))return;state.cart={};saveState();renderPos()}
 function completeSale(){const e=cartEntries();if(!e.length)return;const n=new Date(),day=localDayKey(n),orderNumber=nextOrderNumber(day);state.sales.push({orderNumber,status:"open",completedAt:null,timestamp:n.toISOString(),day,currencyCode:state.currencyCode,currencySymbol:currencySymbol(),items:e.map(i=>({id:i.id,name:i.name,category:i.category,price:i.price,qty:i.qty})),total:cartTotal()});state.cart={};saveState();renderAll();showToast(`Order #${formatOrderNumber(orderNumber)} placed`)}
@@ -571,37 +660,42 @@ function renderSettings(){
 }
 
 function renderBrandingSettings(){
-  const b={...defaultState().branding,...state.branding};
-  const pairs=[["primaryColorInput","primaryColorValue",b.primary],["secondaryColorInput","secondaryColorValue",b.secondary],["backgroundColorInput","backgroundColorValue",b.background],["surfaceColorInput","surfaceColorValue",b.surface],["textColorInput","textColorValue",b.text]];
-  pairs.forEach(([inputId,valueId,value])=>{const input=document.getElementById(inputId),label=document.getElementById(valueId);if(input)input.value=normalizeHex(value);if(label)label.textContent=normalizeHex(value)});
+  const b=effectiveBranding(state.branding),themeKey=state.branding.theme&&(["custom",...Object.keys(THEMES)].includes(state.branding.theme))?state.branding.theme:"classic",mode=["light","dark","system"].includes(state.branding.mode)?state.branding.mode:"light";
+  document.getElementById("themePresetInput").value=themeKey;document.getElementById("appearanceModeInput").value=mode;
+  document.getElementById("primaryColorInput").value=normalizeHex(b.primary);document.getElementById("secondaryColorInput").value=normalizeHex(b.secondary);
+  document.getElementById("primaryColorValue").textContent=normalizeHex(b.primary);document.getElementById("secondaryColorValue").textContent=normalizeHex(b.secondary);
+  syncAppearanceControls();
   const preview=document.getElementById("logoPreview"),actions=document.getElementById("logoActions");
-  if(preview)preview.innerHTML=b.logoDataUrl?`<img src="${b.logoDataUrl}" alt="Current brand logo">`:`<span style="color:var(--muted);font-size:13px">No logo uploaded — the business name will be shown instead.</span>`;
-  if(actions)actions.innerHTML=b.logoDataUrl?`<button class="btn danger" id="removeLogoBtn">Remove Logo</button>`:"";
+  if(preview)preview.innerHTML=state.branding.logoDataUrl?`<img src="${state.branding.logoDataUrl}" alt="Current brand logo">`:`<span style="color:var(--muted);font-size:13px">No logo uploaded — the business name will be shown instead.</span>`;
+  if(actions)actions.innerHTML=state.branding.logoDataUrl?`<button class="btn danger" id="removeLogoBtn">Remove Logo</button>`:"";
   const remove=document.getElementById("removeLogoBtn");if(remove)remove.addEventListener("click",removeBrandLogo);
 }
+function syncAppearanceControls(){
+  const theme=document.getElementById("themePresetInput").value,mode=document.getElementById("appearanceModeInput").value;
+  document.querySelectorAll(".theme-option").forEach(b=>b.classList.toggle("selected",b.dataset.theme===theme));
+  document.querySelectorAll(".mode-btn").forEach(b=>b.classList.toggle("selected",b.dataset.mode===mode));
+  document.getElementById("customPaletteFields").classList.toggle("visible",theme==="custom");
+}
 function brandingFromInputs(){
-  return{...state.branding,
-    primary:document.getElementById("primaryColorInput").value,
-    secondary:document.getElementById("secondaryColorInput").value,
-    background:document.getElementById("backgroundColorInput").value,
-    surface:document.getElementById("surfaceColorInput").value,
-    text:document.getElementById("textColorInput").value
-  };
+  const theme=document.getElementById("themePresetInput").value||"classic",mode=document.getElementById("appearanceModeInput").value||"light",preset=THEMES[theme];
+  return{...state.branding,theme,mode,primary:preset?preset.primary:document.getElementById("primaryColorInput").value,secondary:preset?preset.secondary:document.getElementById("secondaryColorInput").value};
 }
 function previewBrandingFromInputs(){
   const b=brandingFromInputs();applyBranding(b);
-  [["primaryColorInput","primaryColorValue"],["secondaryColorInput","secondaryColorValue"],["backgroundColorInput","backgroundColorValue"],["surfaceColorInput","surfaceColorValue"],["textColorInput","textColorValue"]].forEach(([i,l])=>{document.getElementById(l).textContent=document.getElementById(i).value.toUpperCase()});
-  renderProducts();
+  document.getElementById("primaryColorValue").textContent=normalizeHex(document.getElementById("primaryColorInput").value);document.getElementById("secondaryColorValue").textContent=normalizeHex(document.getElementById("secondaryColorInput").value);
+  syncAppearanceControls();renderProducts();
 }
-function saveBrandingSettings(){state.branding=brandingFromInputs();saveState();applyBranding();renderAll();showSettingsSection("branding");showToast("Brand colors saved")}
-function resetBrandingPreview(){
-  const d=defaultState().branding;
-  document.getElementById("primaryColorInput").value=d.primary;
-  document.getElementById("secondaryColorInput").value=d.secondary;
-  document.getElementById("backgroundColorInput").value=d.background;
-  document.getElementById("surfaceColorInput").value=d.surface;
-  document.getElementById("textColorInput").value=d.text;
+function chooseTheme(theme){
+  if(theme!=="custom"&&!THEMES[theme])return;
+  const current=brandingFromInputs();document.getElementById("themePresetInput").value=theme;
+  if(THEMES[theme]){document.getElementById("primaryColorInput").value=THEMES[theme].primary;document.getElementById("secondaryColorInput").value=THEMES[theme].secondary}
+  else{document.getElementById("primaryColorInput").value=normalizeHex(current.primary);document.getElementById("secondaryColorInput").value=normalizeHex(current.secondary)}
   previewBrandingFromInputs();
+}
+function chooseAppearanceMode(mode){if(!["light","dark","system"].includes(mode))return;document.getElementById("appearanceModeInput").value=mode;previewBrandingFromInputs()}
+function saveBrandingSettings(){state.branding=brandingFromInputs();saveState();applyBranding();renderAll();showSettingsSection("branding");showToast("Appearance saved")}
+function resetBrandingPreview(){
+  const d=defaultState().branding;document.getElementById("themePresetInput").value=d.theme;document.getElementById("appearanceModeInput").value=d.mode;document.getElementById("primaryColorInput").value=d.primary;document.getElementById("secondaryColorInput").value=d.secondary;previewBrandingFromInputs();
 }
 function saveGeneralSettings(){const n=document.getElementById("businessNameInput").value.trim()||"Simple POS",c=document.getElementById("currencySelect").value,x=document.getElementById("customCurrencyInput").value.trim();if(c==="CUSTOM"&&!x){alert("Enter a custom currency label.");return}state.businessName=n;state.currencyCode=c;state.customCurrency=x;saveState();renderAll();showToast("General settings saved")}
 
@@ -654,11 +748,10 @@ function configFileName(){
 function buildExportConfig(includeMedia=false){
   normalizeCategoryOrder();
   const branding={
+    theme:state.branding.theme||"custom",
+    mode:state.branding.mode||"light",
     primary:state.branding.primary,
-    secondary:state.branding.secondary,
-    background:state.branding.background,
-    surface:state.branding.surface,
-    text:state.branding.text
+    secondary:state.branding.secondary
   };
   const payment={
     bankName:state.payment.bankName||"",
@@ -726,14 +819,13 @@ function validateImportedConfig(raw){
   const currencyCode=(currency==="CUSTOM"||Object.prototype.hasOwnProperty.call(CURRENCIES,currency))?currency:"LKR";
 
   const defaultBrand=defaultState().branding;
-  const inputBrand=raw.branding&&typeof raw.branding==="object"?raw.branding:{};
+  const inputBrand=raw.branding&&typeof raw.branding==="object"?raw.branding:{},validTheme=inputBrand.theme==="custom"||Object.prototype.hasOwnProperty.call(THEMES,inputBrand.theme),legacyHasColors=isHexColor(inputBrand.primary)||isHexColor(inputBrand.secondary);
+  const theme=validTheme?inputBrand.theme:(legacyHasColors?"custom":defaultBrand.theme),mode=["light","dark","system"].includes(inputBrand.mode)?inputBrand.mode:(inputBrand.background&&luminance(inputBrand.background)<.3?"dark":defaultBrand.mode),preset=THEMES[theme];
   const branding={
     ...state.branding,
-    primary:isHexColor(inputBrand.primary)?normalizeHex(inputBrand.primary):defaultBrand.primary,
-    secondary:isHexColor(inputBrand.secondary)?normalizeHex(inputBrand.secondary):defaultBrand.secondary,
-    background:isHexColor(inputBrand.background)?normalizeHex(inputBrand.background):defaultBrand.background,
-    surface:isHexColor(inputBrand.surface)?normalizeHex(inputBrand.surface):defaultBrand.surface,
-    text:isHexColor(inputBrand.text)?normalizeHex(inputBrand.text):defaultBrand.text
+    theme,mode,
+    primary:preset?preset.primary:(isHexColor(inputBrand.primary)?normalizeHex(inputBrand.primary):defaultBrand.primary),
+    secondary:preset?preset.secondary:(isHexColor(inputBrand.secondary)?normalizeHex(inputBrand.secondary):defaultBrand.secondary)
   };
   if(Object.prototype.hasOwnProperty.call(inputBrand,"logoDataUrl")){
     branding.logoDataUrl=String(inputBrand.logoDataUrl||"");
@@ -837,8 +929,11 @@ function renderBrand(){
   document.title=`${n} — POS`;
 }
 function renderAll(){applyBranding();renderBrand();renderPos();renderSales();renderPaymentDisplay();renderSettings()}
+const systemAppearanceQuery=window.matchMedia?window.matchMedia("(prefers-color-scheme: dark)"):null;if(systemAppearanceQuery){const onSystemAppearanceChange=()=>{if(state.branding.mode==="system"){applyBranding();renderPos();renderSales();renderPaymentDisplay();renderSettings()}};if(systemAppearanceQuery.addEventListener)systemAppearanceQuery.addEventListener("change",onSystemAppearanceChange);else if(systemAppearanceQuery.addListener)systemAppearanceQuery.addListener(onSystemAppearanceChange)}
 document.querySelectorAll(".settings-nav-btn").forEach(b=>b.addEventListener("click",()=>showSettingsSection(b.dataset.settingsSection)));
-document.querySelectorAll("#primaryColorInput,#secondaryColorInput,#backgroundColorInput,#surfaceColorInput,#textColorInput").forEach(i=>i.addEventListener("input",previewBrandingFromInputs));
+document.querySelectorAll("#primaryColorInput,#secondaryColorInput").forEach(i=>i.addEventListener("input",previewBrandingFromInputs));
+document.querySelectorAll(".theme-option").forEach(b=>b.addEventListener("click",()=>chooseTheme(b.dataset.theme)));
+document.querySelectorAll(".mode-btn").forEach(b=>b.addEventListener("click",()=>chooseAppearanceMode(b.dataset.mode)));
 document.getElementById("saveBrandingBtn").addEventListener("click",saveBrandingSettings);
 document.getElementById("resetBrandingBtn").addEventListener("click",resetBrandingPreview);
 document.getElementById("logoInput").addEventListener("change",handleLogoUpload);
