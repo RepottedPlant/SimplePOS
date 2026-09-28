@@ -146,6 +146,7 @@
           <div class="help-callout" style="margin-top:14px;"><strong>Recommended:</strong> for most brands, only change <strong>Primary</strong> and <strong>Secondary / CTA</strong>. Leaving the background, card and text colors at their defaults helps preserve readability and contrast.</div>
           <p style="margin-top:13px;"><strong>Logo recommendation:</strong> horizontal or wordmark logos work best. Aim for roughly a <strong>4:1 aspect ratio</strong>, such as <strong>800 × 200 px</strong>. Transparent PNGs are recommended.</p>
           <p style="margin-top:13px;">The Customize menu is split into <strong>General & Branding</strong>, <strong>Products & Categories</strong>, <strong>Payment Information</strong>, and the red <strong>Danger Zone</strong>. The Danger Zone is only for destructive/reset actions and is not needed for normal setup or daily use.</p>
+          <p style="margin-top:13px;"><strong>Moving your setup:</strong> use <strong>Configuration Backup & Transfer</strong> to export a <code>.json</code> config file. Importing that file on another device restores products, category order, currency, brand colors and payment information without moving sales history. You can optionally include the brand logo and payment QR in the same file.</p>
         </section>
 
 
@@ -349,6 +350,34 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
               <button class="btn secondary" id="resetBrandingBtn">Reset Colors</button>
             </div>
           </section>
+
+          <section class="panel settings-card">
+            <h2>Configuration Backup & Transfer</h2>
+            <p class="helper">Export the POS setup as a single JSON configuration file and import it on another device or browser. The configuration includes your business settings, brand palette, products, product accents and notes, category order, currency, and payment information. Sales history and the current cart are never included.</p>
+
+            <div class="field">
+              <label style="display:flex;gap:8px;align-items:center;font-weight:750;">
+                <input type="checkbox" id="includeConfigMediaCheckbox" style="width:auto;">
+                Include brand logo and payment QR in the config file
+              </label>
+              <div class="helper" style="margin:6px 0 0;">Images are embedded directly inside the JSON file, so enabling this will make the file larger.</div>
+            </div>
+
+            <div class="inline-actions">
+              <button class="btn primary" id="exportConfigBtn">Export Config</button>
+            </div>
+
+            <div class="drop-zone" style="margin-top:14px;">
+              <div class="field" style="margin:0;">
+                <label for="configImportInput">Import configuration</label>
+                <input type="file" id="configImportInput" accept=".json,application/json">
+              </div>
+              <div class="helper" style="margin:8px 0 0;">Importing replaces the current setup and product catalogue, preserves existing sales history, and clears the current cart. If the imported file does not contain images, your existing logo and QR code are left unchanged.</div>
+              <div class="inline-actions">
+                <button class="btn outline" id="importConfigBtn">Import Config</button>
+              </div>
+            </div>
+          </section>
         </div>
 
         <div class="settings-subscreen" id="settings-products">
@@ -444,7 +473,9 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
 </main>
 <div class="toast" id="toast"></div>
 <script>
-const STORAGE_KEY="simple_pos_v2";
+const STORAGE_KEY="simple_pos_v1";
+const CONFIG_FORMAT="simple-pos-config";
+const CONFIG_VERSION=1;
 const CURRENCIES={LKR:{symbol:"Rs"},USD:{symbol:"$"},EUR:{symbol:"€"},GBP:{symbol:"£"},AUD:{symbol:"A$"},CAD:{symbol:"C$"},INR:{symbol:"₹"},SGD:{symbol:"S$"},AED:{symbol:"AED"},JPY:{symbol:"¥"}};
 function defaultState(){return{version:6,businessName:"Simple POS",currencyCode:"LKR",customCurrency:"",branding:{logoDataUrl:"",primary:"#1f4b99",secondary:"#2f6bd2",background:"#f6f7f9",surface:"#ffffff",text:"#17191d"},products:[],categoryOrder:[],cart:{},sales:[],payment:{qrDataUrl:"",bankName:"",accountName:"",accountNumber:"",branch:"",notes:""}}}
 function loadState(){try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return defaultState();const parsed=JSON.parse(raw);return{...defaultState(),...parsed,branding:{...defaultState().branding,...(parsed.branding||{})},products:Array.isArray(parsed.products)?parsed.products:[],categoryOrder:Array.isArray(parsed.categoryOrder)?parsed.categoryOrder:[],cart:parsed.cart||{},sales:Array.isArray(parsed.sales)?parsed.sales:[],payment:{...defaultState().payment,...(parsed.payment||{})}}}catch(e){return defaultState()}}
@@ -599,6 +630,172 @@ function parseCSV(text){const rows=[];let row=[],cell="",quoted=false;for(let i=
 async function importCSV(){const input=document.getElementById("csvInput"),file=input.files?.[0];if(!file){alert("Choose a CSV file first.");return}let text;try{text=await file.text()}catch(e){alert("Could not read that CSV file.");return}const rows=parseCSV(text);if(rows.length<2){alert("The CSV does not contain any product rows.");return}const h=rows[0].map(x=>String(x).replace(/^\uFEFF/,"").trim().toLowerCase()),ni=h.findIndex(x=>["product name","product","name"].includes(x)),pi=h.indexOf("price"),ci=h.indexOf("category"),coli=h.findIndex(x=>["color","product color","accent color"].includes(x)),notei=h.findIndex(x=>["note","product note","menu note","label"].includes(x));if(ni<0||pi<0||ci<0){alert('CSV headers must include "Product name", "Price", and "Category".');return}const imported=[],errors=[];rows.slice(1).forEach((r,i)=>{const name=String(r[ni]??"").trim(),category=String(r[ci]??"").trim(),raw=String(r[pi]??"").trim(),price=Number(raw.replace(/[^0-9.\-]/g,"")),rawColor=coli>=0?String(r[coli]??"").trim():"",color=rawColor&&isHexColor(rawColor)?normalizeHex(rawColor):"",note=notei>=0?String(r[notei]??"").trim():"";if(!name&&!category&&!raw&&!rawColor&&!note)return;if(!name||!category||!Number.isFinite(price)||price<0||(rawColor&&!color)){errors.push(i+2);return}imported.push({name,price,category,color,note,colorProvided:coli>=0,noteProvided:notei>=0})});if(!imported.length){alert("No valid products were found in the CSV.");return}const replace=document.getElementById("replaceProductsCheckbox").checked;if(replace){if(!confirm(`Replace all ${state.products.length} current product(s) with ${imported.length} imported product(s)?`))return;state.products=imported.map(p=>({id:newProductId(),name:p.name,price:p.price,category:p.category,color:p.color||"",note:p.note||""}));state.cart={}}else imported.forEach(x=>{const e=state.products.find(p=>p.name.trim().toLowerCase()===x.name.toLowerCase()&&p.category.trim().toLowerCase()===x.category.toLowerCase());if(e){e.name=x.name;e.category=x.category;e.price=x.price;if(x.colorProvided)e.color=x.color||"";if(x.noteProvided)e.note=x.note||""}else state.products.push({id:newProductId(),name:x.name,price:x.price,category:x.category,color:x.color||"",note:x.note||""})});saveState();input.value="";renderAll();showScreen("settings");showToast(`${imported.length} product(s) imported${errors.length?`; ${errors.length} skipped`:""}`)}
 function downloadCsvTemplate(){const s=[["Product name","Price","Category","Color","Note"],["T-Shirt","2500","Clothing","#2B6E4F","Featured"],["Cap","1500","Accessories","",""]];downloadTextFile(s.map(r=>r.map(csvCell).join(",")).join("\n"),"products-template.csv","text/csv;charset=utf-8;")}
 
+
+function safeConfigString(value,max=300){return String(value??"").slice(0,max)}
+function configFileName(){
+  const base=(state.businessName||"simple-pos").toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"")||"simple-pos";
+  return `${base}-config.json`;
+}
+function buildExportConfig(includeMedia=false){
+  normalizeCategoryOrder();
+  const branding={
+    primary:state.branding.primary,
+    secondary:state.branding.secondary,
+    background:state.branding.background,
+    surface:state.branding.surface,
+    text:state.branding.text
+  };
+  const payment={
+    bankName:state.payment.bankName||"",
+    accountName:state.payment.accountName||"",
+    accountNumber:state.payment.accountNumber||"",
+    branch:state.payment.branch||"",
+    notes:state.payment.notes||""
+  };
+  if(includeMedia){
+    branding.logoDataUrl=state.branding.logoDataUrl||"";
+    payment.qrDataUrl=state.payment.qrDataUrl||"";
+  }
+  return{
+    format:CONFIG_FORMAT,
+    configVersion:CONFIG_VERSION,
+    exportedAt:new Date().toISOString(),
+    mediaIncluded:!!includeMedia,
+    businessName:state.businessName||"Simple POS",
+    currencyCode:state.currencyCode||"LKR",
+    customCurrency:state.customCurrency||"",
+    branding,
+    products:state.products.map(p=>({
+      name:p.name,
+      price:Number(p.price)||0,
+      category:p.category,
+      color:isHexColor(p.color)?normalizeHex(p.color):"",
+      note:p.note||""
+    })),
+    categoryOrder:[...state.categoryOrder],
+    payment
+  };
+}
+function exportConfig(){
+  const includeMedia=document.getElementById("includeConfigMediaCheckbox").checked;
+  const config=buildExportConfig(includeMedia);
+  downloadTextFile(JSON.stringify(config,null,2),configFileName(),"application/json;charset=utf-8;");
+  showToast(includeMedia?"Config exported with images":"Config exported");
+}
+function validateImportedConfig(raw){
+  if(!raw||typeof raw!=="object")throw new Error("This file does not contain a valid configuration.");
+  if(raw.format!==CONFIG_FORMAT)throw new Error("This is not a Simple POS configuration file.");
+  if(Number(raw.configVersion)!==CONFIG_VERSION)throw new Error(`Unsupported config version: ${raw.configVersion??"unknown"}.`);
+
+  const productsRaw=Array.isArray(raw.products)?raw.products:[];
+  const products=[];
+  for(const item of productsRaw){
+    const name=safeConfigString(item?.name,80).trim();
+    const category=safeConfigString(item?.category,50).trim();
+    const price=Number(item?.price);
+    const color=String(item?.color||"").trim();
+    const note=safeConfigString(item?.note,50).trim();
+    if(!name||!category||!Number.isFinite(price)||price<0)continue;
+    if(color&&!isHexColor(color))continue;
+    products.push({
+      id:newProductId(),
+      name,
+      price,
+      category,
+      color:color?normalizeHex(color):"",
+      note
+    });
+  }
+
+  const currency=String(raw.currencyCode||"LKR");
+  const currencyCode=(currency==="CUSTOM"||Object.prototype.hasOwnProperty.call(CURRENCIES,currency))?currency:"LKR";
+
+  const defaultBrand=defaultState().branding;
+  const inputBrand=raw.branding&&typeof raw.branding==="object"?raw.branding:{};
+  const branding={
+    ...state.branding,
+    primary:isHexColor(inputBrand.primary)?normalizeHex(inputBrand.primary):defaultBrand.primary,
+    secondary:isHexColor(inputBrand.secondary)?normalizeHex(inputBrand.secondary):defaultBrand.secondary,
+    background:isHexColor(inputBrand.background)?normalizeHex(inputBrand.background):defaultBrand.background,
+    surface:isHexColor(inputBrand.surface)?normalizeHex(inputBrand.surface):defaultBrand.surface,
+    text:isHexColor(inputBrand.text)?normalizeHex(inputBrand.text):defaultBrand.text
+  };
+  if(Object.prototype.hasOwnProperty.call(inputBrand,"logoDataUrl")){
+    branding.logoDataUrl=String(inputBrand.logoDataUrl||"");
+  }
+
+  const inputPayment=raw.payment&&typeof raw.payment==="object"?raw.payment:{};
+  const payment={
+    ...state.payment,
+    bankName:safeConfigString(inputPayment.bankName,80),
+    accountName:safeConfigString(inputPayment.accountName,100),
+    accountNumber:safeConfigString(inputPayment.accountNumber,60),
+    branch:safeConfigString(inputPayment.branch,80),
+    notes:safeConfigString(inputPayment.notes,300)
+  };
+  if(Object.prototype.hasOwnProperty.call(inputPayment,"qrDataUrl")){
+    payment.qrDataUrl=String(inputPayment.qrDataUrl||"");
+  }
+
+  const actualCategories=[...new Set(products.map(p=>p.category))];
+  const requestedOrder=Array.isArray(raw.categoryOrder)?raw.categoryOrder.map(x=>String(x)):[];
+  const categoryOrder=[
+    ...requestedOrder.filter((c,i)=>actualCategories.includes(c)&&requestedOrder.indexOf(c)===i),
+    ...actualCategories.filter(c=>!requestedOrder.includes(c)).sort((a,b)=>a.localeCompare(b))
+  ];
+
+  return{
+    businessName:safeConfigString(raw.businessName||"Simple POS",60).trim()||"Simple POS",
+    currencyCode,
+    customCurrency:safeConfigString(raw.customCurrency||"",8).trim(),
+    branding,
+    products,
+    categoryOrder,
+    payment
+  };
+}
+async function importConfig(){
+  const input=document.getElementById("configImportInput"),file=input.files?.[0];
+  if(!file){alert("Choose a JSON configuration file first.");return}
+
+  let parsed;
+  try{
+    parsed=JSON.parse(await file.text());
+  }catch(e){
+    alert("That file could not be read as JSON.");
+    return;
+  }
+
+  let incoming;
+  try{
+    incoming=validateImportedConfig(parsed);
+  }catch(e){
+    alert(e.message||"That configuration file is not valid.");
+    return;
+  }
+
+  const message=`Import this configuration?\n\nThis will replace the current business settings, products, category order, brand colors and payment information.\n\nExisting sales history will be kept, but the current cart will be cleared.`;
+  if(!confirm(message))return;
+
+  state.businessName=incoming.businessName;
+  state.currencyCode=incoming.currencyCode;
+  state.customCurrency=incoming.customCurrency;
+  state.branding=incoming.branding;
+  state.products=incoming.products;
+  state.categoryOrder=incoming.categoryOrder;
+  state.payment=incoming.payment;
+  state.cart={};
+  activeCategory="ALL";
+
+  saveState();
+  resetProductForm();
+  renderAll();
+  showScreen("settings");
+  showSettingsSection("branding");
+  input.value="";
+  showToast(`Config imported: ${incoming.products.length} product${incoming.products.length===1?"":"s"}`);
+}
+
 async function logoFileToDataUrl(file){
   const original=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file)});
   return await new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>{const max=800,scale=Math.min(1,max/Math.max(img.width,img.height)),w=Math.round(img.width*scale),h=Math.round(img.height*scale),c=document.createElement("canvas"),ctx=c.getContext("2d");c.width=w;c.height=h;ctx.clearRect(0,0,w,h);ctx.drawImage(img,0,0,w,h);try{resolve(c.toDataURL("image/png"))}catch(e){reject(e)}};img.onerror=reject;img.src=original})
@@ -630,6 +827,8 @@ document.querySelectorAll("#primaryColorInput,#secondaryColorInput,#backgroundCo
 document.getElementById("saveBrandingBtn").addEventListener("click",saveBrandingSettings);
 document.getElementById("resetBrandingBtn").addEventListener("click",resetBrandingPreview);
 document.getElementById("logoInput").addEventListener("change",handleLogoUpload);
+document.getElementById("exportConfigBtn").addEventListener("click",exportConfig);
+document.getElementById("importConfigBtn").addEventListener("click",importConfig);
 document.getElementById("useProductColorCheckbox").addEventListener("change",e=>document.getElementById("productColorField").classList.toggle("visible",e.target.checked));
 document.querySelectorAll(".nav-btn").forEach(b=>b.addEventListener("click",()=>showScreen(b.dataset.screen)));document.getElementById("currencySelect").addEventListener("change",e=>document.getElementById("customCurrencyField").style.display=e.target.value==="CUSTOM"?"block":"none");document.getElementById("saveGeneralBtn").addEventListener("click",saveGeneralSettings);document.getElementById("saveProductBtn").addEventListener("click",saveProduct);document.getElementById("cancelProductEditBtn").addEventListener("click",resetProductForm);document.getElementById("importCsvBtn").addEventListener("click",importCSV);document.getElementById("downloadTemplateBtn").addEventListener("click",downloadCsvTemplate);document.getElementById("qrInput").addEventListener("change",handleQrUpload);document.getElementById("savePaymentBtn").addEventListener("click",savePaymentSettings);document.getElementById("exportSalesBtn").addEventListener("click",exportTodayCSV);document.getElementById("resetTodayBtn").addEventListener("click",resetToday);document.getElementById("resetAppBtn").addEventListener("click",resetEntireApp);renderAll();
 </script>
