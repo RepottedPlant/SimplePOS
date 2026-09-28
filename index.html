@@ -1,0 +1,965 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#21156a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Drip POS" />
+  <title>Drip Popup POS</title>
+
+  <style>
+    :root{
+      --navy:#21156a;
+      --orange:#ff5a2f;
+      --ink:#171717;
+      --muted:#6c6c74;
+      --paper:#fbfaf7;
+      --card:#ffffff;
+      --line:#e7e4de;
+      --soft:#f1efe9;
+      --danger:#b42318;
+      --shadow:0 10px 30px rgba(20,20,35,.08);
+      --radius:22px;
+    }
+
+    *{
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    html,body{
+      margin:0;
+      min-height:100%;
+      background:var(--paper);
+      color:var(--ink);
+      font-family:Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body{
+      min-height:100vh;
+      min-height:100dvh;
+      overscroll-behavior:none;
+    }
+
+    button{
+      font:inherit;
+      touch-action:manipulation;
+    }
+
+    .app{
+      width:min(1400px,100%);
+      margin:0 auto;
+      padding:18px;
+    }
+
+    .brand-line{
+      height:10px;
+      border-top:4px solid var(--navy);
+      border-bottom:4px solid var(--orange);
+      border-radius:999px;
+      margin-bottom:14px;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:18px;
+    }
+
+    .title-wrap h1{
+      margin:0;
+      font-size:clamp(26px,3vw,40px);
+      letter-spacing:-.04em;
+      line-height:1;
+      font-weight:900;
+      text-transform:uppercase;
+    }
+
+    .title-wrap p{
+      margin:7px 0 0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .top-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    .btn{
+      border:0;
+      border-radius:16px;
+      padding:13px 16px;
+      cursor:pointer;
+      font-weight:800;
+      min-height:48px;
+    }
+
+    .btn.secondary{
+      background:var(--soft);
+      color:var(--ink);
+    }
+
+    .btn.primary{
+      background:var(--navy);
+      color:white;
+    }
+
+    .btn.danger{
+      background:#fff1ef;
+      color:var(--danger);
+    }
+
+    .btn:disabled{
+      opacity:.45;
+      cursor:not-allowed;
+    }
+
+    .screen{
+      display:none;
+    }
+
+    .screen.active{
+      display:block;
+    }
+
+    .pos-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.7fr) minmax(320px,.8fr);
+      gap:18px;
+      align-items:start;
+    }
+
+    .menu-panel,.cart-panel,.sales-card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .menu-panel{
+      padding:18px;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-bottom:12px;
+    }
+
+    .menu-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+    }
+
+    .product{
+      position:relative;
+      border:2px solid var(--navy);
+      background:white;
+      color:var(--ink);
+      border-radius:22px;
+      min-height:150px;
+      padding:18px 18px 16px;
+      text-align:left;
+      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      transition:transform .06s ease, background .08s ease;
+      overflow:hidden;
+    }
+
+    .product:active{
+      transform:scale(.985);
+      background:#f7f6fb;
+    }
+
+    .product.special{
+      border-color:var(--orange);
+      background:linear-gradient(140deg,#fff 0%,#fff8f4 100%);
+    }
+
+    .product-name{
+      font-size:clamp(24px,3vw,38px);
+      font-weight:950;
+      line-height:.95;
+      letter-spacing:-.05em;
+      text-transform:uppercase;
+      max-width:90%;
+    }
+
+    .product-price{
+      margin-top:18px;
+      color:var(--navy);
+      font-size:19px;
+      font-weight:900;
+    }
+
+    .special .product-price{
+      color:var(--orange);
+    }
+
+    .special-tag{
+      position:absolute;
+      right:14px;
+      bottom:14px;
+      color:var(--orange);
+      font-size:11px;
+      font-weight:950;
+      letter-spacing:.11em;
+      text-transform:uppercase;
+    }
+
+    .qty-badge{
+      position:absolute;
+      right:13px;
+      top:13px;
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      background:var(--navy);
+      color:white;
+      display:grid;
+      place-items:center;
+      font-weight:950;
+      font-size:18px;
+      transform:scale(0);
+      opacity:0;
+      transition:.12s ease;
+    }
+
+    .special .qty-badge{
+      background:var(--orange);
+    }
+
+    .qty-badge.visible{
+      transform:scale(1);
+      opacity:1;
+    }
+
+    .cart-panel{
+      position:sticky;
+      top:18px;
+      padding:18px;
+      min-height:420px;
+    }
+
+    .cart-empty{
+      display:grid;
+      place-items:center;
+      min-height:240px;
+      text-align:center;
+      color:var(--muted);
+      padding:18px;
+    }
+
+    .cart-empty strong{
+      display:block;
+      color:var(--ink);
+      font-size:20px;
+      margin-bottom:6px;
+    }
+
+    .cart-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .cart-row{
+      display:grid;
+      grid-template-columns:54px minmax(0,1fr) auto;
+      gap:12px;
+      align-items:center;
+      padding:10px;
+      background:#faf9f6;
+      border:1px solid var(--line);
+      border-radius:16px;
+    }
+
+    .minus{
+      width:54px;
+      height:54px;
+      border:0;
+      border-radius:14px;
+      background:var(--navy);
+      color:white;
+      font-size:31px;
+      font-weight:500;
+      cursor:pointer;
+      line-height:1;
+    }
+
+    .cart-name{
+      font-weight:900;
+      line-height:1.05;
+    }
+
+    .cart-meta{
+      margin-top:5px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .line-total{
+      font-weight:950;
+      white-space:nowrap;
+    }
+
+    .cart-footer{
+      border-top:1px solid var(--line);
+      margin-top:16px;
+      padding-top:16px;
+    }
+
+    .total-line{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:15px;
+      margin-bottom:14px;
+    }
+
+    .total-label{
+      font-size:13px;
+      color:var(--muted);
+      font-weight:900;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+    }
+
+    .total{
+      font-size:clamp(34px,4vw,52px);
+      line-height:1;
+      font-weight:950;
+      color:var(--navy);
+      letter-spacing:-.05em;
+      text-align:right;
+    }
+
+    .cart-actions{
+      display:grid;
+      grid-template-columns:.75fr 1.5fr;
+      gap:10px;
+    }
+
+    .clear-btn{
+      background:var(--soft);
+      color:var(--ink);
+    }
+
+    .complete-btn{
+      background:var(--orange);
+      color:#fff;
+      min-height:62px;
+      font-size:18px;
+      box-shadow:0 8px 20px rgba(255,90,47,.24);
+    }
+
+    .sales-layout{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+      margin-bottom:14px;
+    }
+
+    .sales-card{
+      padding:20px;
+    }
+
+    .metric-label{
+      color:var(--muted);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.09em;
+      text-transform:uppercase;
+    }
+
+    .metric{
+      margin-top:8px;
+      font-size:clamp(30px,5vw,48px);
+      font-weight:950;
+      letter-spacing:-.05em;
+      line-height:1;
+      color:var(--navy);
+    }
+
+    .breakdown{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+      margin-top:8px;
+    }
+
+    .break-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      border:1px solid var(--line);
+      background:#faf9f6;
+      border-radius:15px;
+      padding:14px;
+      font-weight:850;
+    }
+
+    .break-count{
+      color:var(--navy);
+      font-weight:950;
+      font-size:20px;
+    }
+
+    .sales-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:16px;
+    }
+
+    .history{
+      margin-top:18px;
+      display:flex;
+      flex-direction:column;
+      gap:9px;
+    }
+
+    .history-row{
+      display:grid;
+      grid-template-columns:80px minmax(0,1fr) auto;
+      gap:12px;
+      align-items:center;
+      border-top:1px solid var(--line);
+      padding-top:11px;
+    }
+
+    .history-time{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .history-items{
+      font-weight:760;
+      line-height:1.35;
+    }
+
+    .history-total{
+      font-weight:950;
+      white-space:nowrap;
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:max(24px,env(safe-area-inset-bottom));
+      transform:translateX(-50%) translateY(20px);
+      background:#161616;
+      color:white;
+      padding:13px 18px;
+      border-radius:999px;
+      font-weight:850;
+      opacity:0;
+      pointer-events:none;
+      transition:.18s ease;
+      z-index:100;
+      box-shadow:0 10px 30px rgba(0,0,0,.2);
+    }
+
+    .toast.show{
+      opacity:1;
+      transform:translateX(-50%) translateY(0);
+    }
+
+    .data-note{
+      margin-top:14px;
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    @media (max-width: 900px){
+      .app{ padding:12px; }
+      .pos-grid{ grid-template-columns:1fr; }
+      .cart-panel{ position:static; }
+      .product{ min-height:135px; }
+      .sales-layout{ grid-template-columns:1fr 1fr 1fr; }
+    }
+
+    @media (max-width: 650px){
+      .topbar{
+        align-items:flex-start;
+        flex-direction:column;
+      }
+      .top-actions{
+        width:100%;
+        justify-content:stretch;
+      }
+      .top-actions .btn{
+        flex:1;
+      }
+      .menu-grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+      }
+      .product{
+        min-height:124px;
+        padding:14px;
+        border-radius:18px;
+      }
+      .product-name{
+        font-size:22px;
+        max-width:84%;
+      }
+      .product-price{
+        font-size:16px;
+      }
+      .qty-badge{
+        width:34px;
+        height:34px;
+        font-size:16px;
+      }
+      .special-tag{
+        display:none;
+      }
+      .sales-layout{
+        grid-template-columns:1fr;
+      }
+      .breakdown{
+        grid-template-columns:1fr;
+      }
+      .history-row{
+        grid-template-columns:66px minmax(0,1fr);
+      }
+      .history-total{
+        grid-column:2;
+      }
+    }
+
+    @media (display-mode: standalone){
+      body{
+        padding-top:env(safe-area-inset-top);
+        padding-bottom:env(safe-area-inset-bottom);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="app">
+    <div class="brand-line"></div>
+
+    <header class="topbar">
+      <div class="title-wrap">
+        <h1>Drip Orders</h1>
+        <p>Tap a drink to add it to the current order.</p>
+      </div>
+
+      <div class="top-actions">
+        <button class="btn secondary" id="orderTabBtn">Order</button>
+        <button class="btn primary" id="salesTabBtn">Today's Sales</button>
+      </div>
+    </header>
+
+    <section class="screen active" id="orderScreen">
+      <div class="pos-grid">
+        <section class="menu-panel">
+          <div class="section-label">Menu</div>
+          <div class="menu-grid" id="menuGrid"></div>
+        </section>
+
+        <aside class="cart-panel">
+          <div class="section-label">Current Order</div>
+          <div id="cartContent"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="screen" id="salesScreen">
+      <div class="sales-layout">
+        <div class="sales-card">
+          <div class="metric-label">Revenue Today</div>
+          <div class="metric" id="revenueMetric">Rs 0</div>
+        </div>
+        <div class="sales-card">
+          <div class="metric-label">Orders</div>
+          <div class="metric" id="ordersMetric">0</div>
+        </div>
+        <div class="sales-card">
+          <div class="metric-label">Drinks Sold</div>
+          <div class="metric" id="drinksMetric">0</div>
+        </div>
+      </div>
+
+      <div class="sales-card">
+        <div class="section-label">Drinks Sold Today</div>
+        <div class="breakdown" id="breakdown"></div>
+
+        <div class="sales-actions">
+          <button class="btn primary" id="exportBtn">Export Today's CSV</button>
+          <button class="btn danger" id="resetBtn">Reset Today's Sales</button>
+        </div>
+      </div>
+
+      <div class="sales-card" style="margin-top:14px;">
+        <div class="section-label">Recent Orders</div>
+        <div class="history" id="history"></div>
+      </div>
+
+      <div class="data-note">
+        Sales are saved on this device in the browser.
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast">Sale completed</div>
+
+  <script>
+    const PRODUCTS = [
+      { id: "americano", name: "Americano", price: 700 },
+      { id: "flat-white", name: "Flat White", price: 900 },
+      { id: "mels-iced", name: "Mel's Iced", price: 1000 },
+      { id: "double-espresso", name: "Double Espresso", price: 1000 },
+      { id: "coco-noir", name: "Coco Noir", price: 1000 },
+      { id: "iced-milo-dino", name: "Iced Milo Dino", price: 1000, special: true }
+    ];
+
+    const STORAGE_KEY = "drip_popup_pos_v1";
+
+    let state = loadState();
+
+    function emptyState(){
+      return {
+        cart: {},
+        sales: []
+      };
+    }
+
+    function loadState(){
+      try{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if(!raw) return emptyState();
+        const parsed = JSON.parse(raw);
+        return {
+          cart: parsed.cart || {},
+          sales: Array.isArray(parsed.sales) ? parsed.sales : []
+        };
+      }catch(e){
+        return emptyState();
+      }
+    }
+
+    function saveState(){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function money(value){
+      return `Rs ${Number(value).toLocaleString("en-LK")}`;
+    }
+
+    function localDayKey(date = new Date()){
+      const y = date.getFullYear();
+      const m = String(date.getMonth()+1).padStart(2,"0");
+      const d = String(date.getDate()).padStart(2,"0");
+      return `${y}-${m}-${d}`;
+    }
+
+    function todaySales(){
+      const today = localDayKey();
+      return state.sales.filter(sale => sale.day === today);
+    }
+
+    function renderMenu(){
+      const grid = document.getElementById("menuGrid");
+      grid.innerHTML = PRODUCTS.map(product => {
+        const qty = state.cart[product.id] || 0;
+        return `
+          <button class="product ${product.special ? "special" : ""}" data-add="${product.id}" aria-label="Add ${product.name}">
+            <span class="qty-badge ${qty ? "visible" : ""}" id="badge-${product.id}">${qty}</span>
+            <div class="product-name">${product.name}</div>
+            <div class="product-price">${money(product.price)}</div>
+            ${product.special ? '<div class="special-tag">Today&apos;s Special</div>' : ""}
+          </button>
+        `;
+      }).join("");
+
+      grid.querySelectorAll("[data-add]").forEach(btn => {
+        btn.addEventListener("click", () => addItem(btn.dataset.add));
+      });
+    }
+
+    function addItem(id){
+      state.cart[id] = (state.cart[id] || 0) + 1;
+      saveState();
+      renderAll();
+    }
+
+    function removeItem(id){
+      const qty = state.cart[id] || 0;
+      if(qty <= 1){
+        delete state.cart[id];
+      }else{
+        state.cart[id] = qty - 1;
+      }
+      saveState();
+      renderAll();
+    }
+
+    function cartEntries(){
+      return PRODUCTS
+        .map(product => ({
+          ...product,
+          qty: state.cart[product.id] || 0
+        }))
+        .filter(item => item.qty > 0);
+    }
+
+    function cartTotal(){
+      return cartEntries().reduce((sum, item) => sum + item.qty * item.price, 0);
+    }
+
+    function renderCart(){
+      const mount = document.getElementById("cartContent");
+      const entries = cartEntries();
+
+      if(!entries.length){
+        mount.innerHTML = `
+          <div class="cart-empty">
+            <div>
+              <strong>No items yet</strong>
+              Tap a drink to start the order.
+            </div>
+          </div>
+          <div class="cart-footer">
+            <div class="total-line">
+              <div>
+                <div class="total-label">Total</div>
+              </div>
+              <div class="total">${money(0)}</div>
+            </div>
+            <div class="cart-actions">
+              <button class="btn clear-btn" disabled>Clear</button>
+              <button class="btn complete-btn" disabled>Complete Sale</button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      mount.innerHTML = `
+        <div class="cart-list">
+          ${entries.map(item => `
+            <div class="cart-row">
+              <button class="minus" data-remove="${item.id}" aria-label="Remove one ${item.name}">−</button>
+              <div>
+                <div class="cart-name">${item.name}</div>
+                <div class="cart-meta">${item.qty} × ${money(item.price)}</div>
+              </div>
+              <div class="line-total">${money(item.qty * item.price)}</div>
+            </div>
+          `).join("")}
+        </div>
+
+        <div class="cart-footer">
+          <div class="total-line">
+            <div>
+              <div class="total-label">Total</div>
+            </div>
+            <div class="total">${money(cartTotal())}</div>
+          </div>
+          <div class="cart-actions">
+            <button class="btn clear-btn" id="clearOrderBtn">Clear</button>
+            <button class="btn complete-btn" id="completeSaleBtn">Complete Sale</button>
+          </div>
+        </div>
+      `;
+
+      mount.querySelectorAll("[data-remove]").forEach(btn => {
+        btn.addEventListener("click", () => removeItem(btn.dataset.remove));
+      });
+
+      document.getElementById("clearOrderBtn").addEventListener("click", clearOrder);
+      document.getElementById("completeSaleBtn").addEventListener("click", completeSale);
+    }
+
+    function clearOrder(){
+      if(!Object.keys(state.cart).length) return;
+      if(!confirm("Clear this order?")) return;
+      state.cart = {};
+      saveState();
+      renderAll();
+    }
+
+    function completeSale(){
+      const entries = cartEntries();
+      if(!entries.length) return;
+
+      const now = new Date();
+      state.sales.push({
+        id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+        timestamp: now.toISOString(),
+        day: localDayKey(now),
+        items: entries.map(({id,name,price,qty}) => ({id,name,price,qty})),
+        total: cartTotal()
+      });
+
+      state.cart = {};
+      saveState();
+      renderAll();
+      showToast("Sale completed");
+    }
+
+    function renderSales(){
+      const sales = todaySales();
+
+      const revenue = sales.reduce((sum, sale) => sum + sale.total, 0);
+      const orders = sales.length;
+      const drinks = sales.reduce((sum, sale) =>
+        sum + sale.items.reduce((s, item) => s + item.qty, 0), 0
+      );
+
+      document.getElementById("revenueMetric").textContent = money(revenue);
+      document.getElementById("ordersMetric").textContent = orders.toLocaleString("en-LK");
+      document.getElementById("drinksMetric").textContent = drinks.toLocaleString("en-LK");
+
+      const counts = Object.fromEntries(PRODUCTS.map(p => [p.id,0]));
+      sales.forEach(sale => {
+        sale.items.forEach(item => {
+          counts[item.id] = (counts[item.id] || 0) + item.qty;
+        });
+      });
+
+      document.getElementById("breakdown").innerHTML = PRODUCTS.map(product => `
+        <div class="break-row">
+          <span>${product.name}</span>
+          <span class="break-count">${counts[product.id] || 0}</span>
+        </div>
+      `).join("");
+
+      const history = [...sales].reverse().slice(0,20);
+      document.getElementById("history").innerHTML = history.length
+        ? history.map(sale => {
+            const time = new Date(sale.timestamp).toLocaleTimeString([], {
+              hour:"2-digit",
+              minute:"2-digit"
+            });
+            const items = sale.items.map(item => `${item.qty}× ${item.name}`).join(", ");
+            return `
+              <div class="history-row">
+                <div class="history-time">${time}</div>
+                <div class="history-items">${items}</div>
+                <div class="history-total">${money(sale.total)}</div>
+              </div>
+            `;
+          }).join("")
+        : `<div class="cart-empty" style="min-height:150px;">No completed sales today.</div>`;
+    }
+
+    function exportTodayCSV(){
+      const sales = todaySales();
+      if(!sales.length){
+        alert("There are no sales to export yet.");
+        return;
+      }
+
+      const headers = ["Time", ...PRODUCTS.map(p => p.name), "Total"];
+      const rows = sales.map(sale => {
+        const quantities = Object.fromEntries(PRODUCTS.map(p => [p.id,0]));
+        sale.items.forEach(item => quantities[item.id] = item.qty);
+
+        const time = new Date(sale.timestamp).toLocaleTimeString([], {
+          hour:"2-digit",
+          minute:"2-digit"
+        });
+
+        return [
+          time,
+          ...PRODUCTS.map(p => quantities[p.id] || 0),
+          sale.total
+        ];
+      });
+
+      const summary = [
+        [],
+        ["SUMMARY"],
+        ["Orders", sales.length],
+        ["Revenue", sales.reduce((sum,s) => sum + s.total, 0)],
+        ["Drinks Sold", sales.reduce((sum,s) => sum + s.items.reduce((a,i) => a + i.qty,0),0)]
+      ];
+
+      const csv = [headers, ...rows, ...summary]
+        .map(row => row.map(value => `"${String(value ?? "").replaceAll('"','""')}"`).join(","))
+        .join("\n");
+
+      const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `drip-sales-${localDayKey()}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function resetToday(){
+      const sales = todaySales();
+      if(!sales.length){
+        alert("There are no sales to reset today.");
+        return;
+      }
+
+      const answer = prompt("Type RESET to delete today's sales data.");
+      if(answer !== "RESET") return;
+
+      const today = localDayKey();
+      state.sales = state.sales.filter(sale => sale.day !== today);
+      saveState();
+      renderAll();
+      showToast("Today's sales reset");
+    }
+
+    function showScreen(name){
+      const order = name === "order";
+      document.getElementById("orderScreen").classList.toggle("active", order);
+      document.getElementById("salesScreen").classList.toggle("active", !order);
+
+      document.getElementById("orderTabBtn").className = `btn ${order ? "primary" : "secondary"}`;
+      document.getElementById("salesTabBtn").className = `btn ${order ? "secondary" : "primary"}`;
+
+      if(!order) renderSales();
+    }
+
+    function showToast(message){
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toast.classList.remove("show"), 1500);
+    }
+
+    function renderAll(){
+      renderMenu();
+      renderCart();
+      renderSales();
+    }
+
+    document.getElementById("orderTabBtn").addEventListener("click", () => showScreen("order"));
+    document.getElementById("salesTabBtn").addEventListener("click", () => showScreen("sales"));
+    document.getElementById("exportBtn").addEventListener("click", exportTodayCSV);
+    document.getElementById("resetBtn").addEventListener("click", resetToday);
+
+    renderAll();
+  </script>
+</body>
+</html>
