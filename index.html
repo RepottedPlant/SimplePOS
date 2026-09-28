@@ -372,21 +372,27 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
           <section class="panel settings-card">
             <h2>General</h2>
             <p class="helper">Set the business name and choose how prices are displayed.</p>
-            <div class="field"><label for="businessNameInput">Business / POS name</label><input id="businessNameInput" maxlength="60" placeholder="My Store"></div>
-            <div class="field"><label for="currencySelect">Currency</label><select id="currencySelect"><option value="LKR">Sri Lankan Rupee — Rs</option><option value="USD">US Dollar — $</option><option value="EUR">Euro — €</option><option value="GBP">British Pound — £</option><option value="AUD">Australian Dollar — A$</option><option value="CAD">Canadian Dollar — C$</option><option value="INR">Indian Rupee — ₹</option><option value="SGD">Singapore Dollar — S$</option><option value="AED">UAE Dirham — AED</option><option value="JPY">Japanese Yen — ¥</option><option value="CUSTOM">Custom currency</option></select></div>
-            <div class="field" id="customCurrencyField" style="display:none"><label for="customCurrencyInput">Custom currency label</label><input id="customCurrencyInput" maxlength="8" placeholder="e.g. Rf"></div>
+            <div class="field-row">
+              <div class="field"><label for="businessNameInput">Business / POS name</label><input id="businessNameInput" maxlength="60" placeholder="My Store"></div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label for="currencySelect">Currency</label><select id="currencySelect"><option value="LKR">Sri Lankan Rupee — Rs</option><option value="USD">US Dollar — $</option><option value="EUR">Euro — €</option><option value="GBP">British Pound — £</option><option value="AUD">Australian Dollar — A$</option><option value="CAD">Canadian Dollar — C$</option><option value="INR">Indian Rupee — ₹</option><option value="SGD">Singapore Dollar — S$</option><option value="AED">UAE Dirham — AED</option><option value="JPY">Japanese Yen — ¥</option><option value="CUSTOM">Custom currency</option></select></div>
+              <div class="field" id="customCurrencyField" style="display:none"><label for="customCurrencyInput">Custom currency label</label><input id="customCurrencyInput" maxlength="8" placeholder="e.g. Rf"></div>
+            </div>
             <button class="btn primary" id="saveGeneralBtn">Save General Settings</button>
           </section>
 
           <section class="panel settings-card">
             <h2>Brand Logo</h2>
             <p class="helper">Upload a logo to replace the text business name in the header. <strong>Horizontal or wordmark logos work best.</strong> Aim for roughly a <strong>4:1 aspect ratio</strong> (for example, 800 × 200 px). A transparent PNG is recommended; square or tall logos will appear smaller in the header.</p>
-            <div class="field">
-              <label for="logoInput">Logo image</label>
-              <input type="file" id="logoInput" accept="image/*">
-              <div class="logo-preview" id="logoPreview"></div>
-              <div class="inline-actions" id="logoActions"></div>
+            <div class="field-row">
+              <div class="field">
+                <label for="logoInput">Logo image</label>
+                <input type="file" id="logoInput" accept="image/*">
+              </div>
             </div>
+            <div class="logo-preview" id="logoPreview"></div>
+            <div class="inline-actions" id="logoActions"></div>
           </section>
           <section class="panel settings-card">
             <h2>Theme & Appearance</h2>
@@ -477,24 +483,86 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
             <h2>Add / Edit Product</h2>
             <p class="helper">Categories come directly from your products. A category disappears automatically when no products use it.</p>
             <input type="hidden" id="editingProductId">
-            <div class="field"><label for="productNameInput">Product name</label><input id="productNameInput" maxlength="80" placeholder="Product name"></div>
             <div class="field-row">
-              <div class="field"><label for="productPriceInput">Price</label><input id="productPriceInput" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></div>
-              <div class="field"><label for="productCategoryInput">Category</label><input id="productCategoryInput" maxlength="50" list="categorySuggestions" placeholder="e.g. Clothing"><datalist id="categorySuggestions"></datalist></div>
+              <div class="field">
+                <label for="productNameInput">Product name</label>
+                <input
+                  id="productNameInput"
+                  maxlength="80"
+                  placeholder="Product name"
+                >
+              </div>
+
+              <div class="field">
+                <label for="productPriceInput">Price</label>
+                <input
+                  id="productPriceInput"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  inputmode="decimal"
+                  placeholder="0.00"
+                >
+              </div>
             </div>
-            <div class="field">
-              <label>Product accent</label>
-              <div class="product-color-options">
-                <label><input type="checkbox" id="useProductColorCheckbox"> Use a custom accent color for this product</label>
-                <div class="product-color-field" id="productColorField">
-                  <input class="color-input" id="productColorInput" type="color" value="#ff5a2f" aria-label="Product accent color">
+
+            <div class="field-row">
+              <div class="field">
+                <label for="productCategoryInput">Category</label>
+                <input
+                  id="productCategoryInput"
+                  maxlength="50"
+                  list="categorySuggestions"
+                  placeholder="e.g. Clothing"
+                >
+                <datalist id="categorySuggestions"></datalist>
+              </div>
+
+              <div class="field">
+                <label for="productNoteInput">
+                  Menu note
+                  <span style="font-weight:650;color:var(--muted)">
+                    (optional)
+                  </span>
+                </label>
+
+                <input
+                  id="productNoteInput"
+                  maxlength="50"
+                  placeholder="e.g. Today's Special"
+                >
+
+                <div class="helper" style="margin:6px 0 0;">
+                  A short label shown on the product card using that product's accent color.
                 </div>
               </div>
             </div>
+
             <div class="field">
-              <label for="productNoteInput">Menu note <span style="font-weight:650;color:var(--muted)">(optional)</span></label>
-              <input id="productNoteInput" maxlength="50" placeholder="e.g. Today's Special">
-              <div class="helper" style="margin:6px 0 0;">A short label shown on the product card using that product's accent color.</div>
+              <label>Product accent</label>
+
+              <div class="product-color-options">
+                <label>
+                  <input
+                    type="checkbox"
+                    id="useProductColorCheckbox"
+                  >
+                  Use a custom accent color for this product
+                </label>
+
+                <div
+                  class="product-color-field"
+                  id="productColorField"
+                >
+                  <input
+                    class="color-input"
+                    id="productColorInput"
+                    type="color"
+                    value="#ff5a2f"
+                    aria-label="Product accent color"
+                  >
+                </div>
+              </div>
             </div>
             <div class="inline-actions"><button class="btn primary" id="saveProductBtn">Add Product</button><button class="btn secondary" id="cancelProductEditBtn" style="display:none">Cancel Edit</button></div>
           </section>
@@ -611,7 +679,7 @@ function applyBranding(branding=state.branding){
 }
 function productVisuals(product){
   const styles=getComputedStyle(document.documentElement),surface=normalizeHex(styles.getPropertyValue("--card").trim(),"#FFFFFF"),brandAccent=normalizeHex(styles.getPropertyValue("--accent").trim(),"#1F4B99"),accent=isHexColor(product.color)?normalizeHex(product.color):brandAccent;
-  return{accent,readable:ensureTextContrast(accent,surface),text:contrastText(accent),tint:isHexColor(product.color)?mixHex(accent,surface,.94):surface}
+  return{accent,readable:ensureTextContrast(accent,surface),text:contrastText(accent),tint:isHexColor(product.color)?mixHex(accent,surface,.98):surface}
 }
 
 function currencySymbol(){return state.currencyCode==="CUSTOM"?(state.customCurrency.trim()||""):(CURRENCIES[state.currencyCode]?.symbol||state.currencyCode||"")}
