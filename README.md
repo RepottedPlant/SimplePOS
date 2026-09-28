@@ -2,7 +2,7 @@
 
 Simple POS is a free, lightweight point-of-sale system for pop-ups, small vendors, markets, and events. It runs entirely in the browser, requires no account or backend, and stores your products, orders, sales, and payment details locally on your device.
 
-Made freely available as an open initiative under **Utpatti — The Creative Collective**.
+Made freely available as an open initiative under **Utpatti - The Creative Collective**.
 
 ## Features
 
