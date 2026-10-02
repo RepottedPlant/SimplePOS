@@ -14,7 +14,7 @@
     .app{width:min(1500px,100%);margin:0 auto;padding:16px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px}.brand{min-width:0}.brand-identity{display:flex;align-items:center;min-height:48px}.brand-logo{display:block;max-width:220px;max-height:58px;object-fit:contain;object-position:left center}.brand h1{margin:0;font-size:clamp(25px,3vw,38px);line-height:1;letter-spacing:-.045em;font-weight:900}.brand p{margin:6px 0 0;color:var(--muted);font-size:13px}.nav{display:flex;align-items:center;gap:8px;padding:5px;background:#e9ecf1;border-radius:15px;overflow-x:auto;max-width:100%}.nav-btn{border:0;border-radius:11px;padding:11px 14px;min-height:44px;white-space:nowrap;cursor:pointer;font-weight:800;color:#4b515b;background:transparent}.nav-btn.active{background:#fff;color:var(--accent);box-shadow:0 2px 10px rgba(18,27,44,.08)}.screen{display:none}.screen.active{display:block}.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.section-label{color:var(--muted);font-size:12px;font-weight:900;letter-spacing:.11em;text-transform:uppercase;margin-bottom:10px}.btn{border:0;border-radius:13px;min-height:46px;padding:11px 15px;cursor:pointer;font-weight:850}.btn.primary{background:var(--accent);color:var(--accent-contrast,#fff)}.btn.secondary{background:var(--soft);color:var(--ink)}.btn.outline{background:#fff;color:var(--accent);border:1px solid #bfd0ef}.btn.danger{background:#fff0ef;color:var(--danger)}.btn:disabled{opacity:.45;cursor:not-allowed}
     .pos-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(340px,.72fr);gap:16px;align-items:start}.catalog-panel{padding:14px}.catalog-layout{display:grid;grid-template-columns:170px minmax(0,1fr);gap:14px;align-items:start}.category-nav{display:flex;flex-direction:column;gap:8px}.category-btn{width:100%;border:1px solid var(--line);background:#fff;color:#4e5560;min-height:48px;border-radius:13px;padding:10px 12px;text-align:left;font-weight:800;cursor:pointer}.category-btn.active{background:var(--accent);color:var(--accent-contrast,#fff);border-color:var(--accent)}.product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.product-card{--product-accent:var(--accent);--product-accent-text:var(--accent-contrast,#fff);--product-tint:var(--card);position:relative;border:2px solid var(--product-accent);background:var(--product-tint);color:var(--ink);min-height:140px;border-radius:17px;padding:16px;text-align:left;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;transition:transform .06s ease,border-color .08s ease,background .08s ease}.product-card:active{transform:scale(.985)}.product-card:hover{border-color:var(--product-accent)}.product-name{font-size:clamp(20px,2.5vw,31px);font-weight:900;letter-spacing:-.035em;line-height:1.02;max-width:85%}.product-category{margin-top:7px;color:var(--muted);font-size:12px;font-weight:750}.product-price{margin-top:20px;color:var(--product-accent);font-size:18px;font-weight:900}.qty-badge{position:absolute;right:12px;top:12px;width:36px;height:36px;border-radius:50%;background:var(--product-accent);color:var(--product-accent-text);display:grid;place-items:center;font-size:16px;font-weight:900;transform:scale(0);opacity:0;transition:.12s ease}.qty-badge.visible{transform:scale(1);opacity:1}
     .cart-panel{position:sticky;top:12px;padding:16px;min-height:400px}.order-panel-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}.order-panel-header .section-label{margin-bottom:0}.order-number-pill{border-radius:999px;background:var(--accent-soft);color:var(--accent);padding:8px 12px;font-weight:950;font-size:14px;letter-spacing:.02em;white-space:nowrap}.cart-empty,.empty-state{display:grid;place-items:center;text-align:center;color:var(--muted);padding:26px;min-height:230px}.empty-state.compact{min-height:130px}.cart-empty strong,.empty-state strong{display:block;color:var(--ink);font-size:19px;margin-bottom:6px}.empty-state .btn{margin-top:14px}.cart-list{display:flex;flex-direction:column;gap:9px}.cart-row{display:grid;grid-template-columns:50px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px;border:1px solid var(--line);border-radius:14px;background:#fafbfc}.minus{width:50px;height:50px;border:0;border-radius:12px;background:var(--accent);color:var(--accent-contrast,#fff);cursor:pointer;font-size:30px;line-height:1}.cart-name{font-weight:850;line-height:1.05}.cart-meta{color:var(--muted);margin-top:4px;font-size:12px;font-weight:700}.line-total{white-space:nowrap;font-weight:900}.cart-footer{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}.total-line{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:13px}.total-label{color:var(--muted);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.1em}.total{color:var(--accent);font-size:clamp(34px,4vw,48px);line-height:1;font-weight:950;letter-spacing:-.045em;text-align:right}.cart-actions{display:grid;grid-template-columns:.75fr 1.5fr;gap:9px}.complete-btn{background:var(--accent-2);color:var(--accent-2-contrast,#fff);min-height:59px;font-size:17px}
-    .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin-bottom:12px}.metric-card{padding:18px}.metric-label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.09em;font-weight:900}.metric{margin-top:8px;color:var(--accent);font-size:clamp(30px,5vw,46px);font-weight:950;letter-spacing:-.045em;line-height:1}.sales-section{padding:18px;margin-top:12px}.breakdown{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.break-row{border:1px solid var(--line);border-radius:13px;background:#fafbfc;padding:12px 13px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:800}.break-row small{display:block;color:var(--muted);font-size:11px;font-weight:700;margin-top:3px}.break-count{color:var(--accent);font-weight:950;font-size:19px}.history{display:flex;flex-direction:column;gap:0}.history-row{display:grid;grid-template-columns:74px 72px minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}.history-row:first-child{border-top:0}.history-row.completed{opacity:.72}.history-order-number{color:var(--accent);font-size:18px;font-weight:950;white-space:nowrap}.history-time{color:var(--muted);font-size:12px;font-weight:800}.history-items{font-weight:750;line-height:1.35}.history-total{font-weight:900;white-space:nowrap}.fulfillment-btn{border:0;border-radius:11px;min-height:40px;padding:8px 12px;background:var(--accent);color:var(--accent-contrast,#fff);font-weight:850;cursor:pointer;white-space:nowrap}.fulfillment-btn.completed{background:#e7f6ee;color:var(--success)}.inline-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+    .sales-date-toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;margin-bottom:12px}.sales-date-info{min-width:0}.sales-date-title{font-size:20px;font-weight:950;letter-spacing:-.025em;line-height:1.1}.sales-date-sub{margin-top:4px;color:var(--muted);font-size:12px;font-weight:700}.sales-date-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.sales-date-controls input[type="date"]{width:auto;min-width:165px;min-height:44px;padding:9px 11px;font-weight:800}.sales-date-controls .btn{min-height:44px}.sales-day-nav{min-width:44px;padding:8px 10px;font-size:18px;line-height:1}.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;margin-bottom:12px}.metric-card{padding:18px}.metric-label{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.09em;font-weight:900}.metric{margin-top:8px;color:var(--accent);font-size:clamp(30px,5vw,46px);font-weight:950;letter-spacing:-.045em;line-height:1}.sales-section{padding:18px;margin-top:12px}.breakdown{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.break-row{border:1px solid var(--line);border-radius:13px;background:#fafbfc;padding:12px 13px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-weight:800}.break-row small{display:block;color:var(--muted);font-size:11px;font-weight:700;margin-top:3px}.break-count{color:var(--accent);font-weight:950;font-size:19px}.history{display:flex;flex-direction:column;gap:0}.history-row{display:grid;grid-template-columns:74px 72px minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}.history-row:first-child{border-top:0}.history-row.completed{opacity:.72}.history-order-number{color:var(--accent);font-size:18px;font-weight:950;white-space:nowrap}.history-time{color:var(--muted);font-size:12px;font-weight:800}.history-items{font-weight:750;line-height:1.35}.history-total{font-weight:900;white-space:nowrap}.fulfillment-btn{border:0;border-radius:11px;min-height:40px;padding:8px 12px;background:var(--accent);color:var(--accent-contrast,#fff);font-weight:850;cursor:pointer;white-space:nowrap}.fulfillment-btn.completed{background:#e7f6ee;color:var(--success)}.inline-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
     .payment-page{display:grid;grid-template-columns:minmax(300px,.95fr) minmax(320px,1.05fr);gap:16px;max-width:1050px;margin:0 auto}.payment-hero,.bank-card{padding:26px;min-height:420px}.payment-heading{margin:0;font-size:clamp(28px,5vw,48px);letter-spacing:-.045em;line-height:1}.payment-sub{margin:10px 0 0;color:var(--muted);line-height:1.5}.qr-wrap{min-height:280px;display:grid;place-items:center;margin-top:18px;border-radius:18px;background:#f7f8fa;border:1px dashed #cbd1db;padding:16px}.qr-wrap img{display:block;max-width:min(100%,420px);max-height:420px;border-radius:12px;background:#fff}.bank-list{margin-top:20px;display:flex;flex-direction:column;gap:11px}.bank-row{border-bottom:1px solid var(--line);padding-bottom:11px}.bank-row:last-child{border-bottom:0}.bank-label{color:var(--muted);font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}.bank-value{font-size:18px;font-weight:850;word-break:break-word}.initiative-note{grid-column:1/-1;text-align:center;color:var(--muted);font-size:12px;line-height:1.5;padding:2px 16px 0}.initiative-note strong{color:var(--ink);font-weight:850}
 
     .help-wrap{max-width:1120px;margin:0 auto}.help-hero{padding:28px;margin-bottom:14px;background:linear-gradient(135deg,#fff 0%,#f7faff 100%)}.help-hero h2{margin:0;font-size:clamp(30px,5vw,52px);line-height:1;letter-spacing:-.05em}.help-hero p{max-width:760px;margin:12px 0 0;color:var(--muted);font-size:16px;line-height:1.6}.help-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.help-badge{border-radius:999px;background:var(--accent-soft);color:var(--accent);padding:8px 11px;font-size:12px;font-weight:850}.help-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.help-card{padding:20px}.help-card.wide{grid-column:1/-1}.help-card h3{margin:0 0 8px;font-size:21px;letter-spacing:-.025em}.help-card p{margin:0 0 12px;color:var(--muted);line-height:1.55}.help-card ol,.help-card ul{margin:8px 0 0;padding-left:22px}.help-card li{margin:7px 0;line-height:1.45}.help-card strong{font-weight:850}.help-step{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:start;margin:11px 0}.help-step-number{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--accent-contrast,#fff);font-size:13px;font-weight:900}.help-step-title{font-weight:850;margin-bottom:2px}.help-step-copy{color:var(--muted);font-size:13px;line-height:1.45}.help-code{overflow-x:auto;border:1px solid var(--line);background:#f7f8fa;border-radius:12px;padding:13px 14px;margin:10px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;font-size:12px;line-height:1.55;white-space:pre}.help-callout{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;padding:13px 14px;color:#244678;line-height:1.5}.help-footer{text-align:center;color:var(--muted);font-size:12px;line-height:1.6;padding:22px 12px}.help-footer strong{color:var(--ink)}
@@ -46,7 +46,7 @@
 .settings-card{padding:18px;margin-bottom:14px}.settings-card h2{margin:0 0 6px;font-size:22px;letter-spacing:-.03em}.helper{margin:0 0 14px;color:var(--muted);font-size:13px;line-height:1.45}.field{margin-bottom:12px}.field label{display:block;font-size:12px;font-weight:850;color:#464c56;margin-bottom:6px}.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.product-table{display:flex;flex-direction:column;gap:8px}.product-manage-row{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(110px,.7fr) minmax(100px,.6fr) auto;gap:9px;align-items:center;border:1px solid var(--line);border-radius:13px;padding:10px 11px;background:#fafbfc}.product-manage-name{font-weight:850}.product-manage-meta{color:var(--muted);font-size:12px;font-weight:700}.mini-btn{border:0;border-radius:9px;min-height:38px;padding:8px 11px;cursor:pointer;font-weight:800;background:#eaf0fa;color:var(--accent)}.mini-btn.delete{background:#fff0ef;color:var(--danger)}.mini-btn:disabled{opacity:.35;cursor:not-allowed}.category-order-list{display:flex;flex-direction:column;gap:8px}.category-order-row{display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:13px;padding:10px 11px;background:#fafbfc}.category-order-index{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font-weight:900;font-size:13px}.category-order-name{font-weight:850}.category-order-actions{display:flex;gap:6px}.category-order-actions .mini-btn{min-width:42px;font-size:18px;padding:6px 10px}.drop-zone{border:1px dashed #aeb8c7;background:#fafbfc;border-radius:14px;padding:14px}.drop-zone input{background:#fff}.qr-preview{min-height:130px;display:grid;place-items:center;background:#fafbfc;border:1px dashed #cbd1db;border-radius:13px;margin-top:10px;padding:10px}.qr-preview img{max-width:220px;max-height:220px;display:block;border-radius:8px}.notice{border-radius:13px;padding:12px 13px;background:var(--accent-soft);color:#244678;font-size:13px;line-height:1.45;margin-bottom:14px}.danger-zone{border-color:#f0c4c0}.toast{position:fixed;left:50%;bottom:max(24px,env(safe-area-inset-bottom));transform:translateX(-50%) translateY(18px);opacity:0;pointer-events:none;background:#15171a;color:#fff;padding:12px 17px;border-radius:999px;font-weight:800;z-index:1000;transition:.18s ease;box-shadow:0 12px 30px rgba(0,0,0,.2)}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
     @media(max-width:1000px){.pos-layout{grid-template-columns:minmax(0,1fr) 340px}.catalog-layout{grid-template-columns:140px minmax(0,1fr)}}
     @media(max-width:820px){.app{padding:10px}.topbar{align-items:flex-start;flex-direction:column}.nav{width:100%}.nav-btn{flex:1 0 auto}.pos-layout{grid-template-columns:1fr}.cart-panel{position:static}.catalog-layout{grid-template-columns:1fr}.category-nav{flex-direction:row;overflow-x:auto;padding-bottom:2px}.category-btn{width:auto;min-width:max-content;text-align:center}.payment-page,.settings-grid,.settings-shell{grid-template-columns:1fr}.payment-hero,.bank-card{min-height:auto}.settings-side-nav{position:static;flex-direction:row;overflow-x:auto}.settings-side-title{display:none}.settings-nav-btn{white-space:nowrap;text-align:center;flex:0 0 auto}.appearance-grid{grid-template-columns:1fr}.help-grid{grid-template-columns:1fr}.help-card.wide{grid-column:auto}}
-    @media(max-width:600px){.product-grid{grid-template-columns:1fr 1fr;gap:9px}.product-card{min-height:122px;padding:13px}.product-name{font-size:19px}.product-price{font-size:16px}.metrics{grid-template-columns:1fr 1fr}.breakdown{grid-template-columns:1fr}.field-row{grid-template-columns:1fr}.product-manage-row{grid-template-columns:minmax(0,1fr) auto auto}.product-manage-row .category-col{grid-column:1/-1;grid-row:2}.history-row{grid-template-columns:68px 62px minmax(0,1fr)}.history-total{grid-column:2/3}.fulfillment-btn{grid-column:3;justify-self:end}}
+    @media(max-width:600px){.sales-date-toolbar{align-items:stretch;flex-direction:column}.sales-date-controls{justify-content:flex-start}.sales-date-controls input[type="date"]{flex:1;min-width:150px}.product-grid{grid-template-columns:1fr 1fr;gap:9px}.product-card{min-height:122px;padding:13px}.product-name{font-size:19px}.product-price{font-size:16px}.metrics{grid-template-columns:1fr 1fr}.breakdown{grid-template-columns:1fr}.field-row{grid-template-columns:1fr}.product-manage-row{grid-template-columns:minmax(0,1fr) auto auto}.product-manage-row .category-col{grid-column:1/-1;grid-row:2}.history-row{grid-template-columns:68px 62px minmax(0,1fr)}.history-total{grid-column:2/3}.fulfillment-btn{grid-column:3;justify-self:end}}
     @media(display-mode:standalone){body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}}
 
     /* Semantic appearance tokens. Accent colors come from the selected theme;
@@ -149,15 +149,29 @@
   </section>
 
   <section class="screen" id="screen-sales">
+    <div class="panel sales-date-toolbar">
+      <div class="sales-date-info">
+        <div class="section-label" style="margin-bottom:5px">Sales Date</div>
+        <div class="sales-date-title" id="salesDateTitle">Today</div>
+        <div class="sales-date-sub" id="salesDateSub"></div>
+      </div>
+      <div class="sales-date-controls">
+        <button type="button" class="btn outline sales-day-nav" id="previousSalesDayBtn" aria-label="Previous day">←</button>
+        <input type="date" id="salesDateInput" aria-label="Select sales date">
+        <button type="button" class="btn outline sales-day-nav" id="nextSalesDayBtn" aria-label="Next day">→</button>
+        <button type="button" class="btn secondary" id="todaySalesBtn">Today</button>
+      </div>
+    </div>
+
     <div class="metrics">
-      <div class="panel metric-card"><div class="metric-label">Revenue Today</div><div class="metric" id="revenueMetric">0</div></div>
+      <div class="panel metric-card"><div class="metric-label">Revenue</div><div class="metric" id="revenueMetric">0</div></div>
       <div class="panel metric-card"><div class="metric-label">Orders</div><div class="metric" id="ordersMetric">0</div></div>
       <div class="panel metric-card"><div class="metric-label">Open Orders</div><div class="metric" id="openOrdersMetric">0</div></div>
       <div class="panel metric-card"><div class="metric-label">Items Sold</div><div class="metric" id="itemsMetric">0</div></div>
-      <div class="panel metric-card"><div class="metric-label">Next Order</div><div class="metric" id="nextOrderMetric">#001</div></div>
+      <div class="panel metric-card"><div class="metric-label" id="orderMetricLabel">Next Order</div><div class="metric" id="nextOrderMetric">#001</div></div>
     </div>
-    <div class="panel sales-section"><div class="section-label">Products Sold Today</div><div class="breakdown" id="salesBreakdown"></div><div class="inline-actions"><button class="btn primary" id="exportSalesBtn">Export Today's CSV</button><button class="btn danger" id="resetTodayBtn">Reset Today's Sales</button></div></div>
-    <div class="panel sales-section"><div class="section-label">Orders Today</div><div class="history" id="salesHistory"></div></div>
+    <div class="panel sales-section"><div class="section-label" id="productsSoldLabel">Products Sold Today</div><div class="breakdown" id="salesBreakdown"></div><div class="inline-actions"><button class="btn primary" id="exportSalesBtn">Export Selected Day CSV</button><button class="btn danger" id="resetTodayBtn">Reset Today's Sales</button></div></div>
+    <div class="panel sales-section"><div class="section-label" id="ordersListLabel">Orders Today</div><div class="history" id="salesHistory"></div></div>
   </section>
 
   <section class="screen" id="screen-payment">
@@ -278,9 +292,9 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
         <section class="panel help-card">
           <div class="section-label">Orders & Reporting</div>
           <h3>Sales dashboard</h3>
-          <p>The <strong>Sales</strong> section gives you a quick view of the current day.</p>
+          <p>The <strong>Sales</strong> section opens on the current day by default. Use the calendar or previous/next day controls to review sales from an earlier date.</p>
           <ul>
-            <li>Revenue today</li>
+            <li>Revenue for the selected day</li>
             <li>Total orders and open orders</li>
             <li>Items sold</li>
             <li>Product sales breakdown</li>
@@ -288,7 +302,7 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
             <li>Payment type recorded for each new order</li>
             <li>The next order number</li>
           </ul>
-          <p style="margin-top:12px;">Use <strong>Export Today's CSV</strong> to save a detailed copy of the day's sales, including the date, order number, status, payment type, time, product, category, quantities, prices, totals and currency.</p>
+          <p style="margin-top:12px;">Choose a date and use <strong>Export Selected Day CSV</strong> to save a detailed copy of that day's sales, including the date, order number, status, payment type, time, product, category, quantities, prices, totals and currency.</p>
         </section>
 
         <section class="panel help-card">
@@ -594,6 +608,7 @@ function defaultState(){return{version:7,businessName:"Simple POS",currencyCode:
 function loadState(){try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return defaultState();const parsed=JSON.parse(raw),incomingBrand=parsed.branding||{},branding={...defaultState().branding,...incomingBrand};if(incomingBrand&&Object.keys(incomingBrand).length&&!incomingBrand.theme)branding.theme="custom";if(!["light","dark","system"].includes(branding.mode))branding.mode="light";return{...defaultState(),...parsed,branding,products:Array.isArray(parsed.products)?parsed.products:[],categoryOrder:Array.isArray(parsed.categoryOrder)?parsed.categoryOrder:[],cart:parsed.cart||{},sales:Array.isArray(parsed.sales)?parsed.sales:[],payment:{...defaultState().payment,...(parsed.payment||{})}}}catch(e){return defaultState()}}
 let state=loadState(),activeCategory="ALL",activeSettingsSection="branding";
 let selectedPaymentType="";
+let selectedSalesDay=localDayKey();
 function rawCategories(){return[...new Set(state.products.map(p=>String(p.category||"").trim()).filter(Boolean))]}
 function normalizeCategoryOrder(){const actual=rawCategories(),existing=Array.isArray(state.categoryOrder)?state.categoryOrder:[];const kept=existing.filter((c,i)=>actual.includes(c)&&existing.indexOf(c)===i);const missing=actual.filter(c=>!kept.includes(c)).sort((a,b)=>a.localeCompare(b));state.categoryOrder=[...kept,...missing];return state.categoryOrder}
 function saveState(){normalizeCategoryOrder();localStorage.setItem(STORAGE_KEY,JSON.stringify(state))} function newProductId(){return window.crypto&&crypto.randomUUID?crypto.randomUUID():"p-"+Date.now()+"-"+Math.random().toString(16).slice(2)}
@@ -646,9 +661,15 @@ function selectPaymentType(value){if(!PAYMENT_TYPES.some(x=>x.value===value))ret
 function currencySymbol(){return state.currencyCode==="CUSTOM"?(state.customCurrency.trim()||""):(CURRENCIES[state.currencyCode]?.symbol||state.currencyCode||"")}
 function money(v,symbolOverride=null){const n=Number(v)||0,s=symbolOverride??currencySymbol(),d=Number.isInteger(n)?0:2,f=n.toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:2});return s?`${s} ${f}`:f}
 function localDayKey(date=new Date()){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`}
-function todaySales(){const t=localDayKey();return state.sales.filter(s=>s.day===t)}
+function saleDay(sale){if(sale?.day)return sale.day;const d=sale?.timestamp?new Date(sale.timestamp):null;return d&&!Number.isNaN(d.getTime())?localDayKey(d):""}
+function salesForDay(day=selectedSalesDay){return state.sales.filter(s=>saleDay(s)===day)}
+function todaySales(){return salesForDay(localDayKey())}
+function parseLocalDay(day){const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(String(day||""));if(!m)return null;const d=new Date(Number(m[1]),Number(m[2])-1,Number(m[3]));return Number.isNaN(d.getTime())?null:d}
+function formatSalesDay(day){const d=parseLocalDay(day);return d?d.toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"numeric"}):day}
+function shiftSalesDay(day,amount){const d=parseLocalDay(day)||new Date();d.setDate(d.getDate()+Number(amount||0));return localDayKey(d)}
+function selectSalesDay(day){const today=localDayKey();let next=/^\d{4}-\d{2}-\d{2}$/.test(String(day||""))?String(day):today;if(next>today)next=today;selectedSalesDay=next;renderSales()}
 function formatOrderNumber(n){return String(Math.max(0,Number(n)||0)).padStart(3,"0")}
-function nextOrderNumber(day=localDayKey()){const maxSale=Math.max(0,...state.sales.filter(x=>x.day===day).map(x=>Number(x.orderNumber)||0));return maxSale+1} function categories(){return normalizeCategoryOrder()} function productById(id){return state.products.find(p=>p.id===id)}
+function nextOrderNumber(day=localDayKey()){const maxSale=Math.max(0,...state.sales.filter(x=>saleDay(x)===day).map(x=>Number(x.orderNumber)||0));return maxSale+1} function categories(){return normalizeCategoryOrder()} function productById(id){return state.products.find(p=>p.id===id)}
 function cartEntries(){return state.products.map(p=>({...p,qty:state.cart[p.id]||0})).filter(i=>i.qty>0)} function cartTotal(){return cartEntries().reduce((s,i)=>s+i.price*i.qty,0)} function cartItemCount(){return cartEntries().reduce((s,i)=>s+i.qty,0)}
 function showToast(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("show");clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.remove("show"),1600)}
 function showScreen(name){if(name!=="settings")applyBranding();document.querySelectorAll(".screen").forEach(e=>e.classList.remove("active"));document.getElementById(`screen-${name}`).classList.add("active");document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.screen===name));if(name==="sales")renderSales();if(name==="payment")renderPaymentDisplay();if(name==="settings"){renderSettings();showSettingsSection(activeSettingsSection)}window.scrollTo({top:0,behavior:"smooth"})}
@@ -720,25 +741,112 @@ function renderCart(){
 function renderPos(){renderCategories();renderProducts();renderCart()} function addItem(id){if(!productById(id))return;state.cart[id]=(state.cart[id]||0)+1;saveState();renderPos()} function removeItem(id){const q=state.cart[id]||0;if(q<=1)delete state.cart[id];else state.cart[id]=q-1;saveState();renderPos()} function clearOrder(){if(!Object.keys(state.cart).length||!confirm("Clear this order?"))return;state.cart={};saveState();renderPos()}
 function completeSale(){const e=cartEntries();if(!e.length)return;if(!selectedPaymentType){alert("Select a payment type before placing the order.");return}const n=new Date(),day=localDayKey(n),orderNumber=nextOrderNumber(day);state.sales.push({orderNumber,status:"open",completedAt:null,paymentType:selectedPaymentType,timestamp:n.toISOString(),day,currencyCode:state.currencyCode,currencySymbol:currencySymbol(),items:e.map(i=>({id:i.id,name:i.name,category:i.category,price:i.price,qty:i.qty})),total:cartTotal()});state.cart={};selectedPaymentType="";saveState();renderAll();showToast(`Order #${formatOrderNumber(orderNumber)} placed`)}
 function renderSales(){
-  const s=todaySales(),rev=s.reduce((a,x)=>a+Number(x.total||0),0),count=s.reduce((a,x)=>a+(x.items||[]).reduce((z,i)=>z+Number(i.qty||0),0),0),openCount=s.filter(x=>x.status!=="completed").length;
+  const day=selectedSalesDay||localDayKey(),today=localDayKey(),isToday=day===today,s=salesForDay(day),
+    rev=s.reduce((a,x)=>a+Number(x.total||0),0),
+    count=s.reduce((a,x)=>a+(x.items||[]).reduce((z,i)=>z+Number(i.qty||0),0),0),
+    openCount=s.filter(x=>x.status!=="completed").length;
+
+  const dateInput=document.getElementById("salesDateInput");
+  dateInput.value=day;
+  dateInput.max=today;
+  document.getElementById("salesDateTitle").textContent=isToday?"Today":formatSalesDay(day);
+  document.getElementById("salesDateSub").textContent=isToday?formatSalesDay(day):`${s.length} order${s.length===1?"":"s"} recorded`;
+  document.getElementById("nextSalesDayBtn").disabled=day>=today;
+  document.getElementById("todaySalesBtn").disabled=isToday;
+
   document.getElementById("revenueMetric").textContent=money(rev);
   document.getElementById("ordersMetric").textContent=s.length.toLocaleString();
   document.getElementById("openOrdersMetric").textContent=openCount.toLocaleString();
   document.getElementById("itemsMetric").textContent=count.toLocaleString();
-  document.getElementById("nextOrderMetric").textContent=`#${formatOrderNumber(nextOrderNumber())}`;
+
+  document.getElementById("orderMetricLabel").textContent=isToday?"Next Order":"Last Order";
+  if(isToday){
+    document.getElementById("nextOrderMetric").textContent=`#${formatOrderNumber(nextOrderNumber(day))}`;
+  }else{
+    const last=Math.max(0,...s.map(x=>Number(x.orderNumber)||0));
+    document.getElementById("nextOrderMetric").textContent=last?`#${formatOrderNumber(last)}`:"—";
+  }
+
+  document.getElementById("productsSoldLabel").textContent=isToday?"Products Sold Today":"Products Sold";
+  document.getElementById("ordersListLabel").textContent=isToday?"Orders Today":"Orders";
+  document.getElementById("resetTodayBtn").style.display=isToday?"inline-block":"none";
+
   const map=new Map();
-  s.forEach(x=>(x.items||[]).forEach(i=>{const k=`${i.id||i.name}|||${i.name}|||${i.category||"Uncategorized"}`;map.set(k,(map.get(k)||0)+Number(i.qty||0))}));
-  const rows=[...map.entries()].map(([k,c])=>{const[,name,category]=k.split("|||");return{name,category,count:c}}).sort((a,b)=>b.count-a.count||a.name.localeCompare(b.name));
-  document.getElementById("salesBreakdown").innerHTML=rows.length?rows.map(r=>`<div class="break-row"><div>${esc(r.name)}<small>${esc(r.category)}</small></div><span class="break-count">${r.count}</span></div>`).join(""):`<div class="empty-state compact" style="grid-column:1/-1">No sales today.</div>`;
-  const h=[...s].sort((a,b)=>{const ad=a.status==="completed",bd=b.status==="completed";if(ad!==bd)return ad?1:-1;return new Date(b.timestamp)-new Date(a.timestamp)}).slice(0,50);
+  s.forEach(x=>(x.items||[]).forEach(i=>{
+    const k=`${i.id||i.name}|||${i.name}|||${i.category||"Uncategorized"}`;
+    map.set(k,(map.get(k)||0)+Number(i.qty||0));
+  }));
+  const rows=[...map.entries()]
+    .map(([k,c])=>{const[,name,category]=k.split("|||");return{name,category,count:c}})
+    .sort((a,b)=>b.count-a.count||a.name.localeCompare(b.name));
+
+  document.getElementById("salesBreakdown").innerHTML=rows.length
+    ?rows.map(r=>`<div class="break-row"><div>${esc(r.name)}<small>${esc(r.category)}</small></div><span class="break-count">${r.count}</span></div>`).join("")
+    :`<div class="empty-state compact" style="grid-column:1/-1">No sales recorded for ${esc(formatSalesDay(day))}.</div>`;
+
+  const h=[...s].sort((a,b)=>{
+    const ad=a.status==="completed",bd=b.status==="completed";
+    if(ad!==bd)return ad?1:-1;
+    return new Date(b.timestamp)-new Date(a.timestamp);
+  }).slice(0,50);
+
   const mount=document.getElementById("salesHistory");
-  mount.innerHTML=h.length?h.map(x=>{const time=new Date(x.timestamp).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),items=(x.items||[]).map(i=>`${i.qty}× ${esc(i.name)}`).join(", "),done=x.status==="completed",paymentLabel=x.paymentType?paymentTypeLabel(x.paymentType):"Payment not recorded";return`<div class="history-row ${done?"completed":""}"><div class="history-order-number">#${formatOrderNumber(x.orderNumber)}</div><div class="history-time">${time}</div><div class="history-items">${items}<div class="history-payment">${esc(paymentLabel)}</div></div><div class="history-total">${money(x.total,x.currencySymbol||currencySymbol())}</div><button class="fulfillment-btn ${done?"completed":""}" data-order-day="${x.day}" data-order-number="${x.orderNumber}">${done?"Completed ✓":"Complete"}</button></div>`}).join(""):`<div class="empty-state compact">No orders today.</div>`;
-  mount.querySelectorAll("[data-order-day][data-order-number]").forEach(btn=>btn.addEventListener("click",()=>toggleOrderCompleted(btn.dataset.orderDay,Number(btn.dataset.orderNumber))));
+  mount.innerHTML=h.length?h.map(x=>{
+    const time=new Date(x.timestamp).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),
+      items=(x.items||[]).map(i=>`${i.qty}× ${esc(i.name)}`).join(", "),
+      done=x.status==="completed",
+      paymentLabel=x.paymentType?paymentTypeLabel(x.paymentType):"Payment not recorded",
+      orderDay=saleDay(x);
+    return`<div class="history-row ${done?"completed":""}">
+      <div class="history-order-number">#${formatOrderNumber(x.orderNumber)}</div>
+      <div class="history-time">${time}</div>
+      <div class="history-items">${items}<div class="history-payment">${esc(paymentLabel)}</div></div>
+      <div class="history-total">${money(x.total,x.currencySymbol||currencySymbol())}</div>
+      <button class="fulfillment-btn ${done?"completed":""}" data-order-day="${orderDay}" data-order-number="${x.orderNumber}">${done?"Completed ✓":"Complete"}</button>
+    </div>`;
+  }).join(""):`<div class="empty-state compact">No orders recorded for ${esc(formatSalesDay(day))}.</div>`;
+
+  mount.querySelectorAll("[data-order-day][data-order-number]").forEach(btn=>
+    btn.addEventListener("click",()=>toggleOrderCompleted(btn.dataset.orderDay,Number(btn.dataset.orderNumber)))
+  );
 }
-function toggleOrderCompleted(day,orderNumber){const order=state.sales.find(x=>x.day===day&&Number(x.orderNumber)===Number(orderNumber));if(!order)return;const completed=order.status==="completed";order.status=completed?"open":"completed";order.completedAt=completed?null:new Date().toISOString();saveState();renderSales();showToast(completed?`Order #${formatOrderNumber(order.orderNumber)} reopened`:`Order #${formatOrderNumber(order.orderNumber)} completed`)}
+function toggleOrderCompleted(day,orderNumber){const order=state.sales.find(x=>saleDay(x)===day&&Number(x.orderNumber)===Number(orderNumber));if(!order)return;const completed=order.status==="completed";order.status=completed?"open":"completed";order.completedAt=completed?null:new Date().toISOString();saveState();renderSales();showToast(completed?`Order #${formatOrderNumber(order.orderNumber)} reopened`:`Order #${formatOrderNumber(order.orderNumber)} completed`)}
 function csvCell(v){return`"${String(v??"").replaceAll('"','""')}"`} function downloadTextFile(c,n,t){const b=new Blob([c],{type:t}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=n;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(u)}
-function exportTodayCSV(){const s=todaySales();if(!s.length){alert("There are no sales to export yet.");return}const rows=[["Date","Order Number","Status","Payment Type","Time","Product","Category","Quantity","Unit Price","Line Total","Order Total","Currency"]];s.forEach(x=>{const d=new Date(x.timestamp),date=x.day||localDayKey(d),time=d.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),payment=x.paymentType?paymentTypeLabel(x.paymentType):"";(x.items||[]).forEach(i=>rows.push([date,`#${formatOrderNumber(x.orderNumber)}`,x.status==="completed"?"Completed":"Open",payment,time,i.name,i.category||"",i.qty,i.price,Number(i.qty)*Number(i.price),x.total,x.currencyCode||state.currencyCode]))});rows.push([], ["SUMMARY"],["Orders",s.length],["Open orders",s.filter(x=>x.status!=="completed").length],["Revenue",s.reduce((a,x)=>a+Number(x.total||0),0)],["Items sold",s.reduce((a,x)=>a+(x.items||[]).reduce((z,i)=>z+Number(i.qty||0),0),0)]);downloadTextFile(rows.map(r=>r.map(csvCell).join(",")).join("\n"),`pos-sales-${localDayKey()}.csv`,"text/csv;charset=utf-8;")}
-function resetToday(){const s=todaySales();if(!s.length){alert("There are no sales to reset today.");return}if(prompt("Type RESET to delete today's sales and restart today's order numbers.")!=="RESET")return;const t=localDayKey();state.sales=state.sales.filter(x=>x.day!==t);saveState();renderAll();showToast("Today's sales and order numbers reset")}
+function exportTodayCSV(){
+  const day=selectedSalesDay||localDayKey(),s=salesForDay(day);
+  if(!s.length){alert(`There are no sales to export for ${formatSalesDay(day)}.`);return}
+  const rows=[["Date","Order Number","Status","Payment Type","Time","Product","Category","Quantity","Unit Price","Line Total","Order Total","Currency"]];
+  s.forEach(x=>{
+    const d=new Date(x.timestamp),date=saleDay(x)||day,
+      time=d.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),
+      payment=x.paymentType?paymentTypeLabel(x.paymentType):"";
+    (x.items||[]).forEach(i=>rows.push([
+      date,
+      `#${formatOrderNumber(x.orderNumber)}`,
+      x.status==="completed"?"Completed":"Open",
+      payment,
+      time,
+      i.name,
+      i.category||"",
+      i.qty,
+      i.price,
+      Number(i.qty)*Number(i.price),
+      x.total,
+      x.currencyCode||state.currencyCode
+    ]));
+  });
+  rows.push(
+    [],
+    ["SUMMARY"],
+    ["Date",day],
+    ["Orders",s.length],
+    ["Open orders",s.filter(x=>x.status!=="completed").length],
+    ["Revenue",s.reduce((a,x)=>a+Number(x.total||0),0)],
+    ["Items sold",s.reduce((a,x)=>a+(x.items||[]).reduce((z,i)=>z+Number(i.qty||0),0),0)]
+  );
+  downloadTextFile(rows.map(r=>r.map(csvCell).join(",")).join("\n"),`pos-sales-${day}.csv`,"text/csv;charset=utf-8;");
+}
+function resetToday(){const t=localDayKey(),s=salesForDay(t);if(!s.length){alert("There are no sales to reset today.");return}if(prompt("Type RESET to delete today's sales and restart today's order numbers.")!=="RESET")return;state.sales=state.sales.filter(x=>saleDay(x)!==t);saveState();renderAll();showToast("Today's sales and order numbers reset")}
 function renderPaymentDisplay(){document.getElementById("paymentBusinessName").textContent=state.businessName||"Payment";document.getElementById("paymentQr").innerHTML=state.payment.qrDataUrl?`<img src="${state.payment.qrDataUrl}" alt="Payment QR code">`:`<div class="empty-state compact"><div><strong>No QR code added</strong>Add one in Customize → Payment Details.</div></div>`;const f=[["Bank",state.payment.bankName],["Account name",state.payment.accountName],["Account number",state.payment.accountNumber],["Branch",state.payment.branch],["Tranfer Note/Instructions",state.payment.notes]].filter(([,v])=>String(v||"").trim());document.getElementById("bankDetailsDisplay").innerHTML=f.length?f.map(([l,v])=>`<div class="bank-row"><div class="bank-label">${esc(l)}</div><div class="bank-value">${esc(v)}</div></div>`).join(""):`<div class="empty-state compact"><div><strong>No bank details added</strong>Add them in Customize → Payment Details.</div></div>`}
 function renderSettings(){
   document.getElementById("businessNameInput").value=state.businessName||"";
@@ -1030,7 +1138,7 @@ document.getElementById("logoInput").addEventListener("change",handleLogoUpload)
 document.getElementById("exportConfigBtn").addEventListener("click",exportConfig);
 document.getElementById("importConfigBtn").addEventListener("click",importConfig);
 document.getElementById("useProductColorCheckbox").addEventListener("change",e=>document.getElementById("productColorField").classList.toggle("visible",e.target.checked));
-document.querySelectorAll(".nav-btn").forEach(b=>b.addEventListener("click",()=>showScreen(b.dataset.screen)));document.getElementById("currencySelect").addEventListener("change",e=>document.getElementById("customCurrencyField").style.display=e.target.value==="CUSTOM"?"block":"none");document.getElementById("saveGeneralBtn").addEventListener("click",saveGeneralSettings);document.getElementById("saveProductBtn").addEventListener("click",saveProduct);document.getElementById("cancelProductEditBtn").addEventListener("click",resetProductForm);document.getElementById("importCsvBtn").addEventListener("click",importCSV);document.getElementById("downloadTemplateBtn").addEventListener("click",downloadCsvTemplate);document.getElementById("qrInput").addEventListener("change",handleQrUpload);document.getElementById("savePaymentBtn").addEventListener("click",savePaymentSettings);document.getElementById("exportSalesBtn").addEventListener("click",exportTodayCSV);document.getElementById("resetTodayBtn").addEventListener("click",resetToday);document.getElementById("resetAppBtn").addEventListener("click",resetEntireApp);renderAll();
+document.querySelectorAll(".nav-btn").forEach(b=>b.addEventListener("click",()=>showScreen(b.dataset.screen)));document.getElementById("currencySelect").addEventListener("change",e=>document.getElementById("customCurrencyField").style.display=e.target.value==="CUSTOM"?"block":"none");document.getElementById("saveGeneralBtn").addEventListener("click",saveGeneralSettings);document.getElementById("saveProductBtn").addEventListener("click",saveProduct);document.getElementById("cancelProductEditBtn").addEventListener("click",resetProductForm);document.getElementById("importCsvBtn").addEventListener("click",importCSV);document.getElementById("downloadTemplateBtn").addEventListener("click",downloadCsvTemplate);document.getElementById("qrInput").addEventListener("change",handleQrUpload);document.getElementById("savePaymentBtn").addEventListener("click",savePaymentSettings);document.getElementById("previousSalesDayBtn").addEventListener("click",()=>selectSalesDay(shiftSalesDay(selectedSalesDay,-1)));document.getElementById("nextSalesDayBtn").addEventListener("click",()=>selectSalesDay(shiftSalesDay(selectedSalesDay,1)));document.getElementById("todaySalesBtn").addEventListener("click",()=>selectSalesDay(localDayKey()));document.getElementById("salesDateInput").addEventListener("change",e=>selectSalesDay(e.target.value));document.getElementById("exportSalesBtn").addEventListener("click",exportTodayCSV);document.getElementById("resetTodayBtn").addEventListener("click",resetToday);document.getElementById("resetAppBtn").addEventListener("click",resetEntireApp);renderAll();
 </script>
 </body>
 </html>
