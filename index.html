@@ -119,14 +119,14 @@
     .announcement-point p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}
     .announcement-warning{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 14px 14px 0;padding:13px 14px;font-size:13px;line-height:1.5}
     .announcement-actions{display:grid;grid-template-columns:1fr 1.35fr;gap:9px;margin-top:18px}
-    .whats-new-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
-    .whats-new-pill{border:1px solid var(--line);background:var(--surface-2);color:var(--muted);border-radius:999px;padding:5px 9px;font-size:11px;font-weight:850}
-    .whats-new-list{display:flex;flex-direction:column;gap:9px;margin:18px 0 0;padding:0;list-style:none}
-    .whats-new-item{position:relative;border:1px solid var(--line);border-radius:14px;background:var(--surface-2);padding:12px 13px 12px 38px;line-height:1.45}
-    .whats-new-item::before{content:"✓";position:absolute;left:13px;top:12px;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--accent-contrast,#fff);font-size:11px;font-weight:950}
-    .whats-new-item strong{display:block;font-size:14px}
-    .whats-new-item span{display:block;color:var(--muted);font-size:12px;margin-top:2px}
-    .announcement-error{color:var(--muted);font-size:12px;margin-top:10px}
+    .updates-history{margin-top:18px;max-height:min(430px,52dvh);overflow-y:auto;padding-right:5px}
+    .update-entry{padding:0 0 18px;margin:0 0 18px;border-bottom:1px solid var(--line)}
+    .update-entry:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+    .update-entry-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:9px}
+    .update-version{font-size:18px;font-weight:950;letter-spacing:-.02em}
+    .update-date{color:var(--muted);font-size:12px;font-weight:750}
+    .update-list{margin:0;padding-left:21px}
+    .update-list li{margin:7px 0;line-height:1.45;color:var(--ink)}
     body.modal-open{overflow:hidden}
     @media(max-width:560px){.announcement-card{padding:20px;border-radius:20px}.announcement-actions{grid-template-columns:1fr}}
 
@@ -757,15 +757,10 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
   <div class="announcement-backdrop" aria-hidden="true"></div>
   <section class="announcement-card" role="dialog" aria-modal="true" aria-labelledby="whatsNewTitle">
     <div class="announcement-kicker">What's New</div>
-    <h2 class="announcement-title" id="whatsNewTitle">Simple POS has been updated</h2>
-    <p class="announcement-intro" id="whatsNewSummary"></p>
+    <h2 class="announcement-title" id="whatsNewTitle">Simple POS updates</h2>
+    <p class="announcement-intro">New features and improvements available in this version.</p>
 
-    <div class="whats-new-meta">
-      <span class="whats-new-pill" id="whatsNewDate"></span>
-      <span class="whats-new-pill" id="whatsNewCount"></span>
-    </div>
-
-    <ul class="whats-new-list" id="whatsNewChanges"></ul>
+    <div class="updates-history" id="updatesHistory"></div>
 
     <div class="announcement-actions" style="grid-template-columns:1fr;">
       <button type="button" class="btn primary" id="whatsNewDismissBtn">Got it</button>
@@ -1342,10 +1337,15 @@ function finishWelcome(destination="settings"){
   }
 }
 
+function latestUpdateVersion(data){
+  return String(data?.latestVersion||data?.latest||"");
+}
+
 function resolveLatestUpdate(data){
   if(!data||!Array.isArray(data.updates)||!data.updates.length)return null;
-  if(data.latest){
-    const exact=data.updates.find(x=>String(x?.id)===String(data.latest));
+  const latestVersion=latestUpdateVersion(data);
+  if(latestVersion){
+    const exact=data.updates.find(x=>String(x?.version||x?.id||"")===latestVersion);
     if(exact)return exact;
   }
   return data.updates[0]||null;
@@ -1355,7 +1355,7 @@ function formatUpdateDate(value){
   if(!value)return"";
   const d=new Date(`${value}T00:00:00`);
   if(Number.isNaN(d.getTime()))return String(value);
-  return d.toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"});
+  return d.toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"});
 }
 
 async function loadUpdatesFile(){
@@ -1372,19 +1372,38 @@ async function loadUpdatesFile(){
   }
 }
 
-function openWhatsNewModal(update){
-  if(!update)return;
-  activeWhatsNewId=String(update.id||"");
-  document.getElementById("whatsNewTitle").textContent=update.title||"Simple POS has been updated";
-  document.getElementById("whatsNewSummary").textContent=update.summary||"There are new improvements available.";
-  document.getElementById("whatsNewDate").textContent=formatUpdateDate(update.date);
-  const changes=Array.isArray(update.changes)?update.changes:[];
-  document.getElementById("whatsNewCount").textContent=`${changes.length} update${changes.length===1?"":"s"}`;
-  document.getElementById("whatsNewChanges").innerHTML=changes.map(change=>{
-    const title=typeof change==="string"?change:(change?.title||"Update");
-    const detail=typeof change==="string"?"":(change?.detail||"");
-    return `<li class="whats-new-item"><strong>${esc(title)}</strong>${detail?`<span>${esc(detail)}</span>`:""}</li>`;
+function normalizeUpdateChange(change){
+  if(typeof change==="string")return change;
+  if(change&&typeof change==="object"){
+    const title=String(change.title||"").trim();
+    const detail=String(change.detail||"").trim();
+    if(title&&detail)return `${title} — ${detail}`;
+    return title||detail;
+  }
+  return"";
+}
+
+function openWhatsNewModal(data){
+  if(!data||!Array.isArray(data.updates)||!data.updates.length)return;
+  activeWhatsNewId=latestUpdateVersion(data);
+
+  const history=document.getElementById("updatesHistory");
+  history.innerHTML=data.updates.map(update=>{
+    const version=String(update.version||update.id||"Update");
+    const date=formatUpdateDate(update.date);
+    const changes=(Array.isArray(update.changes)?update.changes:[])
+      .map(normalizeUpdateChange)
+      .filter(Boolean);
+
+    return `<section class="update-entry">
+      <div class="update-entry-heading">
+        <div class="update-version">Version ${esc(version)}</div>
+        ${date?`<div class="update-date">${esc(date)}</div>`:""}
+      </div>
+      <ul class="update-list">${changes.map(change=>`<li>${esc(change)}</li>`).join("")}</ul>
+    </section>`;
   }).join("");
+
   setModalOpen(document.getElementById("whatsNewModal"),true);
   setTimeout(()=>document.getElementById("whatsNewDismissBtn")?.focus(),0);
 }
@@ -1407,16 +1426,17 @@ async function initializeAnnouncements(){
 
   const data=await loadUpdatesFile();
   const latest=resolveLatestUpdate(data);
-  if(!latest)return;
+  const latestVersion=latestUpdateVersion(data);
+  if(!latest||!latestVersion)return;
 
   if(isFirstTimeUser){
     // Do not immediately show release notes after onboarding.
-    markUpdateSeen(latest.id);
+    markUpdateSeen(latestVersion);
     return;
   }
 
   const lastSeen=safeLocalStorageGet(LAST_SEEN_UPDATE_KEY);
-  if(String(lastSeen||"")!==String(latest.id||""))openWhatsNewModal(latest);
+  if(String(lastSeen||"")!==latestVersion)openWhatsNewModal(data);
 }
 
 function renderBrand(){
