@@ -1,0 +1,83 @@
+{
+  "format": "simple-pos-updates",
+  "schemaVersion": 1,
+  "latest": "2026-10-02",
+  "updates": [
+    {
+      "id": "2026-10-02",
+      "date": "2026-10-02",
+      "title": "More useful sales tracking",
+      "summary": "You can now keep better track of how customers paid, look back at earlier sales days, and get clearer guidance when using Simple POS.",
+      "changes": [
+        {
+          "title": "View sales from previous days",
+          "detail": "Open Sales and use the calendar or day controls to review sales from any earlier date stored on this device."
+        },
+        {
+          "title": "Export sales for any saved day",
+          "detail": "Choose a date in Sales and export that day's orders as a CSV, even if you forgot to export it on the day."
+        },
+        {
+          "title": "Record how each customer paid",
+          "detail": "Orders can now be marked as Cash, Card, Bank Transfer or QR Payment before they are placed."
+        },
+        {
+          "title": "See payment types in your sales records",
+          "detail": "Payment methods are shown alongside orders and included in sales CSV exports for new orders."
+        },
+        {
+          "title": "A clearer first-time setup",
+          "detail": "New users now get a short welcome explaining how Simple POS works and where their data is stored."
+        },
+        {
+          "title": "What's New announcements",
+          "detail": "After future updates, Simple POS can show a short summary of new features the first time you open the updated version."
+        },
+        {
+          "title": "Friendlier How to Use guide",
+          "detail": "The built-in guide has been rewritten and expanded to make setup, daily use, backups and device use easier to understand."
+        }
+      ]
+    },
+    {
+      "id": "2026-09-28",
+      "date": "2026-09-28",
+      "title": "Customize Simple POS for your business",
+      "summary": "Simple POS gained more ways to set up your products, branding and payment information, along with tools for moving your setup between devices.",
+      "changes": [
+        {
+          "title": "Themes and dark mode",
+          "detail": "Choose a ready-made theme, use Light or Dark mode, or let Simple POS follow your device appearance."
+        },
+        {
+          "title": "Custom brand colors and logo",
+          "detail": "Use your own primary and secondary brand colors and upload a logo for the POS header."
+        },
+        {
+          "title": "Product accent colors and menu notes",
+          "detail": "Give individual products their own highlight color and add short labels such as Today's Special, New or Best Seller."
+        },
+        {
+          "title": "Reorder product categories",
+          "detail": "Choose the order categories appear in the POS while keeping All Products at the top."
+        },
+        {
+          "title": "Import products from CSV",
+          "detail": "Add or update a larger product list using a CSV file instead of entering every product manually."
+        },
+        {
+          "title": "Save payment details",
+          "detail": "Add a customer-facing QR code and bank transfer information that can be shown from the Payment page."
+        },
+        {
+          "title": "Move your POS setup between devices",
+          "detail": "Export your products and settings as a JSON configuration file and import them into another Simple POS installation."
+        },
+        {
+          "title": "Built-in How to Use guide",
+          "detail": "Simple POS now includes its own guide covering setup, products, payments, backups and everyday use."
+        }
+      ]
+    }
+  ]
+}

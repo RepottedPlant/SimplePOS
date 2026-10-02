@@ -104,6 +104,32 @@
     .payment-type-btn.selected{background:var(--accent);border-color:var(--accent);color:var(--accent-contrast,#fff);box-shadow:0 0 0 3px var(--focus-ring)}
     .history-payment{display:inline-flex;margin:5px 0 0 8px;border:1px solid var(--line);border-radius:999px;background:var(--surface-2);color:var(--muted);padding:3px 7px;font-size:10px;font-weight:850;line-height:1.2;vertical-align:middle}
 
+
+    .announcement-modal[hidden]{display:none}
+    .announcement-modal{position:fixed;inset:0;z-index:2200;display:grid;place-items:center;padding:20px}
+    .announcement-backdrop{position:absolute;inset:0;background:rgba(8,12,20,.62);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+    .announcement-card{position:relative;width:min(640px,100%);max-height:min(800px,calc(100dvh - 40px));overflow:auto;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:24px;box-shadow:0 24px 70px rgba(0,0,0,.28);padding:26px}
+    .announcement-kicker{color:var(--accent-text);font-size:12px;font-weight:950;letter-spacing:.12em;text-transform:uppercase;margin-bottom:9px}
+    .announcement-title{margin:0;font-size:clamp(30px,6vw,46px);line-height:1;letter-spacing:-.05em}
+    .announcement-intro{margin:12px 0 0;color:var(--muted);font-size:15px;line-height:1.55}
+    .announcement-points{display:grid;gap:10px;margin:20px 0}
+    .announcement-point{display:grid;grid-template-columns:38px minmax(0,1fr);gap:11px;align-items:start;padding:13px;border:1px solid var(--line);border-radius:15px;background:var(--surface-2)}
+    .announcement-icon{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-text);font-weight:950}
+    .announcement-point strong{display:block;margin-bottom:3px;font-size:14px}
+    .announcement-point p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}
+    .announcement-warning{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 14px 14px 0;padding:13px 14px;font-size:13px;line-height:1.5}
+    .announcement-actions{display:grid;grid-template-columns:1fr 1.35fr;gap:9px;margin-top:18px}
+    .whats-new-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+    .whats-new-pill{border:1px solid var(--line);background:var(--surface-2);color:var(--muted);border-radius:999px;padding:5px 9px;font-size:11px;font-weight:850}
+    .whats-new-list{display:flex;flex-direction:column;gap:9px;margin:18px 0 0;padding:0;list-style:none}
+    .whats-new-item{position:relative;border:1px solid var(--line);border-radius:14px;background:var(--surface-2);padding:12px 13px 12px 38px;line-height:1.45}
+    .whats-new-item::before{content:"✓";position:absolute;left:13px;top:12px;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--accent-contrast,#fff);font-size:11px;font-weight:950}
+    .whats-new-item strong{display:block;font-size:14px}
+    .whats-new-item span{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+    .announcement-error{color:var(--muted);font-size:12px;margin-top:10px}
+    body.modal-open{overflow:hidden}
+    @media(max-width:560px){.announcement-card{padding:20px;border-radius:20px}.announcement-actions{grid-template-columns:1fr}}
+
     .appearance-mode{display:flex;gap:7px;padding:5px;background:var(--soft);border-radius:13px;width:max-content;max-width:100%;margin-top:8px}
     .mode-btn{border:0;background:transparent;color:var(--muted);border-radius:9px;min-height:40px;padding:8px 13px;font-weight:850;cursor:pointer;white-space:nowrap}
     .mode-btn.selected{background:var(--card);color:var(--accent-text);box-shadow:0 2px 8px rgba(0,0,0,.08)}
@@ -695,9 +721,67 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
     </div>
   </section>
 </main>
+
+<div class="announcement-modal" id="welcomeModal" hidden aria-hidden="true">
+  <div class="announcement-backdrop" aria-hidden="true"></div>
+  <section class="announcement-card" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+    <div class="announcement-kicker">Welcome to Simple POS</div>
+    <h2 class="announcement-title" id="welcomeTitle">Your POS lives on this device.</h2>
+    <p class="announcement-intro">Simple POS is designed to stay lightweight. There is no account, cloud database or automatic sync — your products, sales and settings are stored in this browser on this device.</p>
+
+    <div class="announcement-points">
+      <div class="announcement-point">
+        <div class="announcement-icon">1</div>
+        <div><strong>Set it up once</strong><p>Add your products, categories, branding and payment information from <strong>Customize</strong>.</p></div>
+      </div>
+      <div class="announcement-point">
+        <div class="announcement-icon">2</div>
+        <div><strong>Your data stays local</strong><p>Closing or refreshing the page normally will not remove your data, but another device or browser will have its own separate Simple POS data.</p></div>
+      </div>
+      <div class="announcement-point">
+        <div class="announcement-icon">3</div>
+        <div><strong>Back up what matters</strong><p>Export sales CSVs for your records and use the JSON configuration export when you want to move your POS setup to another device.</p></div>
+      </div>
+    </div>
+
+    <div class="announcement-warning"><strong>Important:</strong> clearing this browser's site data can remove your locally stored Simple POS data. There is currently no automatic cloud backup.</div>
+
+    <div class="announcement-actions">
+      <button type="button" class="btn secondary" id="welcomeHelpBtn">View How to Use</button>
+      <button type="button" class="btn primary" id="welcomeStartBtn">Start Setting Up</button>
+    </div>
+  </section>
+</div>
+
+<div class="announcement-modal" id="whatsNewModal" hidden aria-hidden="true">
+  <div class="announcement-backdrop" aria-hidden="true"></div>
+  <section class="announcement-card" role="dialog" aria-modal="true" aria-labelledby="whatsNewTitle">
+    <div class="announcement-kicker">What's New</div>
+    <h2 class="announcement-title" id="whatsNewTitle">Simple POS has been updated</h2>
+    <p class="announcement-intro" id="whatsNewSummary"></p>
+
+    <div class="whats-new-meta">
+      <span class="whats-new-pill" id="whatsNewDate"></span>
+      <span class="whats-new-pill" id="whatsNewCount"></span>
+    </div>
+
+    <ul class="whats-new-list" id="whatsNewChanges"></ul>
+
+    <div class="announcement-actions" style="grid-template-columns:1fr;">
+      <button type="button" class="btn primary" id="whatsNewDismissBtn">Got it</button>
+    </div>
+  </section>
+</div>
+
 <div class="toast" id="toast"></div>
 <script>
 const STORAGE_KEY="simple_pos_v1";
+const FIRST_RUN_SEEN_KEY="simple_pos_first_run_seen";
+const LAST_SEEN_UPDATE_KEY="simple_pos_last_seen_update";
+const UPDATES_URL="./updates.json";
+function safeLocalStorageGet(key){try{return localStorage.getItem(key)}catch(e){return null}}
+function safeLocalStorageSet(key,value){try{localStorage.setItem(key,value);return true}catch(e){return false}}
+const HAD_EXISTING_POS_STATE=safeLocalStorageGet(STORAGE_KEY)!==null;
 const CONFIG_FORMAT="simple-pos-config";
 const CONFIG_VERSION=1;
 const CURRENCIES={LKR:{symbol:"Rs"},USD:{symbol:"$"},EUR:{symbol:"€"},GBP:{symbol:"£"},AUD:{symbol:"A$"},CAD:{symbol:"C$"},INR:{symbol:"₹"},SGD:{symbol:"S$"},AED:{symbol:"AED"},JPY:{symbol:"¥"}};
@@ -1223,6 +1307,118 @@ async function handleQrUpload(){const f=document.getElementById("qrInput").files
 function renderPaymentSettings(){document.getElementById("bankNameInput").value=state.payment.bankName||"";document.getElementById("accountNameInput").value=state.payment.accountName||"";document.getElementById("accountNumberInput").value=state.payment.accountNumber||"";document.getElementById("branchInput").value=state.payment.branch||"";document.getElementById("paymentNotesInput").value=state.payment.notes||"";document.getElementById("qrPreview").innerHTML=state.payment.qrDataUrl?`<img src="${state.payment.qrDataUrl}" alt="Current payment QR code">`:`<span style="color:var(--muted);font-size:13px">No QR code uploaded</span>`;document.getElementById("qrActions").innerHTML=state.payment.qrDataUrl?`<button class="btn danger" id="removeQrBtn">Remove QR Code</button>`:"";const r=document.getElementById("removeQrBtn");if(r)r.addEventListener("click",()=>{if(!confirm("Remove the payment QR code?"))return;state.payment.qrDataUrl="";document.getElementById("qrInput").value="";saveState();renderPaymentSettings();renderPaymentDisplay();showToast("QR code removed")})}
 function savePaymentSettings(){state.payment.bankName=document.getElementById("bankNameInput").value.trim();state.payment.accountName=document.getElementById("accountNameInput").value.trim();state.payment.accountNumber=document.getElementById("accountNumberInput").value.trim();state.payment.branch=document.getElementById("branchInput").value.trim();state.payment.notes=document.getElementById("paymentNotesInput").value.trim();saveState();renderPaymentDisplay();showToast("Payment details saved")}
 function resetEntireApp(){if(prompt("This deletes products, settings, payment details, cart and sales history from this browser. Type RESET ALL to continue.")!=="RESET ALL")return;localStorage.removeItem(STORAGE_KEY);state=defaultState();activeCategory="ALL";selectedPaymentType="";resetProductForm();saveState();renderAll();showScreen("settings");showToast("POS reset")}
+
+let loadedUpdatesData=null;
+let activeWhatsNewId="";
+
+function setModalOpen(modal,open){
+  if(!modal)return;
+  modal.hidden=!open;
+  modal.setAttribute("aria-hidden",open?"false":"true");
+  const anyOpen=[document.getElementById("welcomeModal"),document.getElementById("whatsNewModal")].some(x=>x&&!x.hidden);
+  document.body.classList.toggle("modal-open",anyOpen);
+}
+
+function markFirstRunSeen(){safeLocalStorageSet(FIRST_RUN_SEEN_KEY,"1")}
+function markUpdateSeen(updateId){if(updateId)safeLocalStorageSet(LAST_SEEN_UPDATE_KEY,String(updateId))}
+
+function openWelcomeModal(){
+  setModalOpen(document.getElementById("welcomeModal"),true);
+  setTimeout(()=>document.getElementById("welcomeStartBtn")?.focus(),0);
+}
+function closeWelcomeModal(){
+  setModalOpen(document.getElementById("welcomeModal"),false);
+}
+
+function finishWelcome(destination="settings"){
+  markFirstRunSeen();
+  closeWelcomeModal();
+  if(destination==="help"){
+    showScreen("help");
+  }else{
+    activeSettingsSection="branding";
+    showScreen("settings");
+    showSettingsSection("branding");
+  }
+}
+
+function resolveLatestUpdate(data){
+  if(!data||!Array.isArray(data.updates)||!data.updates.length)return null;
+  if(data.latest){
+    const exact=data.updates.find(x=>String(x?.id)===String(data.latest));
+    if(exact)return exact;
+  }
+  return data.updates[0]||null;
+}
+
+function formatUpdateDate(value){
+  if(!value)return"";
+  const d=new Date(`${value}T00:00:00`);
+  if(Number.isNaN(d.getTime()))return String(value);
+  return d.toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"});
+}
+
+async function loadUpdatesFile(){
+  try{
+    const response=await fetch(UPDATES_URL,{cache:"no-store"});
+    if(!response.ok)throw new Error(`HTTP ${response.status}`);
+    const data=await response.json();
+    if(!data||data.format!=="simple-pos-updates"||!Array.isArray(data.updates))throw new Error("Invalid updates file");
+    loadedUpdatesData=data;
+    return data;
+  }catch(error){
+    console.warn("Simple POS could not load updates.json:",error);
+    return null;
+  }
+}
+
+function openWhatsNewModal(update){
+  if(!update)return;
+  activeWhatsNewId=String(update.id||"");
+  document.getElementById("whatsNewTitle").textContent=update.title||"Simple POS has been updated";
+  document.getElementById("whatsNewSummary").textContent=update.summary||"There are new improvements available.";
+  document.getElementById("whatsNewDate").textContent=formatUpdateDate(update.date);
+  const changes=Array.isArray(update.changes)?update.changes:[];
+  document.getElementById("whatsNewCount").textContent=`${changes.length} update${changes.length===1?"":"s"}`;
+  document.getElementById("whatsNewChanges").innerHTML=changes.map(change=>{
+    const title=typeof change==="string"?change:(change?.title||"Update");
+    const detail=typeof change==="string"?"":(change?.detail||"");
+    return `<li class="whats-new-item"><strong>${esc(title)}</strong>${detail?`<span>${esc(detail)}</span>`:""}</li>`;
+  }).join("");
+  setModalOpen(document.getElementById("whatsNewModal"),true);
+  setTimeout(()=>document.getElementById("whatsNewDismissBtn")?.focus(),0);
+}
+
+function dismissWhatsNew(){
+  markUpdateSeen(activeWhatsNewId);
+  setModalOpen(document.getElementById("whatsNewModal"),false);
+  activeWhatsNewId="";
+}
+
+async function initializeAnnouncements(){
+  const firstRunAlreadySeen=safeLocalStorageGet(FIRST_RUN_SEEN_KEY)==="1";
+  const isFirstTimeUser=!HAD_EXISTING_POS_STATE&&!firstRunAlreadySeen;
+
+  // Existing users should not suddenly receive the first-time onboarding modal.
+  if(HAD_EXISTING_POS_STATE&&!firstRunAlreadySeen)markFirstRunSeen();
+
+  // Brand-new users see onboarding immediately.
+  if(isFirstTimeUser)openWelcomeModal();
+
+  const data=await loadUpdatesFile();
+  const latest=resolveLatestUpdate(data);
+  if(!latest)return;
+
+  if(isFirstTimeUser){
+    // Do not immediately show release notes after onboarding.
+    markUpdateSeen(latest.id);
+    return;
+  }
+
+  const lastSeen=safeLocalStorageGet(LAST_SEEN_UPDATE_KEY);
+  if(String(lastSeen||"")!==String(latest.id||""))openWhatsNewModal(latest);
+}
+
 function renderBrand(){
   const n=state.businessName||"Simple POS",logo=document.getElementById("brandLogo"),text=document.getElementById("brandText"),name=document.getElementById("brandName");
   name.textContent=n;
@@ -1241,7 +1437,12 @@ document.getElementById("logoInput").addEventListener("change",handleLogoUpload)
 document.getElementById("exportConfigBtn").addEventListener("click",exportConfig);
 document.getElementById("importConfigBtn").addEventListener("click",importConfig);
 document.getElementById("useProductColorCheckbox").addEventListener("change",e=>document.getElementById("productColorField").classList.toggle("visible",e.target.checked));
-document.querySelectorAll(".nav-btn").forEach(b=>b.addEventListener("click",()=>showScreen(b.dataset.screen)));document.getElementById("currencySelect").addEventListener("change",e=>document.getElementById("customCurrencyField").style.display=e.target.value==="CUSTOM"?"block":"none");document.getElementById("saveGeneralBtn").addEventListener("click",saveGeneralSettings);document.getElementById("saveProductBtn").addEventListener("click",saveProduct);document.getElementById("cancelProductEditBtn").addEventListener("click",resetProductForm);document.getElementById("importCsvBtn").addEventListener("click",importCSV);document.getElementById("downloadTemplateBtn").addEventListener("click",downloadCsvTemplate);document.getElementById("qrInput").addEventListener("change",handleQrUpload);document.getElementById("savePaymentBtn").addEventListener("click",savePaymentSettings);document.getElementById("previousSalesDayBtn").addEventListener("click",()=>selectSalesDay(shiftSalesDay(selectedSalesDay,-1)));document.getElementById("nextSalesDayBtn").addEventListener("click",()=>selectSalesDay(shiftSalesDay(selectedSalesDay,1)));document.getElementById("todaySalesBtn").addEventListener("click",()=>selectSalesDay(localDayKey()));document.getElementById("salesDateInput").addEventListener("change",e=>selectSalesDay(e.target.value));document.getElementById("exportSalesBtn").addEventListener("click",exportTodayCSV);document.getElementById("resetTodayBtn").addEventListener("click",resetToday);document.getElementById("resetAppBtn").addEventListener("click",resetEntireApp);renderAll();
+document.querySelectorAll(".nav-btn").forEach(b=>b.addEventListener("click",()=>showScreen(b.dataset.screen)));document.getElementById("currencySelect").addEventListener("change",e=>document.getElementById("customCurrencyField").style.display=e.target.value==="CUSTOM"?"block":"none");document.getElementById("saveGeneralBtn").addEventListener("click",saveGeneralSettings);document.getElementById("saveProductBtn").addEventListener("click",saveProduct);document.getElementById("cancelProductEditBtn").addEventListener("click",resetProductForm);document.getElementById("importCsvBtn").addEventListener("click",importCSV);document.getElementById("downloadTemplateBtn").addEventListener("click",downloadCsvTemplate);document.getElementById("qrInput").addEventListener("change",handleQrUpload);document.getElementById("savePaymentBtn").addEventListener("click",savePaymentSettings);document.getElementById("previousSalesDayBtn").addEventListener("click",()=>selectSalesDay(shiftSalesDay(selectedSalesDay,-1)));document.getElementById("nextSalesDayBtn").addEventListener("click",()=>selectSalesDay(shiftSalesDay(selectedSalesDay,1)));document.getElementById("todaySalesBtn").addEventListener("click",()=>selectSalesDay(localDayKey()));document.getElementById("salesDateInput").addEventListener("change",e=>selectSalesDay(e.target.value));document.getElementById("exportSalesBtn").addEventListener("click",exportTodayCSV);document.getElementById("resetTodayBtn").addEventListener("click",resetToday);document.getElementById("resetAppBtn").addEventListener("click",resetEntireApp);
+document.getElementById("welcomeStartBtn").addEventListener("click",()=>finishWelcome("settings"));
+document.getElementById("welcomeHelpBtn").addEventListener("click",()=>finishWelcome("help"));
+document.getElementById("whatsNewDismissBtn").addEventListener("click",dismissWhatsNew);
+renderAll();
+initializeAnnouncements();
 </script>
 </body>
 </html>
