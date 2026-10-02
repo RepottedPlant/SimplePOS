@@ -494,7 +494,18 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
           </div>
         </section>
 
-        <section class="panel help-card wide">
+        <section class="panel help-card">
+          <div class="section-label">Updates</div>
+          <h3>See what's new in Simple POS</h3>
+
+          <p>Want to see what has changed? Open the update history to read about new features and improvements added to the Simple POS version.</p>
+
+          <div class="inline-actions" style="margin-top:14px;">
+            <button type="button" class="btn primary" id="openWhatsNewHistoryBtn">View What's New</button>
+          </div>
+        </section>
+
+        <section class="panel help-card">
           <div class="section-label">Need Help?</div>
           <h3>Get in touch</h3>
 
@@ -758,7 +769,7 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
   <section class="announcement-card" role="dialog" aria-modal="true" aria-labelledby="whatsNewTitle">
     <div class="announcement-kicker">What's New</div>
     <h2 class="announcement-title" id="whatsNewTitle">Simple POS updates</h2>
-    <p class="announcement-intro">New features and improvements available in this version.</p>
+    <p class="announcement-intro">New features and improvements available in this prototype.</p>
 
     <div class="updates-history" id="updatesHistory"></div>
 
@@ -773,6 +784,7 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
 const STORAGE_KEY="simple_pos_v1";
 const FIRST_RUN_SEEN_KEY="simple_pos_first_run_seen";
 const LAST_SEEN_UPDATE_KEY="simple_pos_last_seen_update";
+const UPDATES_CACHE_KEY="simple_pos_updates_cache";
 const UPDATES_URL="./updates.json";
 function safeLocalStorageGet(key){try{return localStorage.getItem(key)}catch(e){return null}}
 function safeLocalStorageSet(key,value){try{localStorage.setItem(key,value);return true}catch(e){return false}}
@@ -1358,16 +1370,44 @@ function formatUpdateDate(value){
   return d.toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"});
 }
 
+function validUpdatesData(data){
+  return !!(data&&data.format==="simple-pos-updates"&&Array.isArray(data.updates));
+}
+
+function readCachedUpdates(){
+  try{
+    const raw=safeLocalStorageGet(UPDATES_CACHE_KEY);
+    if(!raw)return null;
+    const data=JSON.parse(raw);
+    return validUpdatesData(data)?data:null;
+  }catch(error){
+    console.warn("Simple POS could not read the cached update history:",error);
+    return null;
+  }
+}
+
+function cacheUpdates(data){
+  if(!validUpdatesData(data))return;
+  safeLocalStorageSet(UPDATES_CACHE_KEY,JSON.stringify(data));
+}
+
 async function loadUpdatesFile(){
   try{
     const response=await fetch(UPDATES_URL,{cache:"no-store"});
     if(!response.ok)throw new Error(`HTTP ${response.status}`);
     const data=await response.json();
-    if(!data||data.format!=="simple-pos-updates"||!Array.isArray(data.updates))throw new Error("Invalid updates file");
+    if(!validUpdatesData(data))throw new Error("Invalid updates file");
     loadedUpdatesData=data;
+    cacheUpdates(data);
     return data;
   }catch(error){
-    console.warn("Simple POS could not load updates.json:",error);
+    const cached=readCachedUpdates();
+    if(cached){
+      console.warn("Simple POS could not load updates.json; using the last saved update history.",error);
+      loadedUpdatesData=cached;
+      return cached;
+    }
+    console.warn("Simple POS could not load updates.json and no saved update history is available yet.",error);
     return null;
   }
 }
@@ -1412,6 +1452,15 @@ function dismissWhatsNew(){
   markUpdateSeen(activeWhatsNewId);
   setModalOpen(document.getElementById("whatsNewModal"),false);
   activeWhatsNewId="";
+}
+
+async function showWhatsNewHistory(){
+  const data=loadedUpdatesData||await loadUpdatesFile();
+  if(!data||!Array.isArray(data.updates)||!data.updates.length){
+    alert("The update history has not been saved on this device yet. Open Simple POS once while online, then it will remain available offline.");
+    return;
+  }
+  openWhatsNewModal(data);
 }
 
 async function initializeAnnouncements(){
@@ -1461,6 +1510,7 @@ document.querySelectorAll(".nav-btn").forEach(b=>b.addEventListener("click",()=>
 document.getElementById("welcomeStartBtn").addEventListener("click",()=>finishWelcome("settings"));
 document.getElementById("welcomeHelpBtn").addEventListener("click",()=>finishWelcome("help"));
 document.getElementById("whatsNewDismissBtn").addEventListener("click",dismissWhatsNew);
+document.getElementById("openWhatsNewHistoryBtn").addEventListener("click",showWhatsNewHistory);
 renderAll();
 initializeAnnouncements();
 </script>
