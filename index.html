@@ -92,6 +92,18 @@
     .theme-option-name{font-weight:900;font-size:14px}.theme-option-sub{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.3}
     .theme-swatches{display:flex;gap:6px;margin-top:10px}.theme-swatch{width:28px;height:12px;border-radius:999px;border:1px solid var(--line)}
     .theme-swatch.custom{background:linear-gradient(90deg,#ef4444,#f59e0b,#22c55e,#3b82f6,#8b5cf6)}
+    
+    .payment-type-block{margin:14px 0 12px}
+    .payment-type-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+    .payment-type-label{color:var(--muted);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.09em}
+    .payment-type-hint{color:var(--muted);font-size:11px;font-weight:700}
+    .payment-type-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .payment-type-btn{min-height:46px;border:1px solid var(--line);border-radius:12px;background:var(--surface-2);color:var(--ink);font-weight:850;cursor:pointer;padding:9px 10px;transition:transform .06s ease,border-color .1s ease,background .1s ease}
+    .payment-type-btn:active{transform:scale(.985)}
+    .payment-type-btn:hover{border-color:var(--accent)}
+    .payment-type-btn.selected{background:var(--accent);border-color:var(--accent);color:var(--accent-contrast,#fff);box-shadow:0 0 0 3px var(--focus-ring)}
+    .history-payment{display:inline-flex;margin-top:5px;border:1px solid var(--line);border-radius:999px;background:var(--surface-2);color:var(--muted);padding:3px 7px;font-size:10px;font-weight:850;line-height:1.2}
+
     .appearance-mode{display:flex;gap:7px;padding:5px;background:var(--soft);border-radius:13px;width:max-content;max-width:100%;margin-top:8px}
     .mode-btn{border:0;background:transparent;color:var(--muted);border-radius:9px;min-height:40px;padding:8px 13px;font-weight:850;cursor:pointer;white-space:nowrap}
     .mode-btn.selected{background:var(--card);color:var(--accent-text);box-shadow:0 2px 8px rgba(0,0,0,.08)}
@@ -168,7 +180,7 @@
           <span class="help-badge">No account</span>
           <span class="help-badge">No backend</span>
           <span class="help-badge">Local browser storage</span>
-          <span class="help-badge">CSV import & export</span>
+          <span class="help-badge">Themes & dark mode</span>
         </div>
       </section>
 
@@ -179,7 +191,7 @@
 
           <div class="help-step"><div class="help-step-number">1</div><div><div class="help-step-title">Open Customize</div><div class="help-step-copy">This is where you configure the POS. If someone has already prepared a Simple POS config for you, import the <code>.json</code> file under <strong>General & Branding → Configuration Backup & Transfer</strong> to skip most manual setup.</div></div></div>
           <div class="help-step"><div class="help-step-number">2</div><div><div class="help-step-title">Set your business name and currency</div><div class="help-step-copy">Under <strong>General & Branding</strong>, choose your business name and one of the built-in currencies or enter a custom currency label.</div></div></div>
-          <div class="help-step"><div class="help-step-number">3</div><div><div class="help-step-title">Add your branding</div><div class="help-step-copy">Optionally upload a logo, choose a ready-made theme or set your own primary and secondary brand colors. You can also choose Light, Dark mode.</div></div></div>
+          <div class="help-step"><div class="help-step-number">3</div><div><div class="help-step-title">Add your branding</div><div class="help-step-copy">Optionally upload a logo, choose a ready-made theme or set your own primary and secondary brand colors. You can also choose Light, Dark or System appearance.</div></div></div>
           <div class="help-step"><div class="help-step-number">4</div><div><div class="help-step-title">Add your products</div><div class="help-step-copy">Under <strong>Products & Categories</strong>, add products individually or import them from a CSV file.</div></div></div>
           <div class="help-step"><div class="help-step-number">5</div><div><div class="help-step-title">Arrange categories and product highlights</div><div class="help-step-copy">Set the category order and optionally give individual products their own accent color or short menu note.</div></div></div>
           <div class="help-step"><div class="help-step-number">6</div><div><div class="help-step-title">Add payment details</div><div class="help-step-copy">Under <strong>Payment Information</strong>, upload a payment QR code and add bank transfer details if you need them.</div></div></div>
@@ -212,6 +224,7 @@
             <li>Tap a product to add it to the current order. Tap it again to increase the quantity.</li>
             <li>If you add an item accidentally, use the <strong>−</strong> button beside that item.</li>
             <li>Check the order total and the displayed order number.</li>
+            <li>Select the payment type: <strong>Cash</strong>, <strong>Card</strong>, <strong>Bank Transfer</strong> or <strong>QR Payment</strong>.</li>
             <li>Tap <strong>Place Order</strong>.</li>
             <li>Use the order number to call the customer when their order is ready.</li>
             <li>Open <strong>Sales</strong> and tap <strong>Complete</strong> when the order has been handed over or fulfilled.</li>
@@ -272,9 +285,10 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
             <li>Items sold</li>
             <li>Product sales breakdown</li>
             <li>Order numbers and completion status</li>
+            <li>Payment type recorded for each new order</li>
             <li>The next order number</li>
           </ul>
-          <p style="margin-top:12px;">Use <strong>Export Today's CSV</strong> to save a detailed copy of the day's sales, including the date, order number, status, time, product, category, quantities, prices, totals and currency.</p>
+          <p style="margin-top:12px;">Use <strong>Export Today's CSV</strong> to save a detailed copy of the day's sales, including the date, order number, status, payment type, time, product, category, quantities, prices, totals and currency.</p>
         </section>
 
         <section class="panel help-card">
@@ -338,7 +352,7 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
           </div>
         </section>
 
-         <section class="panel help-card wide">
+      <section class="panel help-card wide">
           <div class="section-label">Contact Info</div>
           <h3>How to get in touch</h3>
           <p>If you have any questions or need assistance, please fill out this <a href="https://forms.gle/SgRjAVxy77unUVJP8">Google Form</a> and I will get back to you as soon as possible.</p>
@@ -373,11 +387,11 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
             <h2>General</h2>
             <p class="helper">Set the business name and choose how prices are displayed.</p>
             <div class="field-row">
-              <div class="field"><label for="businessNameInput">Business / POS name</label><input id="businessNameInput" maxlength="60" placeholder="My Store"></div>
+            <div class="field"><label for="businessNameInput">Business / POS name</label><input id="businessNameInput" maxlength="60" placeholder="My Store"></div>
             </div>
             <div class="field-row">
-              <div class="field"><label for="currencySelect">Currency</label><select id="currencySelect"><option value="LKR">Sri Lankan Rupee — Rs</option><option value="USD">US Dollar — $</option><option value="EUR">Euro — €</option><option value="GBP">British Pound — £</option><option value="AUD">Australian Dollar — A$</option><option value="CAD">Canadian Dollar — C$</option><option value="INR">Indian Rupee — ₹</option><option value="SGD">Singapore Dollar — S$</option><option value="AED">UAE Dirham — AED</option><option value="JPY">Japanese Yen — ¥</option><option value="CUSTOM">Custom currency</option></select></div>
-              <div class="field" id="customCurrencyField" style="display:none"><label for="customCurrencyInput">Custom currency label</label><input id="customCurrencyInput" maxlength="8" placeholder="e.g. Rf"></div>
+            <div class="field"><label for="currencySelect">Currency</label><select id="currencySelect"><option value="LKR">Sri Lankan Rupee — Rs</option><option value="USD">US Dollar — $</option><option value="EUR">Euro — €</option><option value="GBP">British Pound — £</option><option value="AUD">Australian Dollar — A$</option><option value="CAD">Canadian Dollar — C$</option><option value="INR">Indian Rupee — ₹</option><option value="SGD">Singapore Dollar — S$</option><option value="AED">UAE Dirham — AED</option><option value="JPY">Japanese Yen — ¥</option><option value="CUSTOM">Custom currency</option></select></div>
+            <div class="field" id="customCurrencyField" style="display:none"><label for="customCurrencyInput">Custom currency label</label><input id="customCurrencyInput" maxlength="8" placeholder="e.g. Rf"></div>
             </div>
             <button class="btn primary" id="saveGeneralBtn">Save General Settings</button>
           </section>
@@ -386,13 +400,13 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
             <h2>Brand Logo</h2>
             <p class="helper">Upload a logo to replace the text business name in the header. <strong>Horizontal or wordmark logos work best.</strong> Aim for roughly a <strong>4:1 aspect ratio</strong> (for example, 800 × 200 px). A transparent PNG is recommended; square or tall logos will appear smaller in the header.</p>
             <div class="field-row">
-              <div class="field">
-                <label for="logoInput">Logo image</label>
-                <input type="file" id="logoInput" accept="image/*">
+            <div class="field">
+              <label for="logoInput">Logo image</label>
+              <input type="file" id="logoInput" accept="image/*">
               </div>
             </div>
-            <div class="logo-preview" id="logoPreview"></div>
-            <div class="inline-actions" id="logoActions"></div>
+              <div class="logo-preview" id="logoPreview"></div>
+              <div class="inline-actions" id="logoActions"></div>
           </section>
           <section class="panel settings-card">
             <h2>Theme & Appearance</h2>
@@ -483,86 +497,24 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
             <h2>Add / Edit Product</h2>
             <p class="helper">Categories come directly from your products. A category disappears automatically when no products use it.</p>
             <input type="hidden" id="editingProductId">
+            <div class="field"><label for="productNameInput">Product name</label><input id="productNameInput" maxlength="80" placeholder="Product name"></div>
             <div class="field-row">
-              <div class="field">
-                <label for="productNameInput">Product name</label>
-                <input
-                  id="productNameInput"
-                  maxlength="80"
-                  placeholder="Product name"
-                >
-              </div>
-
-              <div class="field">
-                <label for="productPriceInput">Price</label>
-                <input
-                  id="productPriceInput"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  inputmode="decimal"
-                  placeholder="0.00"
-                >
-              </div>
+              <div class="field"><label for="productPriceInput">Price</label><input id="productPriceInput" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></div>
+              <div class="field"><label for="productCategoryInput">Category</label><input id="productCategoryInput" maxlength="50" list="categorySuggestions" placeholder="e.g. Clothing"><datalist id="categorySuggestions"></datalist></div>
             </div>
-
-            <div class="field-row">
-              <div class="field">
-                <label for="productCategoryInput">Category</label>
-                <input
-                  id="productCategoryInput"
-                  maxlength="50"
-                  list="categorySuggestions"
-                  placeholder="e.g. Clothing"
-                >
-                <datalist id="categorySuggestions"></datalist>
-              </div>
-
-              <div class="field">
-                <label for="productNoteInput">
-                  Menu note
-                  <span style="font-weight:650;color:var(--muted)">
-                    (optional)
-                  </span>
-                </label>
-
-                <input
-                  id="productNoteInput"
-                  maxlength="50"
-                  placeholder="e.g. Today's Special"
-                >
-
-                <div class="helper" style="margin:6px 0 0;">
-                  A short label shown on the product card using that product's accent color.
-                </div>
-              </div>
-            </div>
-
             <div class="field">
               <label>Product accent</label>
-
               <div class="product-color-options">
-                <label>
-                  <input
-                    type="checkbox"
-                    id="useProductColorCheckbox"
-                  >
-                  Use a custom accent color for this product
-                </label>
-
-                <div
-                  class="product-color-field"
-                  id="productColorField"
-                >
-                  <input
-                    class="color-input"
-                    id="productColorInput"
-                    type="color"
-                    value="#ff5a2f"
-                    aria-label="Product accent color"
-                  >
+                <label><input type="checkbox" id="useProductColorCheckbox"> Use a custom accent color for this product</label>
+                <div class="product-color-field" id="productColorField">
+                  <input class="color-input" id="productColorInput" type="color" value="#ff5a2f" aria-label="Product accent color">
                 </div>
               </div>
+            </div>
+            <div class="field">
+              <label for="productNoteInput">Menu note <span style="font-weight:650;color:var(--muted)">(optional)</span></label>
+              <input id="productNoteInput" maxlength="50" placeholder="e.g. Today's Special">
+              <div class="helper" style="margin:6px 0 0;">A short label shown on the product card using that product's accent color.</div>
             </div>
             <div class="inline-actions"><button class="btn primary" id="saveProductBtn">Add Product</button><button class="btn secondary" id="cancelProductEditBtn" style="display:none">Cancel Edit</button></div>
           </section>
@@ -632,9 +584,16 @@ const STORAGE_KEY="simple_pos_v1";
 const CONFIG_FORMAT="simple-pos-config";
 const CONFIG_VERSION=1;
 const CURRENCIES={LKR:{symbol:"Rs"},USD:{symbol:"$"},EUR:{symbol:"€"},GBP:{symbol:"£"},AUD:{symbol:"A$"},CAD:{symbol:"C$"},INR:{symbol:"₹"},SGD:{symbol:"S$"},AED:{symbol:"AED"},JPY:{symbol:"¥"}};
+const PAYMENT_TYPES=[
+  {value:"cash",label:"Cash"},
+  {value:"card",label:"Card"},
+  {value:"bank_transfer",label:"Bank Transfer"},
+  {value:"qr",label:"QR Payment"}
+];
 function defaultState(){return{version:7,businessName:"Simple POS",currencyCode:"LKR",customCurrency:"",branding:{logoDataUrl:"",theme:"classic",mode:"light",primary:"#1f4b99",secondary:"#2f6bd2"},products:[],categoryOrder:[],cart:{},sales:[],payment:{qrDataUrl:"",bankName:"",accountName:"",accountNumber:"",branch:"",notes:""}}}
 function loadState(){try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return defaultState();const parsed=JSON.parse(raw),incomingBrand=parsed.branding||{},branding={...defaultState().branding,...incomingBrand};if(incomingBrand&&Object.keys(incomingBrand).length&&!incomingBrand.theme)branding.theme="custom";if(!["light","dark","system"].includes(branding.mode))branding.mode="light";return{...defaultState(),...parsed,branding,products:Array.isArray(parsed.products)?parsed.products:[],categoryOrder:Array.isArray(parsed.categoryOrder)?parsed.categoryOrder:[],cart:parsed.cart||{},sales:Array.isArray(parsed.sales)?parsed.sales:[],payment:{...defaultState().payment,...(parsed.payment||{})}}}catch(e){return defaultState()}}
 let state=loadState(),activeCategory="ALL",activeSettingsSection="branding";
+let selectedPaymentType="";
 function rawCategories(){return[...new Set(state.products.map(p=>String(p.category||"").trim()).filter(Boolean))]}
 function normalizeCategoryOrder(){const actual=rawCategories(),existing=Array.isArray(state.categoryOrder)?state.categoryOrder:[];const kept=existing.filter((c,i)=>actual.includes(c)&&existing.indexOf(c)===i);const missing=actual.filter(c=>!kept.includes(c)).sort((a,b)=>a.localeCompare(b));state.categoryOrder=[...kept,...missing];return state.categoryOrder}
 function saveState(){normalizeCategoryOrder();localStorage.setItem(STORAGE_KEY,JSON.stringify(state))} function newProductId(){return window.crypto&&crypto.randomUUID?crypto.randomUUID():"p-"+Date.now()+"-"+Math.random().toString(16).slice(2)}
@@ -679,9 +638,11 @@ function applyBranding(branding=state.branding){
 }
 function productVisuals(product){
   const styles=getComputedStyle(document.documentElement),surface=normalizeHex(styles.getPropertyValue("--card").trim(),"#FFFFFF"),brandAccent=normalizeHex(styles.getPropertyValue("--accent").trim(),"#1F4B99"),accent=isHexColor(product.color)?normalizeHex(product.color):brandAccent;
-  return{accent,readable:ensureTextContrast(accent,surface),text:contrastText(accent),tint:isHexColor(product.color)?mixHex(accent,surface,.98):surface}
+  return{accent,readable:ensureTextContrast(accent,surface),text:contrastText(accent),tint:isHexColor(product.color)?mixHex(accent,surface,.94):surface}
 }
 
+function paymentTypeLabel(value){const found=PAYMENT_TYPES.find(x=>x.value===value);return found?found.label:(value?String(value):"Not recorded")}
+function selectPaymentType(value){if(!PAYMENT_TYPES.some(x=>x.value===value))return;selectedPaymentType=value;renderCart()}
 function currencySymbol(){return state.currencyCode==="CUSTOM"?(state.customCurrency.trim()||""):(CURRENCIES[state.currencyCode]?.symbol||state.currencyCode||"")}
 function money(v,symbolOverride=null){const n=Number(v)||0,s=symbolOverride??currencySymbol(),d=Number.isInteger(n)?0:2,f=n.toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:2});return s?`${s} ${f}`:f}
 function localDayKey(date=new Date()){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`}
@@ -694,9 +655,70 @@ function showScreen(name){if(name!=="settings")applyBranding();document.querySel
 function showSettingsSection(name){activeSettingsSection=name;document.querySelectorAll(".settings-subscreen").forEach(e=>e.classList.toggle("active",e.id===`settings-${name}`));document.querySelectorAll(".settings-nav-btn").forEach(b=>b.classList.toggle("active",b.dataset.settingsSection===name));}
 function renderCategories(){const nav=document.getElementById("categoryNav"),cats=categories();if(activeCategory!=="ALL"&&!cats.includes(activeCategory))activeCategory="ALL";nav.innerHTML=[`<button class="category-btn ${activeCategory==="ALL"?"active":""}" data-cat="ALL">All Products</button>`,...cats.map(c=>`<button class="category-btn ${activeCategory===c?"active":""}" data-cat="${encodeURIComponent(c)}">${esc(c)}</button>`)].join("");nav.querySelectorAll("[data-cat]").forEach(b=>b.addEventListener("click",()=>{activeCategory=b.dataset.cat==="ALL"?"ALL":decodeURIComponent(b.dataset.cat);renderPos()}))}
 function renderProducts(){const g=document.getElementById("productGrid");document.getElementById("productSectionLabel").textContent=activeCategory==="ALL"?"All Products":activeCategory;const visible=activeCategory==="ALL"?state.products:state.products.filter(p=>p.category===activeCategory);if(!state.products.length){g.innerHTML=`<div class="empty-state" style="grid-column:1/-1"><div><strong>No products yet</strong>Add products in Customize or import them from a CSV.<br><button class="btn primary" id="emptyCustomizeBtn">Open Customize</button></div></div>`;document.getElementById("emptyCustomizeBtn").addEventListener("click",()=>showScreen("settings"));return}if(!visible.length){g.innerHTML=`<div class="empty-state compact" style="grid-column:1/-1">No products in this category.</div>`;return}g.innerHTML=visible.map(p=>{const q=state.cart[p.id]||0,v=productVisuals(p);return`<button class="product-card" data-add="${p.id}" style="--product-accent:${v.accent};--product-accent-readable:${v.readable};--product-accent-text:${v.text};--product-tint:${v.tint}"><span class="qty-badge ${q?"visible":""}">${q}</span><div><div class="product-name">${esc(p.name)}</div><div class="product-category">${esc(p.category)}</div></div><div class="product-price">${money(p.price)}</div>${p.note?`<div class="product-note">${esc(p.note)}</div>`:""}</button>`}).join("");g.querySelectorAll("[data-add]").forEach(b=>b.addEventListener("click",()=>addItem(b.dataset.add)))}
-function renderCart(){document.getElementById("currentOrderNumber").textContent=`Order #${formatOrderNumber(nextOrderNumber())}`;const m=document.getElementById("cartContent"),e=cartEntries();if(!e.length){m.innerHTML=`<div class="cart-empty"><div><strong>No items yet</strong>Tap a product to start the order.</div></div><div class="cart-footer"><div class="total-line"><div><div class="total-label">Total</div></div><div class="total">${money(0)}</div></div><div class="cart-actions"><button class="btn secondary" disabled>Clear</button><button class="btn complete-btn" disabled>Place Order</button></div></div>`;return}m.innerHTML=`<div class="cart-list">${e.map(i=>`<div class="cart-row"><button class="minus" data-remove="${i.id}">−</button><div><div class="cart-name">${esc(i.name)}</div><div class="cart-meta">${i.qty} × ${money(i.price)}</div></div><div class="line-total">${money(i.qty*i.price)}</div></div>`).join("")}</div><div class="cart-footer"><div class="total-line"><div><div class="total-label">${cartItemCount()} item${cartItemCount()===1?"":"s"}</div></div><div class="total">${money(cartTotal())}</div></div><div class="cart-actions"><button class="btn secondary" id="clearOrderBtn">Clear</button><button class="btn complete-btn" id="completeSaleBtn">Place Order</button></div></div>`;m.querySelectorAll("[data-remove]").forEach(b=>b.addEventListener("click",()=>removeItem(b.dataset.remove)));document.getElementById("clearOrderBtn").addEventListener("click",clearOrder);document.getElementById("completeSaleBtn").addEventListener("click",completeSale)}
+function renderCart(){
+  document.getElementById("currentOrderNumber").textContent=`Order #${formatOrderNumber(nextOrderNumber())}`;
+  const m=document.getElementById("cartContent"),e=cartEntries();
+
+  if(!e.length){
+    selectedPaymentType="";
+    m.innerHTML=`<div class="cart-empty"><div><strong>No items yet</strong>Tap a product to start the order.</div></div>
+      <div class="cart-footer">
+        <div class="total-line"><div><div class="total-label">Total</div></div><div class="total">${money(0)}</div></div>
+        <div class="cart-actions">
+          <button class="btn secondary" disabled>Clear</button>
+          <button class="btn complete-btn" disabled>Place Order</button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const paymentButtons=PAYMENT_TYPES.map(type=>`
+    <button type="button"
+      class="payment-type-btn ${selectedPaymentType===type.value?"selected":""}"
+      data-payment-type="${type.value}"
+      aria-pressed="${selectedPaymentType===type.value?"true":"false"}">
+      ${esc(type.label)}
+    </button>`).join("");
+
+  m.innerHTML=`
+    <div class="cart-list">
+      ${e.map(i=>`<div class="cart-row">
+        <button class="minus" data-remove="${i.id}">−</button>
+        <div>
+          <div class="cart-name">${esc(i.name)}</div>
+          <div class="cart-meta">${i.qty} × ${money(i.price)}</div>
+        </div>
+        <div class="line-total">${money(i.qty*i.price)}</div>
+      </div>`).join("")}
+    </div>
+
+    <div class="cart-footer">
+      <div class="total-line">
+        <div><div class="total-label">${cartItemCount()} item${cartItemCount()===1?"":"s"}</div></div>
+        <div class="total">${money(cartTotal())}</div>
+      </div>
+
+      <div class="payment-type-block">
+        <div class="payment-type-heading">
+          <div class="payment-type-label">Payment Type</div>
+          <div class="payment-type-hint">${selectedPaymentType?esc(paymentTypeLabel(selectedPaymentType)):"Select one"}</div>
+        </div>
+        <div class="payment-type-grid">${paymentButtons}</div>
+      </div>
+
+      <div class="cart-actions">
+        <button class="btn secondary" id="clearOrderBtn">Clear</button>
+        <button class="btn complete-btn" id="completeSaleBtn" ${selectedPaymentType?"":"disabled"}>Place Order</button>
+      </div>
+    </div>`;
+
+  m.querySelectorAll("[data-remove]").forEach(b=>b.addEventListener("click",()=>removeItem(b.dataset.remove)));
+  m.querySelectorAll("[data-payment-type]").forEach(b=>b.addEventListener("click",()=>selectPaymentType(b.dataset.paymentType)));
+  document.getElementById("clearOrderBtn").addEventListener("click",clearOrder);
+  document.getElementById("completeSaleBtn").addEventListener("click",completeSale);
+}
 function renderPos(){renderCategories();renderProducts();renderCart()} function addItem(id){if(!productById(id))return;state.cart[id]=(state.cart[id]||0)+1;saveState();renderPos()} function removeItem(id){const q=state.cart[id]||0;if(q<=1)delete state.cart[id];else state.cart[id]=q-1;saveState();renderPos()} function clearOrder(){if(!Object.keys(state.cart).length||!confirm("Clear this order?"))return;state.cart={};saveState();renderPos()}
-function completeSale(){const e=cartEntries();if(!e.length)return;const n=new Date(),day=localDayKey(n),orderNumber=nextOrderNumber(day);state.sales.push({orderNumber,status:"open",completedAt:null,timestamp:n.toISOString(),day,currencyCode:state.currencyCode,currencySymbol:currencySymbol(),items:e.map(i=>({id:i.id,name:i.name,category:i.category,price:i.price,qty:i.qty})),total:cartTotal()});state.cart={};saveState();renderAll();showToast(`Order #${formatOrderNumber(orderNumber)} placed`)}
+function completeSale(){const e=cartEntries();if(!e.length)return;if(!selectedPaymentType){alert("Select a payment type before placing the order.");return}const n=new Date(),day=localDayKey(n),orderNumber=nextOrderNumber(day);state.sales.push({orderNumber,status:"open",completedAt:null,paymentType:selectedPaymentType,timestamp:n.toISOString(),day,currencyCode:state.currencyCode,currencySymbol:currencySymbol(),items:e.map(i=>({id:i.id,name:i.name,category:i.category,price:i.price,qty:i.qty})),total:cartTotal()});state.cart={};selectedPaymentType="";saveState();renderAll();showToast(`Order #${formatOrderNumber(orderNumber)} placed`)}
 function renderSales(){
   const s=todaySales(),rev=s.reduce((a,x)=>a+Number(x.total||0),0),count=s.reduce((a,x)=>a+(x.items||[]).reduce((z,i)=>z+Number(i.qty||0),0),0),openCount=s.filter(x=>x.status!=="completed").length;
   document.getElementById("revenueMetric").textContent=money(rev);
@@ -710,12 +732,12 @@ function renderSales(){
   document.getElementById("salesBreakdown").innerHTML=rows.length?rows.map(r=>`<div class="break-row"><div>${esc(r.name)}<small>${esc(r.category)}</small></div><span class="break-count">${r.count}</span></div>`).join(""):`<div class="empty-state compact" style="grid-column:1/-1">No sales today.</div>`;
   const h=[...s].sort((a,b)=>{const ad=a.status==="completed",bd=b.status==="completed";if(ad!==bd)return ad?1:-1;return new Date(b.timestamp)-new Date(a.timestamp)}).slice(0,50);
   const mount=document.getElementById("salesHistory");
-  mount.innerHTML=h.length?h.map(x=>{const time=new Date(x.timestamp).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),items=(x.items||[]).map(i=>`${i.qty}× ${esc(i.name)}`).join(", "),done=x.status==="completed";return`<div class="history-row ${done?"completed":""}"><div class="history-order-number">#${formatOrderNumber(x.orderNumber)}</div><div class="history-time">${time}</div><div class="history-items">${items}</div><div class="history-total">${money(x.total,x.currencySymbol||currencySymbol())}</div><button class="fulfillment-btn ${done?"completed":""}" data-order-day="${x.day}" data-order-number="${x.orderNumber}">${done?"Completed ✓":"Complete"}</button></div>`}).join(""):`<div class="empty-state compact">No orders today.</div>`;
+  mount.innerHTML=h.length?h.map(x=>{const time=new Date(x.timestamp).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),items=(x.items||[]).map(i=>`${i.qty}× ${esc(i.name)}`).join(", "),done=x.status==="completed",paymentLabel=x.paymentType?paymentTypeLabel(x.paymentType):"Payment not recorded";return`<div class="history-row ${done?"completed":""}"><div class="history-order-number">#${formatOrderNumber(x.orderNumber)}</div><div class="history-time">${time}</div><div class="history-items">${items}<div class="history-payment">${esc(paymentLabel)}</div></div><div class="history-total">${money(x.total,x.currencySymbol||currencySymbol())}</div><button class="fulfillment-btn ${done?"completed":""}" data-order-day="${x.day}" data-order-number="${x.orderNumber}">${done?"Completed ✓":"Complete"}</button></div>`}).join(""):`<div class="empty-state compact">No orders today.</div>`;
   mount.querySelectorAll("[data-order-day][data-order-number]").forEach(btn=>btn.addEventListener("click",()=>toggleOrderCompleted(btn.dataset.orderDay,Number(btn.dataset.orderNumber))));
 }
 function toggleOrderCompleted(day,orderNumber){const order=state.sales.find(x=>x.day===day&&Number(x.orderNumber)===Number(orderNumber));if(!order)return;const completed=order.status==="completed";order.status=completed?"open":"completed";order.completedAt=completed?null:new Date().toISOString();saveState();renderSales();showToast(completed?`Order #${formatOrderNumber(order.orderNumber)} reopened`:`Order #${formatOrderNumber(order.orderNumber)} completed`)}
 function csvCell(v){return`"${String(v??"").replaceAll('"','""')}"`} function downloadTextFile(c,n,t){const b=new Blob([c],{type:t}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=n;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(u)}
-function exportTodayCSV(){const s=todaySales();if(!s.length){alert("There are no sales to export yet.");return}const rows=[["Date","Order Number","Status","Time","Product","Category","Quantity","Unit Price","Line Total","Order Total","Currency"]];s.forEach(x=>{const d=new Date(x.timestamp),date=x.day||localDayKey(d),time=d.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});(x.items||[]).forEach(i=>rows.push([date,`#${formatOrderNumber(x.orderNumber)}`,x.status==="completed"?"Completed":"Open",time,i.name,i.category||"",i.qty,i.price,Number(i.qty)*Number(i.price),x.total,x.currencyCode||state.currencyCode]))});rows.push([], ["SUMMARY"],["Orders",s.length],["Open orders",s.filter(x=>x.status!=="completed").length],["Revenue",s.reduce((a,x)=>a+Number(x.total||0),0)],["Items sold",s.reduce((a,x)=>a+(x.items||[]).reduce((z,i)=>z+Number(i.qty||0),0),0)]);downloadTextFile(rows.map(r=>r.map(csvCell).join(",")).join("\n"),`pos-sales-${localDayKey()}.csv`,"text/csv;charset=utf-8;")}
+function exportTodayCSV(){const s=todaySales();if(!s.length){alert("There are no sales to export yet.");return}const rows=[["Date","Order Number","Status","Payment Type","Time","Product","Category","Quantity","Unit Price","Line Total","Order Total","Currency"]];s.forEach(x=>{const d=new Date(x.timestamp),date=x.day||localDayKey(d),time=d.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}),payment=x.paymentType?paymentTypeLabel(x.paymentType):"";(x.items||[]).forEach(i=>rows.push([date,`#${formatOrderNumber(x.orderNumber)}`,x.status==="completed"?"Completed":"Open",payment,time,i.name,i.category||"",i.qty,i.price,Number(i.qty)*Number(i.price),x.total,x.currencyCode||state.currencyCode]))});rows.push([], ["SUMMARY"],["Orders",s.length],["Open orders",s.filter(x=>x.status!=="completed").length],["Revenue",s.reduce((a,x)=>a+Number(x.total||0),0)],["Items sold",s.reduce((a,x)=>a+(x.items||[]).reduce((z,i)=>z+Number(i.qty||0),0),0)]);downloadTextFile(rows.map(r=>r.map(csvCell).join(",")).join("\n"),`pos-sales-${localDayKey()}.csv`,"text/csv;charset=utf-8;")}
 function resetToday(){const s=todaySales();if(!s.length){alert("There are no sales to reset today.");return}if(prompt("Type RESET to delete today's sales and restart today's order numbers.")!=="RESET")return;const t=localDayKey();state.sales=state.sales.filter(x=>x.day!==t);saveState();renderAll();showToast("Today's sales and order numbers reset")}
 function renderPaymentDisplay(){document.getElementById("paymentBusinessName").textContent=state.businessName||"Payment";document.getElementById("paymentQr").innerHTML=state.payment.qrDataUrl?`<img src="${state.payment.qrDataUrl}" alt="Payment QR code">`:`<div class="empty-state compact"><div><strong>No QR code added</strong>Add one in Customize → Payment Details.</div></div>`;const f=[["Bank",state.payment.bankName],["Account name",state.payment.accountName],["Account number",state.payment.accountNumber],["Branch",state.payment.branch],["Tranfer Note/Instructions",state.payment.notes]].filter(([,v])=>String(v||"").trim());document.getElementById("bankDetailsDisplay").innerHTML=f.length?f.map(([l,v])=>`<div class="bank-row"><div class="bank-label">${esc(l)}</div><div class="bank-value">${esc(v)}</div></div>`).join(""):`<div class="empty-state compact"><div><strong>No bank details added</strong>Add them in Customize → Payment Details.</div></div>`}
 function renderSettings(){
@@ -989,7 +1011,7 @@ async function imageFileToDataUrl(file){const original=await new Promise((resolv
 async function handleQrUpload(){const f=document.getElementById("qrInput").files?.[0];if(!f)return;try{state.payment.qrDataUrl=await imageFileToDataUrl(f);saveState();renderPaymentSettings();renderPaymentDisplay();showToast("QR code saved")}catch(e){alert("Could not process that image.")}}
 function renderPaymentSettings(){document.getElementById("bankNameInput").value=state.payment.bankName||"";document.getElementById("accountNameInput").value=state.payment.accountName||"";document.getElementById("accountNumberInput").value=state.payment.accountNumber||"";document.getElementById("branchInput").value=state.payment.branch||"";document.getElementById("paymentNotesInput").value=state.payment.notes||"";document.getElementById("qrPreview").innerHTML=state.payment.qrDataUrl?`<img src="${state.payment.qrDataUrl}" alt="Current payment QR code">`:`<span style="color:var(--muted);font-size:13px">No QR code uploaded</span>`;document.getElementById("qrActions").innerHTML=state.payment.qrDataUrl?`<button class="btn danger" id="removeQrBtn">Remove QR Code</button>`:"";const r=document.getElementById("removeQrBtn");if(r)r.addEventListener("click",()=>{if(!confirm("Remove the payment QR code?"))return;state.payment.qrDataUrl="";document.getElementById("qrInput").value="";saveState();renderPaymentSettings();renderPaymentDisplay();showToast("QR code removed")})}
 function savePaymentSettings(){state.payment.bankName=document.getElementById("bankNameInput").value.trim();state.payment.accountName=document.getElementById("accountNameInput").value.trim();state.payment.accountNumber=document.getElementById("accountNumberInput").value.trim();state.payment.branch=document.getElementById("branchInput").value.trim();state.payment.notes=document.getElementById("paymentNotesInput").value.trim();saveState();renderPaymentDisplay();showToast("Payment details saved")}
-function resetEntireApp(){if(prompt("This deletes products, settings, payment details, cart and sales history from this browser. Type RESET ALL to continue.")!=="RESET ALL")return;localStorage.removeItem(STORAGE_KEY);state=defaultState();activeCategory="ALL";resetProductForm();saveState();renderAll();showScreen("settings");showToast("POS reset")}
+function resetEntireApp(){if(prompt("This deletes products, settings, payment details, cart and sales history from this browser. Type RESET ALL to continue.")!=="RESET ALL")return;localStorage.removeItem(STORAGE_KEY);state=defaultState();activeCategory="ALL";selectedPaymentType="";resetProductForm();saveState();renderAll();showScreen("settings");showToast("POS reset")}
 function renderBrand(){
   const n=state.businessName||"Simple POS",logo=document.getElementById("brandLogo"),text=document.getElementById("brandText"),name=document.getElementById("brandName");
   name.textContent=n;
