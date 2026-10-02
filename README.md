@@ -1,20 +1,30 @@
 # Simple POS
 
-Simple POS is a free, lightweight point-of-sale system for pop-ups, small vendors, markets, and events. It runs entirely in the browser, requires no account or backend, and stores your products, orders, sales, branding, and payment details locally on your device.
+Simple POS is a free, lightweight point-of-sale system for pop-ups, small vendors, markets, and events. It runs in the browser, requires no account or backend, and stores your products, orders, sales, branding, and payment details locally on the device and browser you are using.
 
 Made freely available as an open initiative under **Utpatti — The Creative Collective**.
+
+**Live version:** https://repottedplant.github.io/SimplePOS/
+
+---
 
 ## Features
 
 ### Point of Sale
 
 - Add products to an order with a single tap or click
+- Tap the same product again to increase quantity
 - Remove individual items using the minus button
 - View the current order total in real time
 - Clear an order before placing it
 - Assign a daily sequential order number to every order
 - Display the next order number while taking an order
 - Order numbers reset each day
+- Choose a payment type before placing an order:
+  - Cash
+  - Card
+  - Bank Transfer
+  - QR Payment
 
 ### Product Categories
 
@@ -88,15 +98,16 @@ Under **Customize → General & Branding**, users can configure:
 - Business / POS name
 - Currency
 - Brand logo
-- Primary brand color
-- Secondary / CTA color
-- Page background color
-- Card / surface color
-- Main text color
+- Ready-made themes
+- Custom primary brand color
+- Custom secondary / CTA color
+- Light mode
+- Dark mode
+- System appearance mode
 
-For most users, it is recommended to change only the **Primary** and **Secondary / CTA** colors. The default background, surface, and text colors are designed to preserve readability and contrast.
+Core backgrounds, text, borders, and form controls are managed automatically so custom brand colors remain readable.
 
-#### Logo Recommendations
+#### Logo recommendations
 
 Horizontal or wordmark logos work best in the Simple POS header.
 
@@ -110,12 +121,13 @@ Square or tall logos are supported, but they will appear smaller in the header.
 
 ### Configuration Backup and Transfer
 
-The complete POS setup can be exported as a JSON configuration file and imported on another device or browser.
+The POS setup can be exported as a JSON configuration file and imported on another device or browser.
 
 The configuration file can include:
 
 - Business / POS name
 - Currency settings
+- Selected theme and appearance mode
 - Brand colors
 - Products
 - Product accent colors
@@ -127,7 +139,7 @@ The configuration file can include:
 
 Sales history and the current cart are not included in configuration exports.
 
-Users can choose whether to include the logo and payment QR when exporting. Images are embedded directly inside the JSON file, which makes the file larger but keeps the entire setup in a single file.
+Users can choose whether to include the logo and payment QR when exporting. Images are embedded directly inside the JSON file, which makes the file larger but keeps the setup in a single file.
 
 When importing a configuration:
 
@@ -140,17 +152,26 @@ CSV is intended for product import and editing, while JSON is intended for trans
 
 ### Sales Dashboard
 
-The Sales section shows:
+The **Sales** section opens on the current day by default.
 
-- Revenue for the current day
+It shows:
+
+- Revenue for the selected day
 - Number of orders
 - Number of open orders
 - Number of items sold
 - Product sales breakdown
-- Recent orders
+- Order history
 - Order numbers
 - Order completion status
-- The next order number
+- Payment type for new orders
+- The next order number for the current day
+
+Users can also review earlier sales using:
+
+- A calendar/date picker
+- Previous-day and next-day controls
+- A shortcut back to **Today**
 
 Orders can be marked as **Completed** once they have been prepared or handed over to the customer.
 
@@ -158,13 +179,16 @@ Completed orders can also be reopened if they were marked accidentally.
 
 ### Sales Export
 
-Daily sales can be exported as a CSV file.
+Sales can be exported as a CSV for whichever day is currently selected in the Sales section.
+
+This means a user can return later and export a previous day's sales if they forgot to do it at the end of the day.
 
 The export includes information such as:
 
 - Date
 - Order number
 - Order status
+- Payment type
 - Time
 - Product
 - Category
@@ -173,6 +197,8 @@ The export includes information such as:
 - Line total
 - Order total
 - Currency
+
+Older orders created before payment-type tracking was added remain compatible; their payment type may simply be blank or shown as not recorded.
 
 ### Payment Display
 
@@ -188,6 +214,31 @@ Users can configure:
 - Transfer instructions or payment notes
 
 This makes it possible to turn the screen toward the customer so they can scan the QR code or copy the bank transfer details.
+
+### First-Time Welcome
+
+New users are shown a short welcome message explaining how Simple POS works before they begin setup.
+
+It explains that:
+
+- No account is required
+- There is no cloud sync
+- POS data is stored in the current browser on the current device
+- Another device or browser will have separate data
+- Clearing browser/site data can remove locally stored POS data
+- Sales CSV and JSON configuration exports should be used for records and backups
+
+Existing users are not shown the first-time welcome when upgrading to a newer version.
+
+### What's New
+
+Simple POS can display a **What's New** message after a new release.
+
+User-facing release notes are stored in a separate `updates.json` file. When the latest update ID changes, users who have not seen that release are shown a short summary of the new features the next time they open the hosted app.
+
+The acknowledgement is stored locally in the browser and is not included in configuration exports.
+
+New users are not shown the Welcome modal and the What's New modal back-to-back; the current release is marked as seen after first-time onboarding.
 
 ### Currency Settings
 
@@ -215,18 +266,21 @@ It covers:
 - First-time setup
 - Branding and appearance
 - Taking orders
-- Using the POS on an iPad or phone
+- Using the POS on a tablet, phone, or computer
 - Products and categories
 - CSV product import
 - Sales dashboard
+- Previous-day sales
 - Payment display
 - Configuration backup and transfer
 - Data storage and backups
 - Current limitations
 
+---
+
 ## Customize Menu
 
-The Customize section is split into four areas:
+The Customize section is split into four areas.
 
 ### General & Branding
 
@@ -235,7 +289,8 @@ Used for:
 - Business / POS name
 - Currency
 - Brand logo
-- Brand colors
+- Themes and appearance
+- Custom brand colors
 - Configuration export and import
 
 ### Products & Categories
@@ -263,6 +318,8 @@ Contains destructive actions such as resetting the entire POS.
 
 The Danger Zone is visually marked in red and is not required for normal setup or daily operation.
 
+---
+
 ## How It Works
 
 Simple POS is a static web application.
@@ -270,19 +327,19 @@ Simple POS is a static web application.
 There is:
 
 - No backend
-- No database
+- No custom database
 - No login system
 - No cloud sync
 - No external POS service required
 
-All application data is stored using the browser's `localStorage`.
+POS data is stored using the browser's `localStorage`.
 
 This includes:
 
 - Business / POS name
 - Currency settings
 - Brand logo
-- Brand colors
+- Theme and appearance settings
 - Products
 - Product accent colors
 - Product menu notes
@@ -290,38 +347,54 @@ This includes:
 - Current cart
 - Sales history
 - Order completion status
+- Payment type for supported orders
 - Payment QR code
 - Bank transfer details
 
+Simple POS also stores small local flags separately for first-time onboarding and the last **What's New** release seen by that browser.
+
+---
+
 ## Running the POS
 
-### Option 1 — GitHub Pages
+### Option 1 — Hosted version / GitHub Pages
 
-The easiest way to use Simple POS on a tablet or phone is to host it using GitHub Pages.
+The easiest way to use Simple POS on a tablet or phone is the hosted version:
 
-1. Add the HTML file to a GitHub repository.
+https://repottedplant.github.io/SimplePOS/
+
+If hosting your own copy:
+
+1. Add `index.html` and `updates.json` to the same GitHub repository.
 2. Enable GitHub Pages for the repository.
 3. Open the generated GitHub Pages URL in your browser.
-4. On iPad or iPhone, open the page in Safari and use **Add to Home Screen** for an app-like experience.
+4. On iPad or iPhone, open the page in Safari and use **Add to Home Screen** for a more app-like experience.
+
+The hosted version is recommended because the **What's New** feature loads `updates.json` using `fetch()`. Browsers may block that request when `index.html` is opened directly from the local filesystem.
 
 ### Option 2 — Desktop Browser
 
 The HTML file can also be opened directly in a desktop browser for testing or local use.
 
-For tablets and mobile devices, using a hosted version is recommended because some mobile operating systems do not execute locally opened HTML files normally.
+Core POS functions will still work, but features that fetch repository files such as `updates.json` may not work when running from `file://`.
+
+---
 
 ## First-Time Setup
 
 1. Open **Customize**.
 2. Under **General & Branding**, set the business / POS name and currency.
-3. Optionally upload a logo and configure the primary and secondary brand colors.
-4. Under **Products & Categories**, add products manually or import them from CSV.
-5. Arrange categories in the order you want them displayed.
-6. Optionally give individual products an accent color or short menu note.
-7. Under **Payment Information**, add a payment QR code and bank details if required.
-8. Return to **POS** and begin taking orders.
+3. Optionally upload a logo and choose a theme or custom brand colors.
+4. Choose Light, Dark, or System appearance.
+5. Under **Products & Categories**, add products manually or import them from CSV.
+6. Arrange categories in the order you want them displayed.
+7. Optionally give individual products an accent color or short menu note.
+8. Under **Payment Information**, add a payment QR code and bank details if required.
+9. Return to **POS** and begin taking orders.
 
 If you already have a Simple POS JSON configuration file, you can import it from **Customize → General & Branding → Configuration Backup & Transfer** to skip most of the manual setup.
+
+---
 
 ## Typical Order Workflow
 
@@ -329,13 +402,20 @@ If you already have a Simple POS JSON configuration file, you can import it from
 2. Tap products to add them to the current order.
 3. Use the minus button if an item was added accidentally.
 4. Confirm the total.
-5. Place the order.
-6. Call out the displayed order number when the order is ready.
-7. Open **Sales** and mark the order as **Completed**.
+5. Choose the payment type:
+   - Cash
+   - Card
+   - Bank Transfer
+   - QR Payment
+6. Tap **Place Order**.
+7. Call out the displayed order number when the order is ready.
+8. Open **Sales** and mark the order as **Completed**.
+
+---
 
 ## Data Storage and Backups
 
-All data is stored locally on the device and browser being used.
+All POS data is stored locally on the device and browser being used.
 
 This means:
 
@@ -344,24 +424,33 @@ This means:
 - Different browser profiles have separate data.
 - A different website or domain will have separate local storage.
 - Clearing browser or site data can remove the POS data.
+- There is currently no automatic cloud backup.
 
-For important events or sales periods, it is recommended to export the daily sales CSV regularly.
+For important events or sales periods, it is recommended to export sales CSV files regularly.
+
+If you forget to export at the end of the day, open **Sales**, choose the earlier date, and export that day's CSV later.
 
 Use the separate JSON configuration export to back up or transfer the POS setup itself.
 
 ### Sales CSV vs Configuration JSON
 
 **Sales CSV**
-- Contains daily sales information
+
+- Contains sales information for the selected day
+- Includes payment type where recorded
 - Useful for reporting, records, and external analysis
 
 **Configuration JSON**
+
 - Contains the POS setup
 - Useful for moving a setup to another device or browser
 - Can optionally include the brand logo and payment QR
 - Does not contain sales history
+- Does not contain What's New or onboarding acknowledgement state
 
 Simple POS is intended for lightweight use and should not be treated as a replacement for a full accounting system or cloud-backed commercial POS.
+
+---
 
 ## Privacy
 
@@ -369,7 +458,9 @@ Simple POS does not require an account and does not send POS data to a custom ba
 
 When hosted as a static site, order and configuration data remain in the browser's local storage.
 
-The hosting provider will still handle normal web requests required to serve the page itself.
+The hosting provider will still handle the normal web requests required to serve the page and files such as `updates.json`.
+
+---
 
 ## Limitations
 
@@ -389,21 +480,37 @@ Simple POS currently does not include:
 
 The project is intentionally kept simple so it remains useful for small pop-ups, markets, events, and temporary sales setups.
 
+---
+
 ## Project Structure
 
-The application is intentionally kept as a single HTML page containing:
+The project remains intentionally lightweight.
 
-- HTML
-- CSS
-- JavaScript
+```text
+SimplePOS/
+├── index.html
+├── updates.json
+├── README.md
+└── LICENSE
+```
+
+`index.html` contains the application HTML, CSS, and JavaScript.
+
+`updates.json` contains user-facing release notes used by the **What's New** modal.
 
 No build process is required.
+
+---
 
 ## Contributing
 
 Suggestions, improvements, bug reports, and contributions are welcome.
 
 If you make changes that could be useful to other small vendors or pop-up operators, feel free to open an issue or pull request.
+
+When adding a user-facing feature, consider adding a short entry to `updates.json` so existing users can discover it after the next release.
+
+---
 
 ## License
 
@@ -412,6 +519,8 @@ This project is licensed under the **GNU General Public License v3.0 (GPL-3.0)**
 You are free to use, study, modify, and redistribute the software under the terms of the GPL v3. If you distribute modified versions of the project, those versions must also be made available under the GPL v3 with their corresponding source code.
 
 See the [`LICENSE`](LICENSE) file for the full license text.
+
+---
 
 ## Initiative
 

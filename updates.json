@@ -36,6 +36,10 @@
         {
           "title": "Friendlier How to Use guide",
           "detail": "The built-in guide has been rewritten and expanded to make setup, daily use, backups and device use easier to understand."
+        },
+        {
+          "title": "Easier first product setup",
+          "detail": "If your menu is empty, Simple POS now shows an Add your first product tile directly in the product grid so you can jump straight into setting up your first item."
         }
       ]
     },
