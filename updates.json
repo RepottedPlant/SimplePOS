@@ -1,8 +1,19 @@
 {
   "format": "simple-pos-updates",
   "schemaVersion": 2,
-  "latestVersion": "0.2.1",
+  "latestVersion": "0.3.0",
   "updates": [
+    {
+      "version": "0.3.0",
+      "date": "2026-10-04",
+      "changes": [
+        "You can now enter the cash you start the day with from the Sales page.",
+        "Simple POS now shows your cash sales separately from your total sales.",
+        "You can see the expected cash in the drawer based on your starting cash plus orders paid in cash.",
+        "Starting cash is saved separately for each day, so you can also review it when looking back at previous sales days.",
+        "Starting cash, cash sales and expected cash are now included in the sales CSV summary."
+      ]
+    },
     {
       "version": "0.2.1",
       "date": "2026-10-03",
