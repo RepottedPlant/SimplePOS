@@ -114,6 +114,18 @@
     .payment-type-btn:hover{border-color:var(--accent)}
     .payment-type-btn.selected{background:var(--accent);border-color:var(--accent);color:var(--accent-contrast,#fff);box-shadow:0 0 0 3px var(--focus-ring)}
     .history-payment{display:inline-flex;margin:5px 0 0 8px;border:1px solid var(--line);border-radius:999px;background:var(--surface-2);color:var(--muted);padding:3px 7px;font-size:10px;font-weight:850;line-height:1.2;vertical-align:middle}
+    .checkout-card{width:min(620px,100%)}
+    .checkout-order-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:14px 0 16px;padding:14px 15px;border:1px solid var(--line);border-radius:15px;background:var(--surface-2)}
+    .checkout-order-label{color:var(--muted);font-size:11px;font-weight:900;letter-spacing:.09em;text-transform:uppercase}
+    .checkout-order-number{margin-top:4px;font-size:18px;font-weight:950;color:var(--accent-text)}
+    .checkout-total-wrap{text-align:right}.checkout-total-label{color:var(--muted);font-size:11px;font-weight:900;letter-spacing:.09em;text-transform:uppercase}.checkout-total{margin-top:4px;font-size:30px;font-weight:950;letter-spacing:-.035em;color:var(--ink)}
+    .checkout-body{display:flex;flex-direction:column;gap:14px}
+    .checkout-note{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+    .cash-entry-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;align-items:end}.cash-entry-row .field{margin:0}.cash-entry-row .btn{min-height:44px}
+    .cash-result{border:1px solid var(--line);border-radius:15px;background:var(--surface-2);padding:14px 15px}.cash-result-label{color:var(--muted);font-size:11px;font-weight:900;letter-spacing:.09em;text-transform:uppercase}.cash-result-value{margin-top:5px;font-size:28px;font-weight:950;color:var(--accent-text)}.cash-result-value.due{color:var(--danger-ink)}
+    .checkout-qr{min-height:250px;display:grid;place-items:center;border:1px dashed var(--line);border-radius:16px;background:var(--surface-2);padding:14px}.checkout-qr img{display:block;max-width:min(100%,330px);max-height:330px;border-radius:10px;background:#fff}
+    .checkout-details{display:flex;flex-direction:column;gap:0;border:1px solid var(--line);border-radius:15px;background:var(--surface-2);padding:0 14px}.checkout-detail-row{padding:12px 0;border-bottom:1px solid var(--line)}.checkout-detail-row:last-child{border-bottom:0}.checkout-detail-label{color:var(--muted);font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.checkout-detail-value{margin-top:4px;font-size:16px;font-weight:850;word-break:break-word}
+    .checkout-empty-detail{border:1px dashed var(--line);border-radius:15px;background:var(--surface-2);padding:18px;text-align:center;color:var(--muted);font-size:13px;line-height:1.5}.checkout-empty-detail strong{display:block;color:var(--ink);font-size:16px;margin-bottom:4px}
 
 
     .announcement-modal[hidden]{display:none}
@@ -139,7 +151,7 @@
     .update-list{margin:0;padding-left:21px}
     .update-list li{margin:7px 0;line-height:1.45;color:var(--ink)}
     body.modal-open{overflow:hidden}
-    @media(max-width:560px){.announcement-card{padding:20px;border-radius:20px}.announcement-actions{grid-template-columns:1fr}}
+    @media(max-width:560px){.announcement-card{padding:20px;border-radius:20px}.announcement-actions{grid-template-columns:1fr}.cash-entry-row{grid-template-columns:1fr}.cash-entry-row .btn{width:100%}.checkout-order-meta{align-items:flex-start}.checkout-total{font-size:26px}}
 
     .appearance-mode{display:flex;gap:7px;padding:5px;background:var(--soft);border-radius:13px;width:max-content;max-width:100%;margin-top:8px}
     .mode-btn{border:0;background:transparent;color:var(--muted);border-radius:9px;min-height:40px;padding:8px 13px;font-weight:850;cursor:pointer;white-space:nowrap}
@@ -369,8 +381,10 @@
             <li>Tap a product to add it to the order. Tap it again to add another one.</li>
             <li>If you added something by mistake, tap the <strong>−</strong> button next to it.</li>
             <li>Check the total and the order number.</li>
-            <li>Choose how the customer paid: <strong>Cash</strong>, <strong>Card</strong>, <strong>Bank Transfer</strong> or <strong>QR Payment</strong>.</li>
+            <li>Choose how the customer is paying: <strong>Cash</strong>, <strong>Card</strong>, <strong>Bank Transfer</strong> or <strong>QR Payment</strong>.</li>
             <li>Tap <strong>Place Order</strong>.</li>
+            <li>Complete the payment step shown on screen. For cash, enter the amount the customer gives you to calculate the change.</li>
+            <li>Tap <strong>Confirm Payment</strong>. The order is only added to Sales after this step.</li>
             <li>Call out the order number when the order is ready.</li>
             <li>Open <strong>Sales</strong> and tap <strong>Complete</strong> once the order has been handed over.</li>
           </ol>
@@ -467,7 +481,7 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
           <div class="section-label">Customer Payments</div>
           <h3>Show payment details</h3>
 
-          <p>The <strong>Payment</strong> page is made to be shown to your customer.</p>
+          <p>Your saved QR code and bank details now appear automatically during checkout when you choose those payment methods. The separate <strong>Payment</strong> page is still available when you want to show the details without placing an order.</p>
 
           <p>In <strong>Customize → Payment Information</strong>, you can add:</p>
 
@@ -747,12 +761,12 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
         <div class="settings-subscreen" id="settings-payment">
           <div class="settings-section-heading">
             <h2>Payment Information</h2>
-            <p>Configure the QR code and bank details shown on the customer-facing Payment page.</p>
+            <p>Configure the QR code and bank details used during checkout and on the customer-facing Payment page.</p>
           </div>
 
           <section class="panel settings-card">
             <h2>Payment Details</h2>
-            <p class="helper">Upload a QR code image and enter the bank details you want customers to see.</p>
+            <p class="helper">Upload a QR code image and enter the bank details shown when customers pay by QR or bank transfer.</p>
             <div class="field"><label for="qrInput">Payment QR code image</label><input type="file" id="qrInput" accept="image/*"><div class="qr-preview" id="qrPreview"></div><div class="inline-actions" id="qrActions"></div></div>
             <div class="field-row"><div class="field"><label for="bankNameInput">Bank name</label><input id="bankNameInput" maxlength="80" placeholder="Bank name"></div><div class="field"><label for="accountNameInput">Account name</label><input id="accountNameInput" maxlength="100" placeholder="Account holder"></div></div>
             <div class="field-row"><div class="field"><label for="accountNumberInput">Account number</label><input id="accountNumberInput" maxlength="60" inputmode="numeric" placeholder="Account number"></div><div class="field"><label for="branchInput">Branch</label><input id="branchInput" maxlength="80" placeholder="Branch / branch code"></div></div>
@@ -825,6 +839,33 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
   </section>
 </div>
 
+<div class="announcement-modal" id="paymentCheckoutModal" hidden aria-hidden="true">
+  <div class="announcement-backdrop" aria-hidden="true"></div>
+  <section class="announcement-card checkout-card" role="dialog" aria-modal="true" aria-labelledby="paymentCheckoutTitle">
+    <div class="announcement-kicker" id="paymentCheckoutKicker">Payment</div>
+    <h2 class="announcement-title" id="paymentCheckoutTitle">Complete payment</h2>
+    <p class="announcement-intro" id="paymentCheckoutIntro">Finish the payment before placing this order.</p>
+
+    <div class="checkout-order-meta">
+      <div>
+        <div class="checkout-order-label">Order</div>
+        <div class="checkout-order-number" id="paymentCheckoutOrderNumber">#001</div>
+      </div>
+      <div class="checkout-total-wrap">
+        <div class="checkout-total-label">Amount due</div>
+        <div class="checkout-total" id="paymentCheckoutTotal">0</div>
+      </div>
+    </div>
+
+    <div class="checkout-body" id="paymentCheckoutBody"></div>
+
+    <div class="announcement-actions">
+      <button type="button" class="btn secondary" id="cancelPaymentCheckoutBtn">Back to Order</button>
+      <button type="button" class="btn primary" id="confirmPaymentCheckoutBtn">Confirm Payment</button>
+    </div>
+  </section>
+</div>
+
 <div class="toast" id="toast"></div>
 <script>
 const STORAGE_KEY="simple_pos_v1";
@@ -848,6 +889,7 @@ function defaultState(){return{version:8,businessName:"Simple POS",currencyCode:
 function loadState(){try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw)return defaultState();const parsed=JSON.parse(raw),incomingBrand=parsed.branding||{},branding={...defaultState().branding,...incomingBrand};if(incomingBrand&&Object.keys(incomingBrand).length&&!incomingBrand.theme)branding.theme="custom";if(!["light","dark","system"].includes(branding.mode))branding.mode="light";return{...defaultState(),...parsed,branding,products:Array.isArray(parsed.products)?parsed.products:[],categoryOrder:Array.isArray(parsed.categoryOrder)?parsed.categoryOrder:[],cart:parsed.cart||{},sales:Array.isArray(parsed.sales)?parsed.sales:[],startingCash:parsed.startingCash&&typeof parsed.startingCash==="object"&&!Array.isArray(parsed.startingCash)?parsed.startingCash:{},payment:{...defaultState().payment,...(parsed.payment||{})}}}catch(e){return defaultState()}}
 let state=loadState(),activeCategory="ALL",activeSettingsSection="branding";
 let selectedPaymentType="";
+let pendingCheckout=null;
 let selectedSalesDay=localDayKey();
 function rawCategories(){return[...new Set(state.products.map(p=>String(p.category||"").trim()).filter(Boolean))]}
 function normalizeCategoryOrder(){const actual=rawCategories(),existing=Array.isArray(state.categoryOrder)?state.categoryOrder:[];const kept=existing.filter((c,i)=>actual.includes(c)&&existing.indexOf(c)===i);const missing=actual.filter(c=>!kept.includes(c)).sort((a,b)=>a.localeCompare(b));state.categoryOrder=[...kept,...missing];return state.categoryOrder}
@@ -988,10 +1030,120 @@ function renderCart(){
   m.querySelectorAll("[data-remove]").forEach(b=>b.addEventListener("click",()=>removeItem(b.dataset.remove)));
   m.querySelectorAll("[data-payment-type]").forEach(b=>b.addEventListener("click",()=>selectPaymentType(b.dataset.paymentType)));
   document.getElementById("clearOrderBtn").addEventListener("click",clearOrder);
-  document.getElementById("completeSaleBtn").addEventListener("click",completeSale);
+  document.getElementById("completeSaleBtn").addEventListener("click",beginPaymentCheckout);
 }
 function renderPos(){renderCategories();renderProducts();renderCart()} function addItem(id){if(!productById(id))return;state.cart[id]=(state.cart[id]||0)+1;saveState();renderPos()} function removeItem(id){const q=state.cart[id]||0;if(q<=1)delete state.cart[id];else state.cart[id]=q-1;saveState();renderPos()} function clearOrder(){if(!Object.keys(state.cart).length||!confirm("Clear this order?"))return;state.cart={};saveState();renderPos()}
-function completeSale(){const e=cartEntries();if(!e.length)return;if(!selectedPaymentType){alert("Select a payment type before placing the order.");return}const n=new Date(),day=localDayKey(n),orderNumber=nextOrderNumber(day);state.sales.push({orderNumber,status:"open",completedAt:null,paymentType:selectedPaymentType,timestamp:n.toISOString(),day,currencyCode:state.currencyCode,currencySymbol:currencySymbol(),items:e.map(i=>({id:i.id,name:i.name,category:i.category,price:i.price,qty:i.qty})),total:cartTotal()});state.cart={};selectedPaymentType="";saveState();renderAll();showToast(`Order #${formatOrderNumber(orderNumber)} placed`)}
+function beginPaymentCheckout(){
+  const entries=cartEntries();
+  if(!entries.length)return;
+  if(!selectedPaymentType){alert("Select a payment type before continuing.");return}
+  pendingCheckout={
+    paymentType:selectedPaymentType,
+    total:cartTotal(),
+    orderNumber:nextOrderNumber(),
+    items:entries.map(i=>({id:i.id,name:i.name,category:i.category,price:i.price,qty:i.qty}))
+  };
+  renderPaymentCheckout();
+  setModalOpen(document.getElementById("paymentCheckoutModal"),true);
+}
+
+function paymentCheckoutDetails(){
+  return [
+    ["Bank",state.payment.bankName],
+    ["Account name",state.payment.accountName],
+    ["Account number",state.payment.accountNumber],
+    ["Branch",state.payment.branch],
+    ["Transfer note / instructions",state.payment.notes]
+  ].filter(([,value])=>String(value||"").trim());
+}
+
+function renderPaymentCheckout(){
+  if(!pendingCheckout)return;
+  const type=pendingCheckout.paymentType,total=pendingCheckout.total,body=document.getElementById("paymentCheckoutBody"),confirmBtn=document.getElementById("confirmPaymentCheckoutBtn");
+  document.getElementById("paymentCheckoutOrderNumber").textContent=`#${formatOrderNumber(pendingCheckout.orderNumber)}`;
+  document.getElementById("paymentCheckoutTotal").textContent=money(total);
+  document.getElementById("paymentCheckoutKicker").textContent=paymentTypeLabel(type);
+  confirmBtn.disabled=false;
+
+  if(type==="cash"){
+    document.getElementById("paymentCheckoutTitle").textContent="Cash payment";
+    document.getElementById("paymentCheckoutIntro").textContent="Enter the amount the customer gives you. Simple POS will calculate the change.";
+    body.innerHTML=`
+      <div class="cash-entry-row">
+        <div class="field">
+          <label for="cashReceivedInput">Customer gives</label>
+          <input id="cashReceivedInput" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00" autocomplete="off">
+        </div>
+        <button type="button" class="btn outline" id="exactCashBtn">Exact Amount</button>
+      </div>
+      <div class="cash-result">
+        <div class="cash-result-label" id="cashResultLabel">Change to give</div>
+        <div class="cash-result-value" id="cashResultValue">—</div>
+      </div>`;
+    confirmBtn.disabled=true;
+    const input=document.getElementById("cashReceivedInput");
+    const updateCashResult=()=>{
+      const raw=String(input.value||"").trim(),received=Number(raw),label=document.getElementById("cashResultLabel"),value=document.getElementById("cashResultValue");
+      value.classList.remove("due");
+      if(raw===""||!Number.isFinite(received)||received<0){label.textContent="Change to give";value.textContent="—";confirmBtn.disabled=true;return}
+      if(received<total){label.textContent="Still due";value.textContent=money(total-received);value.classList.add("due");confirmBtn.disabled=true;return}
+      label.textContent="Change to give";value.textContent=money(received-total);confirmBtn.disabled=false;
+    };
+    input.addEventListener("input",updateCashResult);
+    document.getElementById("exactCashBtn").addEventListener("click",()=>{input.value=String(total);updateCashResult();input.focus()});
+    setTimeout(()=>input.focus(),0);
+    return;
+  }
+
+  if(type==="qr"){
+    document.getElementById("paymentCheckoutTitle").textContent="QR payment";
+    document.getElementById("paymentCheckoutIntro").textContent="Ask the customer to scan the QR code and confirm the payment before placing the order.";
+    body.innerHTML=state.payment.qrDataUrl
+      ?`<div class="checkout-qr"><img src="${state.payment.qrDataUrl}" alt="Payment QR code"></div>`
+      :`<div class="checkout-empty-detail"><strong>No QR code added</strong>Add one in Customize → Payment Information. You can still confirm the payment here if the customer paid using another QR code.</div>`;
+    return;
+  }
+
+  if(type==="bank_transfer"){
+    document.getElementById("paymentCheckoutTitle").textContent="Bank transfer";
+    document.getElementById("paymentCheckoutIntro").textContent="Show the transfer details to the customer and confirm once the payment has been made.";
+    const details=paymentCheckoutDetails();
+    body.innerHTML=details.length
+      ?`<div class="checkout-details">${details.map(([label,value])=>`<div class="checkout-detail-row"><div class="checkout-detail-label">${esc(label)}</div><div class="checkout-detail-value">${esc(value)}</div></div>`).join("")}</div>`
+      :`<div class="checkout-empty-detail"><strong>No bank details added</strong>Add them in Customize → Payment Information. You can still confirm the payment here if the customer transferred using details you provided separately.</div>`;
+    return;
+  }
+
+  document.getElementById("paymentCheckoutTitle").textContent="Card payment";
+  document.getElementById("paymentCheckoutIntro").textContent="Charge the amount shown using your card terminal, then confirm the payment here.";
+  body.innerHTML=`<div class="checkout-empty-detail"><strong>Complete the card payment</strong>Simple POS does not process card payments yet. Use your card terminal for ${esc(money(total))}, then confirm below.</div>`;
+}
+
+function cancelPaymentCheckout(){
+  pendingCheckout=null;
+  setModalOpen(document.getElementById("paymentCheckoutModal"),false);
+}
+
+function confirmPaymentCheckout(){
+  if(!pendingCheckout)return;
+  if(pendingCheckout.paymentType==="cash"){
+    const input=document.getElementById("cashReceivedInput"),received=Number(input?.value);
+    if(!Number.isFinite(received)||received<pendingCheckout.total){alert("Enter enough cash to cover the order total before confirming payment.");return}
+  }
+  const checkout=pendingCheckout,n=new Date(),day=localDayKey(n),orderNumber=nextOrderNumber(day);
+  state.sales.push({
+    orderNumber,status:"open",completedAt:null,paymentType:checkout.paymentType,timestamp:n.toISOString(),day,
+    currencyCode:state.currencyCode,currencySymbol:currencySymbol(),
+    items:checkout.items.map(i=>({...i})),total:checkout.total
+  });
+  state.cart={};
+  selectedPaymentType="";
+  pendingCheckout=null;
+  setModalOpen(document.getElementById("paymentCheckoutModal"),false);
+  saveState();
+  renderAll();
+  showToast(`Order #${formatOrderNumber(orderNumber)} placed`);
+}
 function renderSales(){
   const day=selectedSalesDay||localDayKey(),today=localDayKey(),isToday=day===today,s=salesForDay(day),
     rev=s.reduce((a,x)=>a+Number(x.total||0),0),
@@ -1390,7 +1542,7 @@ function setModalOpen(modal,open){
   if(!modal)return;
   modal.hidden=!open;
   modal.setAttribute("aria-hidden",open?"false":"true");
-  const anyOpen=[document.getElementById("welcomeModal"),document.getElementById("whatsNewModal")].some(x=>x&&!x.hidden);
+  const anyOpen=[document.getElementById("welcomeModal"),document.getElementById("whatsNewModal"),document.getElementById("paymentCheckoutModal")].some(x=>x&&!x.hidden);
   document.body.classList.toggle("modal-open",anyOpen);
 }
 
@@ -1580,6 +1732,8 @@ document.getElementById("welcomeStartBtn").addEventListener("click",()=>finishWe
 document.getElementById("welcomeHelpBtn").addEventListener("click",()=>finishWelcome("help"));
 document.getElementById("whatsNewDismissBtn").addEventListener("click",dismissWhatsNew);
 document.getElementById("openWhatsNewHistoryBtn").addEventListener("click",showWhatsNewHistory);
+document.getElementById("cancelPaymentCheckoutBtn").addEventListener("click",cancelPaymentCheckout);
+document.getElementById("confirmPaymentCheckoutBtn").addEventListener("click",confirmPaymentCheckout);
 renderAll();
 initializeAnnouncements();
 </script>
