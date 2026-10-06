@@ -25,6 +25,13 @@ Made freely available as an open initiative under **Utpatti — The Creative Col
   - Card
   - Bank Transfer
   - QR Payment
+- Tapping **Place Order** opens a payment checkout step for the selected payment type
+- Orders are only added to Sales after payment is confirmed
+- Cash checkout lets the user enter the amount received and automatically calculates change
+- Cash checkout includes **Clear** and **Exact Amount** shortcuts
+- QR checkout shows the saved payment QR code
+- Bank Transfer checkout shows the saved transfer details
+- Card checkout shows the amount due while payment is completed using an external card terminal
 
 ### Product Categories
 
@@ -165,6 +172,9 @@ It shows:
 - Order numbers
 - Order completion status
 - Payment type for new orders
+- Daily starting cash
+- Cash sales
+- Expected cash in the drawer
 - The next order number for the current day
 
 Users can also review earlier sales using:
@@ -197,12 +207,22 @@ The export includes information such as:
 - Line total
 - Order total
 - Currency
+- A daily summary including starting cash, cash sales, and expected cash
 
 Older orders created before payment-type tracking was added remain compatible; their payment type may simply be blank or shown as not recorded.
 
-### Payment Display
+### Payment Checkout and Display
 
-A dedicated **Payment** section can be shown to customers.
+Payment is now part of the order flow. After choosing a payment type and tapping **Place Order**, Simple POS opens a checkout modal for that payment method.
+
+- **Cash** — enter the amount received and Simple POS calculates the change
+- **QR Payment** — shows the saved payment QR code
+- **Bank Transfer** — shows the saved transfer details
+- **Card** — shows the amount due while the payment is completed on an external card terminal
+
+The order is only added to Sales after **Confirm Payment** is pressed.
+
+A dedicated **Payment** section is still available when payment details need to be shown to a customer outside of an active order.
 
 Users can configure:
 
@@ -213,7 +233,7 @@ Users can configure:
 - Branch
 - Transfer instructions or payment notes
 
-This makes it possible to turn the screen toward the customer so they can scan the QR code or copy the bank transfer details.
+The saved QR code and bank details are reused automatically during checkout, while the standalone Payment section makes it possible to show the same information without placing an order.
 
 ### First-Time Welcome
 
@@ -271,7 +291,7 @@ It covers:
 - CSV product import
 - Sales dashboard
 - Previous-day sales
-- Payment display
+- Payment checkout and payment display
 - Configuration backup and transfer
 - Data storage and backups
 - Current limitations
@@ -348,6 +368,7 @@ This includes:
 - Sales history
 - Order completion status
 - Payment type for supported orders
+- Daily starting cash
 - Payment QR code
 - Bank transfer details
 
@@ -408,8 +429,13 @@ If you already have a Simple POS JSON configuration file, you can import it from
    - Bank Transfer
    - QR Payment
 6. Tap **Place Order**.
-7. Call out the displayed order number when the order is ready.
-8. Open **Sales** and mark the order as **Completed**.
+7. Complete the payment step shown in the checkout modal.
+   - For cash, enter the amount received to calculate the change.
+   - For QR or bank transfer, use the saved payment details shown on screen.
+   - For card, complete the payment on the external terminal.
+8. Tap **Confirm Payment**. The order is only added to Sales after this step.
+9. Call out the displayed order number when the order is ready.
+10. Open **Sales** and mark the order as **Completed**.
 
 ---
 

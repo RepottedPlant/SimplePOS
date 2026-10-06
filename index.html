@@ -122,6 +122,8 @@
     .checkout-body{display:flex;flex-direction:column;gap:14px}
     .checkout-note{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
     .cash-entry-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;align-items:end}.cash-entry-row .field{margin:0}.cash-entry-row .btn{min-height:44px}
+    .cash-entry-actions{display:grid;grid-template-columns:.75fr 1.5fr;gap:9px}
+    .cash-entry-actions .btn{min-height:52px}
     .cash-result{border:1px solid var(--line);border-radius:15px;background:var(--surface-2);padding:14px 15px}.cash-result-label{color:var(--muted);font-size:11px;font-weight:900;letter-spacing:.09em;text-transform:uppercase}.cash-result-value{margin-top:5px;font-size:28px;font-weight:950;color:var(--accent-text)}.cash-result-value.due{color:var(--danger-ink)}
     .checkout-qr{min-height:250px;display:grid;place-items:center;border:1px dashed var(--line);border-radius:16px;background:var(--surface-2);padding:14px}.checkout-qr img{display:block;max-width:min(100%,330px);max-height:330px;border-radius:10px;background:#fff}
     .checkout-details{display:flex;flex-direction:column;gap:0;border:1px solid var(--line);border-radius:15px;background:var(--surface-2);padding:0 14px}.checkout-detail-row{padding:12px 0;border-bottom:1px solid var(--line)}.checkout-detail-row:last-child{border-bottom:0}.checkout-detail-label{color:var(--muted);font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.checkout-detail-value{margin-top:4px;font-size:16px;font-weight:850;word-break:break-word}
@@ -151,7 +153,7 @@
     .update-list{margin:0;padding-left:21px}
     .update-list li{margin:7px 0;line-height:1.45;color:var(--ink)}
     body.modal-open{overflow:hidden}
-    @media(max-width:560px){.announcement-card{padding:20px;border-radius:20px}.announcement-actions{grid-template-columns:1fr}.cash-entry-row{grid-template-columns:1fr}.cash-entry-row .btn{width:100%}.checkout-order-meta{align-items:flex-start}.checkout-total{font-size:26px}}
+    @media(max-width:560px){.announcement-card{padding:20px;border-radius:20px}.announcement-actions{grid-template-columns:1fr}.cash-entry-actions{grid-template-columns:1fr 1.4fr}checkout-order-meta{align-items:flex-start}.checkout-total{font-size:26px}}
 
     .appearance-mode{display:flex;gap:7px;padding:5px;background:var(--soft);border-radius:13px;width:max-content;max-width:100%;margin-top:8px}
     .mode-btn{border:0;background:transparent;color:var(--muted);border-radius:9px;min-height:40px;padding:8px 13px;font-weight:850;cursor:pointer;white-space:nowrap}
@@ -383,7 +385,7 @@
             <li>Check the total and the order number.</li>
             <li>Choose how the customer is paying: <strong>Cash</strong>, <strong>Card</strong>, <strong>Bank Transfer</strong> or <strong>QR Payment</strong>.</li>
             <li>Tap <strong>Place Order</strong>.</li>
-            <li>Complete the payment step shown on screen. For cash, enter the amount the customer gives you to calculate the change.</li>
+            <li>Complete the payment step shown on screen. For cash, use the on-screen number pad to enter the amount the customer gives you and see the change automatically.</li>
             <li>Tap <strong>Confirm Payment</strong>. The order is only added to Sales after this step.</li>
             <li>Call out the order number when the order is ready.</li>
             <li>Open <strong>Sales</strong> and tap <strong>Complete</strong> once the order has been handed over.</li>
@@ -1069,11 +1071,12 @@ function renderPaymentCheckout(){
     document.getElementById("paymentCheckoutTitle").textContent="Cash payment";
     document.getElementById("paymentCheckoutIntro").textContent="Enter the amount the customer gives you. Simple POS will calculate the change.";
     body.innerHTML=`
-      <div class="cash-entry-row">
-        <div class="field">
-          <label for="cashReceivedInput">Customer gives</label>
-          <input id="cashReceivedInput" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00" autocomplete="off">
-        </div>
+      <div class="field" style="margin:0;">
+        <label for="cashReceivedInput">Customer gives</label>
+        <input id="cashReceivedInput" type="text" inputmode="decimal" placeholder="0.00" autocomplete="off" aria-label="Cash received">
+      </div>
+      <div class="cash-entry-actions">
+        <button type="button" class="btn secondary" id="clearCashBtn">Clear</button>
         <button type="button" class="btn outline" id="exactCashBtn">Exact Amount</button>
       </div>
       <div class="cash-result">
@@ -1081,16 +1084,42 @@ function renderPaymentCheckout(){
         <div class="cash-result-value" id="cashResultValue">—</div>
       </div>`;
     confirmBtn.disabled=true;
+
     const input=document.getElementById("cashReceivedInput");
+    const normalizedCashInput=()=>{
+      let raw=String(input.value||"").replace(/[^0-9.]/g,"");
+      const firstDot=raw.indexOf(".");
+      if(firstDot>=0){
+        raw=raw.slice(0,firstDot+1)+raw.slice(firstDot+1).replaceAll(".","");
+        const [whole,decimals=""]=raw.split(".");
+        raw=`${whole}.${decimals.slice(0,2)}`;
+      }
+      if(raw.startsWith("."))raw=`0${raw}`;
+      input.value=raw;
+      return raw;
+    };
     const updateCashResult=()=>{
-      const raw=String(input.value||"").trim(),received=Number(raw),label=document.getElementById("cashResultLabel"),value=document.getElementById("cashResultValue");
+      const raw=normalizedCashInput(),received=Number(raw),label=document.getElementById("cashResultLabel"),value=document.getElementById("cashResultValue");
       value.classList.remove("due");
-      if(raw===""||!Number.isFinite(received)||received<0){label.textContent="Change to give";value.textContent="—";confirmBtn.disabled=true;return}
+      if(raw===""||raw==="."||!Number.isFinite(received)||received<0){label.textContent="Change to give";value.textContent="—";confirmBtn.disabled=true;return}
       if(received<total){label.textContent="Still due";value.textContent=money(total-received);value.classList.add("due");confirmBtn.disabled=true;return}
       label.textContent="Change to give";value.textContent=money(received-total);confirmBtn.disabled=false;
     };
+
     input.addEventListener("input",updateCashResult);
-    document.getElementById("exactCashBtn").addEventListener("click",()=>{input.value=String(total);updateCashResult();input.focus()});
+    document.getElementById("clearCashBtn").addEventListener("click",()=>{
+      input.value="";
+      updateCashResult();
+      input.focus();
+    });
+    document.getElementById("exactCashBtn").addEventListener("click",()=>{
+      input.value=String(total);
+      updateCashResult();
+      input.focus();
+      input.select();
+    });
+
+    // Focus immediately so tablets/phones open their decimal/numeric keyboard.
     setTimeout(()=>input.focus(),0);
     return;
   }

@@ -1,8 +1,20 @@
 {
   "format": "simple-pos-updates",
   "schemaVersion": 2,
-  "latestVersion": "0.3.0",
+  "latestVersion": "0.4.0",
   "updates": [
+    {
+      "version": "0.4.0",
+      "date": "2026-10-06",
+      "changes": [
+        "Payment is now completed as part of placing an order, so the order is only added to Sales after payment is confirmed.",
+        "Cash payments now let you enter the amount received and automatically calculate the change to give back.",
+        "Cash checkout includes Clear and Exact Amount shortcuts for faster use at the counter.",
+        "QR payments now show your saved payment QR code during checkout.",
+        "Bank transfers now show your saved transfer details during checkout.",
+        "Card payments now show the amount due while the payment itself is completed on your external card terminal."
+      ]
+    },
     {
       "version": "0.3.0",
       "date": "2026-10-04",
