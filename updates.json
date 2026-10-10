@@ -1,8 +1,19 @@
 {
   "format": "simple-pos-updates",
   "schemaVersion": 2,
-  "latestVersion": "0.3.0",
+  "latestVersion": "0.4.0",
   "updates": [
+    {
+      "version": "0.4.0",
+      "date": "2026-10-10",
+      "changes": [
+        "Checkout now guides you through the selected payment method before an order is added to Sales.",
+        "Cash payments can calculate change, with Clear and Exact Amount shortcuts for faster checkout.",
+        "QR and bank transfer details now appear directly during checkout, while card payments show the amount due.",
+        "You can now change the order products appear in the POS.",
+        "Menu ordering is easier to manage with separate Category and Product views, and product ordering can be adjusted one category at a time."
+      ]
+    },
     {
       "version": "0.3.0",
       "date": "2026-10-04",
