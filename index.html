@@ -385,7 +385,7 @@
             <li>Check the total and the order number.</li>
             <li>Choose how the customer is paying: <strong>Cash</strong>, <strong>Card</strong>, <strong>Bank Transfer</strong> or <strong>QR Payment</strong>.</li>
             <li>Tap <strong>Place Order</strong>.</li>
-            <li>Complete the payment step shown on screen. For cash, use the on-screen number pad to enter the amount the customer gives you and see the change automatically.</li>
+            <li>Complete the payment step shown on screen. For cash, enter the amount the customer gives you and Simple POS will show the change automatically.</li>
             <li>Tap <strong>Confirm Payment</strong>. The order is only added to Sales after this step.</li>
             <li>Call out the order number when the order is ready.</li>
             <li>Open <strong>Sales</strong> and tap <strong>Complete</strong> once the order has been handed over.</li>
@@ -477,7 +477,7 @@ T-Shirt,2500,Clothing,#2B6E4F,Featured</div>
 
           <p style="margin-top:12px;">To check an older day, choose a date from the calendar or use the previous and next day buttons.</p>
 
-          <p style="margin-top:12px;">To save a copy of the sales for the day you are looking at, tap <strong>Export Selected Day CSV</strong>.</p>
+          <p style="margin-top:12px;">To save a copy of the sales for the day you are looking at, tap <strong>Export Selected Day CSV</strong>. The export includes a summary showing how much was paid by Cash, Card, Bank Transfer and QR Payment.</p>
         </section>
 
         <section class="panel help-card">
@@ -973,6 +973,14 @@ function todaySales(){return salesForDay(localDayKey())}
 function hasStartingCash(day=selectedSalesDay){return !!(state.startingCash&&Object.prototype.hasOwnProperty.call(state.startingCash,day))}
 function startingCashForDay(day=selectedSalesDay){const n=Number(state.startingCash?.[day]);return Number.isFinite(n)&&n>=0?n:0}
 function cashSalesForDay(day=selectedSalesDay){return salesForDay(day).filter(s=>s.paymentType==="cash").reduce((sum,s)=>sum+Number(s.total||0),0)}
+function paymentSalesForDay(day=selectedSalesDay){
+  const totals={cash:0,card:0,bank_transfer:0,qr:0,unrecorded:0};
+  salesForDay(day).forEach(sale=>{
+    const key=PAYMENT_TYPES.some(type=>type.value===sale.paymentType)?sale.paymentType:"unrecorded";
+    totals[key]+=Number(sale.total||0);
+  });
+  return totals;
+}
 function saveStartingCash(){
   const day=selectedSalesDay||localDayKey(),input=document.getElementById("startingCashInput"),raw=String(input?.value??"").trim(),amount=Number(raw);
   if(raw===""||!Number.isFinite(amount)||amount<0){alert("Enter a valid starting cash amount.");return}
@@ -1318,6 +1326,7 @@ function exportTodayCSV(){
       x.currencyCode||state.currencyCode
     ]));
   });
+  const paymentTotals=paymentSalesForDay(day);
   rows.push(
     [],
     ["SUMMARY"],
@@ -1326,9 +1335,18 @@ function exportTodayCSV(){
     ["Open orders",s.filter(x=>x.status!=="completed").length],
     ["Revenue",s.reduce((a,x)=>a+Number(x.total||0),0)],
     ["Items sold",s.reduce((a,x)=>a+(x.items||[]).reduce((z,i)=>z+Number(i.qty||0),0),0)],
+    [],
+    ["PAYMENT BREAKDOWN"],
+    ["Cash",paymentTotals.cash],
+    ["Card",paymentTotals.card],
+    ["Bank Transfer",paymentTotals.bank_transfer],
+    ["QR Payment",paymentTotals.qr],
+    ["Payment not recorded",paymentTotals.unrecorded],
+    [],
+    ["CASH DRAWER"],
     ["Starting cash",hasStartingCash(day)?startingCashForDay(day):""],
-    ["Cash sales",cashSalesForDay(day)],
-    ["Expected cash",hasStartingCash(day)?startingCashForDay(day)+cashSalesForDay(day):""]
+    ["Cash sales",paymentTotals.cash],
+    ["Expected cash",hasStartingCash(day)?startingCashForDay(day)+paymentTotals.cash:""]
   );
   downloadTextFile(rows.map(r=>r.map(csvCell).join(",")).join("\n"),`pos-sales-${day}.csv`,"text/csv;charset=utf-8;");
 }
