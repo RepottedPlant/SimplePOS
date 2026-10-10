@@ -40,11 +40,13 @@ Made freely available as an open initiative under **Utpatti — The Creative Col
 - Includes an **All Products** view
 - Categories disappear automatically when no products use them
 - Categories can be reordered from **Customize → Products & Categories**
+- Products can also be reordered within each category
+- **All Products** follows your category and product order
 - **All Products** always remains first
 
 ### Product Management
 
-Products can be added, edited, or removed from **Customize → Products & Categories**.
+Products can be added, edited, removed, and reordered from **Customize → Products & Categories**.
 
 Each product can contain:
 
@@ -62,6 +64,14 @@ Menu notes can be used for short labels such as:
 - New
 - Limited
 - Best Seller
+
+### Menu Order
+
+The **Menu Order** section keeps category and product ordering in one place.
+
+- Use **Categories** to change the order of category buttons
+- Use **Products** to choose a category and change the order of products inside it
+- Product ordering is shown one category at a time so larger menus are easier to manage
 
 ### CSV Product Import
 
@@ -139,7 +149,7 @@ The configuration file can include:
 - Products
 - Product accent colors
 - Product menu notes
-- Category order
+- Category and product order
 - Payment information
 - Optional brand logo
 - Optional payment QR code
@@ -320,9 +330,10 @@ Used for:
 - Adding and editing products
 - Product accent colors
 - Product menu notes
-- Category ordering
-- CSV product import
 - Product management
+- Category ordering
+- Product ordering
+- CSV product import
 
 ### Payment Information
 
@@ -363,7 +374,7 @@ This includes:
 - Products
 - Product accent colors
 - Product menu notes
-- Category order
+- Category and product order
 - Current cart
 - Sales history
 - Order completion status
@@ -408,7 +419,7 @@ Core POS functions will still work, but features that fetch repository files suc
 3. Optionally upload a logo and choose a theme or custom brand colors.
 4. Choose Light, Dark, or System appearance.
 5. Under **Products & Categories**, add products manually or import them from CSV.
-6. Arrange categories in the order you want them displayed.
+6. Use **Menu Order** if you want to change the order of categories or products.
 7. Optionally give individual products an accent color or short menu note.
 8. Under **Payment Information**, add a payment QR code and bank details if required.
 9. Return to **POS** and begin taking orders.

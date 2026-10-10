@@ -5,14 +5,13 @@
   "updates": [
     {
       "version": "0.4.0",
-      "date": "2026-10-06",
+      "date": "2026-10-10",
       "changes": [
-        "Payment is now completed as part of placing an order, so the order is only added to Sales after payment is confirmed.",
-        "Cash payments now let you enter the amount received and automatically calculate the change to give back.",
-        "Cash checkout includes Clear and Exact Amount shortcuts for faster use at the counter.",
-        "QR payments now show your saved payment QR code during checkout.",
-        "Bank transfers now show your saved transfer details during checkout.",
-        "Card payments now show the amount due while the payment itself is completed on your external card terminal."
+        "Checkout now guides you through the selected payment method before an order is added to Sales.",
+        "Cash payments can calculate change, with Clear and Exact Amount shortcuts for faster checkout.",
+        "QR and bank transfer details now appear directly during checkout, while card payments show the amount due.",
+        "You can now change the order products appear in the POS.",
+        "Menu ordering is easier to manage with separate Category and Product views, and product ordering can be adjusted one category at a time."
       ]
     },
     {
